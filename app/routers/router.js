@@ -9,7 +9,7 @@ router.get('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', customers.prueba)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
-router.get('/api/customers/onebyid/:id', customers.getCustomerById)
+router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 
 // router.get('/api/customers/pagination', customers.pagination)
 // router.get('/api/customers/pagefiltersort', customers.pagingfilteringsorting)
