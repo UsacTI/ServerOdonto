@@ -5,7 +5,7 @@ const customers = require('../controllers/controller.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
-router.get('/api/customers/login', customers.login)
+router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', customers.prueba)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
