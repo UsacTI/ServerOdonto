@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-
 var bodyParser = require('body-parser')
 
 const db = require('./app/config/db.config.js')
@@ -18,7 +17,7 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions))
-
+app.use(cors({origin: '*' }))
 app.use(bodyParser.json())
 app.use('/', router)
 
