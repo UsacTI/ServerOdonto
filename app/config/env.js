@@ -2,7 +2,7 @@ const env = {
   database: 'postgres',
   username: 'odontousac',
   password: 'odontousac',
-  host: '10.0.0.127',
+  host: '10.0.0.127', // localhost  10.0.0.127
   dialect: 'postgres',
   pool: {
     max: 20, // Número máximo de conexiones
