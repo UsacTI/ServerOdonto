@@ -2,11 +2,14 @@ let express = require('express')
 let router = express.Router()
 
 const customers = require('../controllers/controller.js')
+const jwt = require('../controllers/login.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
 router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', customers.prueba)
+router.post('/login', jwt.login)
+router.get('/secure', jwt.secure)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
