@@ -20,8 +20,8 @@ exports.login = (req, res) => {
   }
 
   var tokenData = {
-    username: username
-    // ANY DATA
+    username: username,
+    password: password
   }
 
   var token = jwt.sign(tokenData, 'Secret Password', {
