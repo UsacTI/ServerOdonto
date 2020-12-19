@@ -1,3 +1,8 @@
+//const {LocalStorage} = require('node-localstorage')
+//localStorage = new LocalStorage('./scratch')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const jwt = require('jsonwebtoken');
 const db = require('../config/db.config')
 const Customer = db.Customer
 const Paciente = db.Paciente
@@ -34,7 +39,7 @@ exports.createPaciente = (req, res) => {
   try {
     paciente.nombres = req.body.nombres
     paciente.apellidos = req.body.apellidos
-    paciente.nacimiento = req.body.nacimiento
+    /*paciente.nacimiento = req.body.nacimiento
     paciente.genero = req.body.genero
     paciente.direccion = req.body.direccion
     paciente.telefono = req.body.telefono
@@ -42,20 +47,24 @@ exports.createPaciente = (req, res) => {
     paciente.escolaridad = req.body.escolaridad
     paciente.profesion = req.body.profesion
     paciente.nacionalidad = req.body.nacionalidad
-    paciente.transporte = req.body.transporte
-    paciente.contrasenia = req.body.contrasenia
+    paciente.transporte = req.body.transporte*/
+    
 
-    Paciente.count().then(function (c) {
-      // console.log(c)
-      paciente.usuario = 'PI' + c + dia + mes + año
-      // Save to MySQL database
-      Paciente.create(paciente).then(result => {
-        res.status(200).json({
-          message: 'Paciente creado con el ID = ' + result.idpaciente,
-          paciente: result
+    bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
+      paciente.contrasenia = hash
+      //console.log(hash);
+      Paciente.count().then(function (c) {
+        // console.log(c)
+        paciente.usuario = 'PI' + c + dia + mes + año
+        // Save to MySQL database
+        Paciente.create(paciente).then(result => {
+          res.status(200).json({
+            message: 'Paciente creado con el ID = ' + result.idpaciente,
+            paciente: result
+          })
         })
       })
-    })
+    });
   } catch (error) {
     res.status(500).json({
       message: 'Fail!',
@@ -89,40 +98,54 @@ exports.getCustomerById = (req, res) => {
 
 exports.login = (req, res) => {
   const usuario = req.body.usuario
-  const contrasenia = req.body.contrasenia
-
-  Paciente.findOne({
-    attributes: ['usuario', 'nombres', 'apellidos'],
-    where: { usuario: usuario, contrasenia: contrasenia }
-  })
-    .then(results => {
-      res.status(200).json({
-        message: 'Usuario ' + usuario,
-        paciente: results
-      })
+  bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
+    const contrasenia = hash;
+    Paciente.findOne({
+      attributes: ['usuario', 'nombres', 'apellidos'],
+      where: { usuario: usuario, contrasenia: contrasenia }
     })
-    . catch(error => {
-      console.log(error)
-      res.status(500).json({
-        message: 'Error!',
-        error: error
+      .then(results => {
+        const token = jwt.sign({usuario, contrasenia}, 'token_key', {
+          expiresIn: 60 * 60 * 4 // expires in 24 hours
+        });
+        //localStorage.setItem('token', token);
+        //localStorage.removeItem('token');
+        res.status(200).json({
+          message: 'Usuario ' + usuario,
+          paciente: results,
+          token
+        })
       })
-    })
+      . catch(error => {
+        console.log(error)
+        res.status(500).json({
+          message: 'Error!',
+          error: error
+        })
+      })
+  });
+  
 }
 
 exports.prueba = (req, res) => {
-  db.sequelize.query('select count(usuario) from pacientes')
-    .then(results => {
-      console.log(results[0])
-      res.status(200).json(
-        results[0][0]
-      )
-    })
-    . catch(error => {
-      console.log(error)
-      res.status(500).json({
-        message: 'Error!',
-        error: error
-      })
+  jwt.verify(req.token, 'token_key', (err, data) =>{
+    if (err) {
+      res.sendStatus(403);
+    }else{
+      db.sequelize.query('select count(usuario) from pacientes')
+        .then(results => {
+          console.log(results[0])
+          res.status(200).json(
+            results[0][0]
+          )
+        })
+        . catch(error => {
+          console.log(error)
+          res.status(500).json({
+            message: 'Error!',
+            error: error
+          })
+        })
+      }
     })
 }
