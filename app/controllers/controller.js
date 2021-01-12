@@ -1,8 +1,6 @@
-//const {LocalStorage} = require('node-localstorage')
-//localStorage = new LocalStorage('./scratch')
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Customer = db.Customer
 const Paciente = db.Paciente
@@ -39,7 +37,7 @@ exports.createPaciente = (req, res) => {
   try {
     paciente.nombres = req.body.nombres
     paciente.apellidos = req.body.apellidos
-    /*paciente.nacimiento = req.body.nacimiento
+    paciente.nacimiento = req.body.nacimiento
     paciente.genero = req.body.genero
     paciente.direccion = req.body.direccion
     paciente.telefono = req.body.telefono
@@ -47,12 +45,11 @@ exports.createPaciente = (req, res) => {
     paciente.escolaridad = req.body.escolaridad
     paciente.profesion = req.body.profesion
     paciente.nacionalidad = req.body.nacionalidad
-    paciente.transporte = req.body.transporte*/
-    
+    paciente.transporte = req.body.transporte
 
     bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
       paciente.contrasenia = hash
-      //console.log(hash);
+      // console.log(hash);
       Paciente.count().then(function (c) {
         // console.log(c)
         paciente.usuario = 'PI' + c + dia + mes + año
@@ -123,8 +120,7 @@ exports.login = (req, res) => {
           error: error
         })
       })
-  });
-  
+  })
 }
 
 exports.prueba = (req, res) => {

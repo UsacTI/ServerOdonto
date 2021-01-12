@@ -43,6 +43,21 @@ module.exports = (sequelize, Sequelize) => {
     },
     contrasenia: {
       type: Sequelize.STRING
+    },
+    dpi: {
+      type: Sequelize.INTEGER
+    },
+    nohijos: {
+      type: Sequelize.INTEGER
+    },
+    nivel: {
+      type: Sequelize.INTEGER
+    },
+    tipopaciente: {
+      type: Sequelize.STRING
+    },
+    doctor: {
+      type: Sequelize.STRING
     }
   })
 
