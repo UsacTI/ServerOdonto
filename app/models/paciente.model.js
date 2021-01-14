@@ -45,7 +45,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     dpi: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     nohijos: {
       type: Sequelize.INTEGER
@@ -54,7 +54,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     tipopaciente: {
-      type: Sequelize.STRING
+      type: Sequelize.INTEGER
     },
     doctor: {
       type: Sequelize.STRING
