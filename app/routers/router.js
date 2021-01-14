@@ -9,7 +9,7 @@ router.post('/api/customers/create', customers.create) // http://localhost:8080/
 router.post('/api/customers/createP', customers.createPaciente)
 router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', ensure_token, customers.prueba)
-router.post('/api/queryPaciente/prueba2', querypacients.prueba2)
+router.post('/api/queryPaciente/prueba2', querypacients.query)
 
 // Crear Paciente
 router.post('/patients/createOfiInfo', patients.createPaciente)
