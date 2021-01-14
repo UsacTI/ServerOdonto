@@ -7,9 +7,11 @@ const querypacients = require('../controllers/querysPacientes.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
-router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
+
+// Login
+router.post('/api/login', customers.login)
 
 // Crear Paciente
 router.post('/patients/createTrabSocial', patients.createPaciente)
