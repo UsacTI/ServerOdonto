@@ -61,7 +61,7 @@ exports.createPaciente = (req, res) => {
           })
         })
       })
-    });
+    })
   } catch (error) {
     res.status(500).json({
       message: 'Fail!',
@@ -73,7 +73,6 @@ exports.createPaciente = (req, res) => {
 //  PI – 345 – 01 – 15 – 2010.
 
 exports.getCustomerById = (req, res) => {
-  // find all Customer information from
   const customerId = req.params.id
   Customer.findByPk(customerId)
     .then(customer => {
@@ -96,17 +95,17 @@ exports.getCustomerById = (req, res) => {
 exports.login = (req, res) => {
   const usuario = req.body.usuario
   bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
-    const contrasenia = hash;
+    const contrasenia = hash
     Paciente.findOne({
       attributes: ['usuario', 'nombres', 'apellidos'],
       where: { usuario: usuario, contrasenia: contrasenia }
     })
       .then(results => {
-        const token = jwt.sign({usuario, contrasenia}, 'token_key', {
+        const token = jwt.sign({ usuario, contrasenia }, 'token_key', {
           expiresIn: 60 * 60 * 4 // expires in 24 hours
-        });
-        //localStorage.setItem('token', token);
-        //localStorage.removeItem('token');
+        })
+        // localStorage.setItem('token', token);
+        // localStorage.removeItem('token');
         res.status(200).json({
           message: 'Usuario ' + usuario,
           paciente: results,
@@ -124,10 +123,10 @@ exports.login = (req, res) => {
 }
 
 exports.prueba = (req, res) => {
-  jwt.verify(req.token, 'token_key', (err, data) =>{
+  jwt.verify(req.token, 'token_key', (err, data) => {
     if (err) {
-      res.sendStatus(403);
-    }else{
+      res.sendStatus(403)
+    } else {
       db.sequelize.query('select count(usuario) from pacientes')
         .then(results => {
           console.log(results[0])
@@ -142,6 +141,6 @@ exports.prueba = (req, res) => {
             error: error
           })
         })
-      }
-    })
+    }
+  })
 }

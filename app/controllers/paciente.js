@@ -86,3 +86,86 @@ exports.createPacienteTrab = (req, res) => {
     })
   }
 }
+
+exports.updateById = async (req, res) => {
+  try {
+    const DPI = req.params.dpi
+    const paciente = await Paciente.findByPk(DPI) // Paciente.findOne({ where: { dpi: DPI } })
+
+    if (!paciente) {
+      // return a response to client
+      res.status(404).json({
+        message: 'No se ha encontrado el paciente con No.DPI = ' + DPI,
+        customer: '',
+        error: '404'
+      })
+    } else {
+      const updatedObject = {
+        nombres: req.body.nombres,
+        apellidos: req.body.apellidos,
+        genero: req.body.genero,
+        nacimiento: req.body.nacimiento,
+        dpi: req.body.dpi,
+        contrasenia: req.body.contrasenia,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
+      }
+      const result = await Paciente.update(updatedObject, { returning: true, where: { dpi: DPI } })
+      if (!result) {
+        res.status(500).json({
+          message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+          error: 'No se actualizó'
+        })
+      }
+
+      res.status(200).json({
+        message: 'Actualización correcta [' + DPI + ']',
+        customer: updatedObject
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+      error: error.message
+    })
+  }
+}
+
+exports.filterById = (req, res) => {
+  const Dpi = req.query.dpi
+
+  Paciente.findAll({
+    attributes: ['nombres', 'apellidos', 'genero', 'nacimiento', 'dpi', 'contrasenia', 'direccion', 'telefono'],
+    where: { dpi: Dpi }
+  })
+    .then(results => {
+      res.status(200).json({
+        message: 'Paciente con DPI = ' + Dpi,
+        customers: results
+      })
+    })
+    . catch(error => {
+      console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Paciente con DPI =' + Dpi,
+        error: error
+      })
+    })
+}
+
+exports.retrieveAllPatients = (req, res) => {
+  Paciente.findAll()
+    .then(PatientsInfo => {
+      res.status(200).json({
+        message: 'Todos los Pacientes',
+        customers: PatientsInfo
+      })
+    })
+    . catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No hay Pacientes',
+        error: error
+      })
+    })
+}
