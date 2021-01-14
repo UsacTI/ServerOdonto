@@ -8,6 +8,7 @@ router.post('/api/customers/create', customers.create) // http://localhost:8080/
 router.post('/api/customers/createP', customers.createPaciente)
 router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', ensure_token, customers.prueba)
+router.post('/api/customers/prueba2', customers.prueba2)
 
 // Crear Paciente
 router.post('/patients/createOfiInfo', patients.createPaciente)
@@ -24,11 +25,6 @@ router.get('/patients/all/', patients.retrieveAllPatients)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
-
-// router.get('/api/customers/pagination', customers.pagination)
-// router.get('/api/customers/pagefiltersort', customers.pagingfilteringsorting)
-// router.put('/api/customers/update/:id', customers.updateById)
-// router.delete('/api/customers/delete/:id', customers.deleteById)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));

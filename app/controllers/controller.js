@@ -144,3 +144,21 @@ exports.prueba = (req, res) => {
     }
   })
 }
+
+exports.prueba2 = (req, res) => {
+  const usuario = req.body.nombres
+  db.sequelize.query('select count(usuario) from pacientes')
+    .then(results => {
+      console.log(results[0])
+      res.status(200).json(
+        results[0][0]
+      )
+    })
+    . catch(error => {
+      console.log(error)
+      res.status(500).json({
+        message: 'Error!',
+        error: error
+      })
+    })
+}
