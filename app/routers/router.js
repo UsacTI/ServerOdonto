@@ -12,8 +12,8 @@ router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
 
 // Crear Paciente
-router.post('/patients/createOfiInfo', patients.createPaciente)
-router.post('/patients/createTrabSocial', patients.createPacienteTrab)
+router.post('/patients/createTrabSocial', patients.createPaciente)
+router.post('/patients/createOfiInfo', patients.createPacienteTrab)
 
 // Actualizar Paciente
 router.post('/patients/update/:dpi', patients.updateById)

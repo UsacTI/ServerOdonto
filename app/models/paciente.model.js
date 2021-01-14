@@ -53,9 +53,9 @@ module.exports = (sequelize, Sequelize) => {
     nivel: {
       type: Sequelize.INTEGER
     },
-    tipopaciente: {
-      type: Sequelize.INTEGER
-    },
+    // tipopaciente: {
+    //   type: Sequelize.INTEGER
+    // },
     doctor: {
       type: Sequelize.STRING
     }
