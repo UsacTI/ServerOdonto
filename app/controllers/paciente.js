@@ -33,7 +33,7 @@ exports.createPaciente = (req, res) => {
       // console.log(hash);
       Paciente.count().then(function (c) {
         // console.log(c)
-        paciente.usuario = req.body.dpi // 'PI' + c + dia + mes + año
+        paciente.usuario = 'PI' + c + dia + mes + año
         // Save to MySQL database
         Paciente.create(paciente).then(result => {
           res.status(200).json({
@@ -69,7 +69,7 @@ exports.createPacienteTrab = (req, res) => {
       // console.log(hash);
       Paciente.count().then(function (c) {
         // console.log(c)
-        paciente.usuario = 'PI' + c + dia + mes + año
+        paciente.usuario = req.body.dpi
         // Save to MySQL database
         Paciente.create(paciente).then(result => {
           res.status(200).json({
