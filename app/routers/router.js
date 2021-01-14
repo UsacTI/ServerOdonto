@@ -3,12 +3,13 @@ const router = express.Router()
 
 const customers = require('../controllers/controller.js')
 const patients = require('../controllers/paciente.js')
+const querypacients = require('../controllers/querysPacientes.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
 router.post('/api/customers/login', customers.login)
 router.get('/api/customers/prueba', ensure_token, customers.prueba)
-router.post('/api/customers/prueba2', customers.prueba2)
+router.post('/api/queryPaciente/prueba2', querypacients.prueba2)
 
 // Crear Paciente
 router.post('/patients/createOfiInfo', patients.createPaciente)
