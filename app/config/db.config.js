@@ -23,5 +23,6 @@ db.sequelize = sequelize
 
 db.Customer = require('../models/customer.model.js')(sequelize, Sequelize)
 db.Paciente = require('../models/paciente.model.js')(sequelize, Sequelize)
+db.Usuario = require('../models/usuario.model.js')(sequelize, Sequelize)
 
 module.exports = db

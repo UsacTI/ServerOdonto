@@ -3,6 +3,7 @@ const router = express.Router()
 
 const customers = require('../controllers/controller.js')
 const patients = require('../controllers/paciente.js')
+const users = require('../controllers/usuario.js')
 const querypacients = require('../controllers/querysPacientes.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
@@ -11,7 +12,7 @@ router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
 
 // Login
-router.post('/api/login', customers.login)
+router.post('/login', customers.login)
 
 // Crear Paciente
 router.post('/patients/createTrabSocial', patients.createPaciente)
@@ -25,6 +26,9 @@ router.post('/patients/search/:dpi', patients.filterById)
 
 // Todos los pacientes
 router.get('/patients/all/', patients.retrieveAllPatients)
+
+// Registro Estudiantes
+router.post('/users/createStudent/', users.createStudent)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
