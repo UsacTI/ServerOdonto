@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true
     },
     carnet: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     dpi: {
       type: Sequelize.STRING
@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     telefono: {
-      type: Sequelize.INTEGER
+      type: Sequelize.STRING
     },
     contrasenia: {
       type: Sequelize.STRING
