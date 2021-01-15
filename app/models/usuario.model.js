@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Usuario = sequelize.define('paciente', {
+  const Usuario = sequelize.define('usuario', {
     idusuario: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
