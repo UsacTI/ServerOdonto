@@ -7,7 +7,7 @@ const Usuario = db.Usuario
 exports.createStudent = (req, res) => {
   const usuario = {}
   try {
-    usuario.carnet = req.body.carnet
+    usuario.carne = req.body.carnet
     usuario.cui = req.body.cui
     usuario.nombres = req.body.nombres
     usuario.apellidos = req.body.apellidos

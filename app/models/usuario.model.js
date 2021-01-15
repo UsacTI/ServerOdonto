@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       primaryKey: true
     },
-    carnet: {
+    carne: {
       type: Sequelize.STRING
     },
     dpi: {
