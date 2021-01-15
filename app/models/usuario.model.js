@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
     carne: {
       type: Sequelize.STRING
     },
-    dpi: {
+    cui: {
       type: Sequelize.STRING
     },
     nombres: {
