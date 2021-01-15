@@ -31,10 +31,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     tipousuario: {
       type: Sequelize.INTEGER
-    },
-    usuarios_idusuario: {
-      type: Sequelize.INTEGER
     }
+    // usuarios_idusuario: {
+    //   type: Sequelize.INTEGER
+    // }
   })
 
   return Usuario
