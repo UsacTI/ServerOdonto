@@ -101,10 +101,10 @@ exports.login = (req, res) => {
     attributes: ['usuario', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
-    console.log(results.dataValues)
+    console.log(results.dataValues.contrasenia)
     bcrypt.hash(passs, saltRounds).then(function (hash) {
       console.log(hash)
-      bcrypt.compare(results.contrasenia, hash, function (err, result) {
+      bcrypt.compare(results.dataValues.contrasenia, hash, function (err, result) {
         console.log('true')
         console.log(err)
         console.log(result)
