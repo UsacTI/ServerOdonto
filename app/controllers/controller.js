@@ -102,7 +102,7 @@ exports.login = (req, res) => {
     const pass2 = results.dataValues.contrasenia
     // console.log(results.dataValues.contrasenia)
     // console.log(hash)
-    bcrypt.compare(passs, results.dataValues.contrasenia, function (err, result) {
+    bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
       console.log(result)
       if (result) {
         const token = jwt.sign({ usuario, pass2 }, 'token_key', {
