@@ -103,7 +103,7 @@ exports.login = (req, res) => {
   }).then(results => {
     console.log(results)
     bcrypt.hash(passs, saltRounds).then(function (hash) {
-      console.log(results.hash)
+      console.log(hash)
       bcrypt.compare(results.contrasenia, hash, function (err, result) {
         console.log('true')
         console.log(err)
