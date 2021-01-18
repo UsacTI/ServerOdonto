@@ -102,6 +102,7 @@ exports.login = (req, res) => {
     const pass2 = results.dataValues.contrasenia
     // console.log(results.dataValues.contrasenia)
     // console.log(hash)
+    var paciente = { usuario: results.dataValues.usuario, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos}
     bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
       console.log(result)
       if (result) {
@@ -110,7 +111,7 @@ exports.login = (req, res) => {
         })
         res.status(200).json({
           message: 'Usuario ' + usuario,
-          paciente: {results.dataValues.usuario, results.dataValues.nombres, results.dataValues.apellidos }
+          paciente: paciente,
           token
         })
       }
