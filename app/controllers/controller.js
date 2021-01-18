@@ -94,7 +94,8 @@ exports.getCustomerById = (req, res) => {
 
 exports.login = (req, res) => {
   const usuario = req.body.usuario
-  bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
+  const passs = req.body.contrasenia
+  bcrypt.hash(passs, saltRounds).then(function(hash) {
     const contrasenia = hash
     Paciente.findOne({
       attributes: ['usuario', 'nombres', 'apellidos'],
