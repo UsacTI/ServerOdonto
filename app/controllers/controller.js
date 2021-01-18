@@ -98,7 +98,7 @@ exports.login = (req, res) => {
   console.log(usuario)
   console.log(passs)
   Paciente.findOne({
-    attributes: ['usuario'],
+    attributes: ['usuario', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
     console.log(results)
