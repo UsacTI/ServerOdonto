@@ -94,17 +94,35 @@ exports.getCustomerById = (req, res) => {
 
 exports.login = (req, res) => {
   const usuario = req.body.usuario
-  const passs = req.body.contrasenia
+  const pass = req.body.contrasenia
   Paciente.findOne({
     attributes: ['usuario', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
+    const pass2 = results.dataValues.contrasenia
     // console.log(results.dataValues.contrasenia)
     // console.log(hash)
     bcrypt.compare(passs, results.dataValues.contrasenia, function (err, result) {
       console.log(result)
+      if (result) {
+        const token = jwt.sign({ usuario, pass2 }, 'token_key', {
+          expiresIn: 60 * 60 * 4 // expires in 24 hours
+        })
+        res.status(200).json({
+          message: 'Usuario ' + usuario,
+          paciente: results,
+          token
+        })
+      }
     })
   })
+    .catch(error => {
+      console.log(error)
+      res.status(500).json({
+        message: 'Error!',
+        error: error
+      })
+    })
 
   // bcrypt.hash(passs, saltRounds).then(function (hash) {
   //   const contrasenia = hash
