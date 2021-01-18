@@ -96,7 +96,7 @@ exports.login = (req, res) => {
   const usuario = req.body.usuario
   const pass = req.body.contrasenia
   Paciente.findOne({
-    attributes: ['usuario', 'contrasenia'],
+    attributes: ['usuario', 'nombres', 'apellidos', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
     const pass2 = results.dataValues.contrasenia
@@ -110,7 +110,7 @@ exports.login = (req, res) => {
         })
         res.status(200).json({
           message: 'Usuario ' + usuario,
-          paciente: results,
+          paciente: {results.dataValues.usuario, results.dataValues.nombres, results.dataValues.apellidos }
           token
         })
       }
