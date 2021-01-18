@@ -47,7 +47,7 @@ exports.createPaciente = (req, res) => {
     paciente.nacionalidad = req.body.nacionalidad
     paciente.transporte = req.body.transporte
 
-    bcrypt.hash(req.body.contrasenia, saltRounds).then(function(hash) {
+    bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
       paciente.contrasenia = hash
       // console.log(hash);
       Paciente.count().then(function (c) {
@@ -81,7 +81,7 @@ exports.getCustomerById = (req, res) => {
         customers: customer
       })
     })
-    . catch(error => {
+    .catch(error => {
       // log on console
       console.log(error)
 
@@ -95,32 +95,47 @@ exports.getCustomerById = (req, res) => {
 exports.login = (req, res) => {
   const usuario = req.body.usuario
   const passs = req.body.contrasenia
-  bcrypt.hash(passs, saltRounds).then(function(hash) {
-    const contrasenia = hash
-    Paciente.findOne({
-      attributes: ['usuario', 'nombres', 'apellidos'],
-      where: { usuario: usuario, contrasenia: contrasenia }
+  Paciente.findOne({
+    attributes: ['usuario'],
+    where: { usuario: usuario }
+  }).then(results => {
+    console.log(results.contrasenia)
+    bcrypt.hash(passs, saltRounds).then(function (hash) {
+      console.log(results.hash)
+      bcrypt.compare(results.contrasenia, hash, function (err, result) {
+        console.log('true')
+        console.log(err)
+        console.log(result)
+      })
     })
-      .then(results => {
-        const token = jwt.sign({ usuario, contrasenia }, 'token_key', {
-          expiresIn: 60 * 60 * 4 // expires in 24 hours
-        })
-        // localStorage.setItem('token', token);
-        // localStorage.removeItem('token');
-        res.status(200).json({
-          message: 'Usuario ' + usuario,
-          paciente: results,
-          token
-        })
-      })
-      . catch(error => {
-        console.log(error)
-        res.status(500).json({
-          message: 'Error!',
-          error: error
-        })
-      })
   })
+
+  // bcrypt.hash(passs, saltRounds).then(function (hash) {
+  //   const contrasenia = hash
+  //   Paciente.findOne({
+  //     attributes: ['usuario', 'nombres', 'apellidos'],
+  //     where: { usuario: usuario, contrasenia: contrasenia }
+  //   })
+  //     .then(results => {
+  //       const token = jwt.sign({ usuario, contrasenia }, 'token_key', {
+  //         expiresIn: 60 * 60 * 4 // expires in 24 hours
+  //       })
+  //       // localStorage.setItem('token', token);
+  //       // localStorage.removeItem('token');
+  //       res.status(200).json({
+  //         message: 'Usuario ' + usuario,
+  //         paciente: results,
+  //         token
+  //       })
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //       res.status(500).json({
+  //         message: 'Error!',
+  //         error: error
+  //       })
+  //     })
+  // })
 }
 
 exports.prueba = (req, res) => {
@@ -135,7 +150,7 @@ exports.prueba = (req, res) => {
             results[0][0]
           )
         })
-        . catch(error => {
+        .catch(error => {
           console.log(error)
           res.status(500).json({
             message: 'Error!',
@@ -155,7 +170,7 @@ exports.prueba2 = (req, res) => {
         results[0][0]
       )
     })
-    . catch(error => {
+    .catch(error => {
       console.log(error)
       res.status(500).json({
         message: 'Error!',
