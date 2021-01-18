@@ -35,6 +35,7 @@ exports.createPaciente = (req, res) => {
         // console.log(c)
         paciente.usuario = 'PI' + c + dia + mes + año
         // Save to MySQL database
+        console.log(paciente)
         Paciente.create(paciente).then(result => {
           res.status(200).json({
             message: 'Paciente creado con el ID = ' + result.idpaciente,

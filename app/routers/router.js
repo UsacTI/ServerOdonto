@@ -12,7 +12,7 @@ router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
 
 // Login
-router.post('/login', ensure_token, customers.login)
+router.post('/login', customers.login)
 
 // Crear Paciente
 router.post('/patients/createTrabSocial', patients.createPaciente)
