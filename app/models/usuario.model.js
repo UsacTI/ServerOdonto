@@ -31,6 +31,12 @@ module.exports = (sequelize, Sequelize) => {
     },
     tipousuario: {
       type: Sequelize.INTEGER
+    },
+    area: {
+      type: Sequelize.STRING
+    },
+    subarea: {
+      type: Sequelize.STRING
     }
     // usuarios_idusuario: {
     //   type: Sequelize.INTEGER

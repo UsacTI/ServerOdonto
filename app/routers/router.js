@@ -30,6 +30,9 @@ router.get('/patients/all/', patients.retrieveAllPatients)
 // Registro Estudiantes
 router.post('/users/createStudent/', users.createStudent)
 
+// Registro Profesor
+router.post('/users/createProfessor/', users.createProfessor)
+
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 
