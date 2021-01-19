@@ -173,3 +173,22 @@ exports.retrieveAllPatients = (req, res) => {
       })
     })
 }
+
+exports.PatientsState1 = (req, res) => {
+  Paciente.findOne({
+    attributes: ['usuario', 'nombres', 'dpi'],
+    where: { aprobacion: 1 }
+  }).then(results => {
+    console.log(results)
+    res.status(200).json({
+      message: 'Usuario ' + usuario,
+      paciente: paciente
+    })
+  }).catch(error => {
+    console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
