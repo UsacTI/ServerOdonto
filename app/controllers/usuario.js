@@ -47,7 +47,7 @@ exports.createProfessor = (req, res) => {
     usuario.telefono = req.body.telefono
     usuario.contrasenia = req.body.contrasenia
     usuario.tipousuario = 2 // profesor
-    usuario.area = req.body.contrasenia
+    usuario.area = req.body.area
     usuario.subarea = req.body.subarea
 
     bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
