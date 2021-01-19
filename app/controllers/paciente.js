@@ -181,8 +181,8 @@ exports.PatientsState1 = (req, res) => {
   }).then(results => {
     console.log(results)
     res.status(200).json({
-      message: 'Usuario ' + usuario,
-      paciente: paciente
+      message: 'Usuario ' + results.dataValues.usuario,
+      paciente: results.dataValues
     })
   }).catch(error => {
     console.log(error)
