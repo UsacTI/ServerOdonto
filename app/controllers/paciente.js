@@ -175,7 +175,7 @@ exports.retrieveAllPatients = (req, res) => {
 }
 
 exports.PatientsState1 = (req, res) => {
-  Paciente.findOne({
+  Paciente.findAll({
     attributes: ['usuario', 'nombres', 'dpi'],
     where: { aprobacion: 1 }
   }).then(results => {

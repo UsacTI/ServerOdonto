@@ -34,7 +34,7 @@ router.post('/users/createStudent/', users.createStudent)
 router.post('/users/createProfessor/', users.createProfessor)
 
 // Consulta Pacientes con estado 1
-router.post('/patients/state1/', patients.PatientsState1)
+router.get('/patients/state1/', patients.PatientsState1)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
