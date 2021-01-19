@@ -36,7 +36,7 @@ exports.createPaciente = (req, res) => {
         // console.log(c)
         paciente.usuario = 'PI' + c + dia + mes + año
         // Save to MySQL database
-        console.log(paciente)
+        // console.log(paciente)
         Paciente.create(paciente).then(result => {
           res.status(200).json({
             message: 'Paciente creado con el ID = ' + result.idpaciente,
@@ -93,9 +93,9 @@ exports.createPacienteTrab = (req, res) => {
 
 exports.updateById = async (req, res) => {
   try {
-    const DPI = req.params.dpi
-    const paciente = await Paciente.findByPk(DPI) // Paciente.findOne({ where: { dpi: DPI } })
-
+    const DPI = req.body.cui
+    const paciente = await Paciente.findOne({ where: { dpi: DPI } })
+    // console.log(paciente)
     if (!paciente) {
       // return a response to client
       res.status(404).json({
@@ -110,9 +110,15 @@ exports.updateById = async (req, res) => {
         genero: req.body.genero,
         nacimiento: req.body.nacimiento,
         dpi: req.body.dpi,
-        contrasenia: req.body.contrasenia,
         direccion: req.body.direccion,
-        telefono: req.body.telefono
+        telefono: req.body.telefono,
+        nohijos: req.body.nohijos,
+        escolaridad: req.body.escolaridad,
+        nivel: req.body.nivel,
+        trauoficio: req.body.trauoficio,
+        transporte: req.body.transporte,
+        doctor: req.body.doctor,
+        consulta: req.body.consulta
       }
       const result = await Paciente.update(updatedObject, { returning: true, where: { dpi: DPI } })
       if (!result) {
@@ -121,7 +127,6 @@ exports.updateById = async (req, res) => {
           error: 'No se actualizó'
         })
       }
-
       res.status(200).json({
         message: 'Actualización correcta [' + DPI + ']',
         customer: updatedObject
@@ -136,20 +141,18 @@ exports.updateById = async (req, res) => {
 }
 
 exports.filterById = (req, res) => {
-  const Dpi = req.query.dpi
-
-  Paciente.findAll({
-    attributes: ['nombres', 'apellidos', 'genero', 'nacimiento', 'dpi', 'contrasenia', 'direccion', 'telefono'],
+  const Dpi = req.body.dpi
+  Paciente.findOne({
     where: { dpi: Dpi }
   })
     .then(results => {
       res.status(200).json({
         message: 'Paciente con DPI = ' + Dpi,
-        customers: results
+        paciente: results
       })
     })
     . catch(error => {
-      console.log(error)
+      // console.log(error)
       res.status(500).json({
         message: 'No se encontró el Paciente con DPI =' + Dpi,
         error: error
@@ -179,13 +182,12 @@ exports.PatientsState1 = (req, res) => {
     attributes: ['usuario', 'nombres', 'dpi'],
     where: { aprobacion: 1 }
   }).then(results => {
-    console.log(results.dataValues)
+    // console.log(results)
     res.status(200).json({
-      message: 'Usuario ' + results.dataValues.usuario,
-      paciente: results.dataValues
+      pacientes: results
     })
   }).catch(error => {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       message: 'Error!',
       error: error

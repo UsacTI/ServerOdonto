@@ -19,10 +19,10 @@ router.post('/patients/createTrabSocial', patients.createPaciente)
 router.post('/patients/createOfiInfo', patients.createPacienteTrab)
 
 // Actualizar Paciente
-router.post('/patients/update/:dpi', patients.updateById)
+router.post('/patients/update/', patients.updateById)
 
 // Buscar Paciente por DPI
-router.post('/patients/search/:dpi', patients.filterById)
+router.post('/patients/search/', patients.filterById)
 
 // Todos los pacientes
 router.get('/patients/all/', patients.retrieveAllPatients)
