@@ -179,7 +179,7 @@ exports.PatientsState1 = (req, res) => {
     attributes: ['usuario', 'nombres', 'dpi'],
     where: { aprobacion: 1 }
   }).then(results => {
-    console.log(results)
+    console.log(results.dataValues)
     res.status(200).json({
       message: 'Usuario ' + results.dataValues.usuario,
       paciente: results.dataValues
