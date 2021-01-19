@@ -27,6 +27,7 @@ exports.createPaciente = (req, res) => {
     paciente.tipopaciente = req.body.tipopaciente
     paciente.consulta = req.body.consulta
     paciente.doctor = req.body.doctor
+    paciente.aprobacion = 1
 
     bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
       paciente.contrasenia = hash
@@ -65,6 +66,7 @@ exports.createPacienteTrab = (req, res) => {
     paciente.telefono = req.body.telefono
     paciente.consulta = req.body.consulta
     paciente.tipopaciente = 5 // no clasificado
+    paciente.aprobacion = 0
 
     bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
       paciente.contrasenia = hash

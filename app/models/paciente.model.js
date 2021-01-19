@@ -58,6 +58,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     doctor: {
       type: Sequelize.STRING
+    },
+    aprobacion: {
+      type: Sequelize.INTEGER
     }
   })
 
