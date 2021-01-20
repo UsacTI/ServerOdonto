@@ -5,6 +5,7 @@ const customers = require('../controllers/controller.js')
 const patients = require('../controllers/paciente.js')
 const users = require('../controllers/usuario.js')
 const querypacients = require('../controllers/querysPacientes.js')
+const menu = require('../controllers/menu.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -38,6 +39,9 @@ router.post('/users/createProfessor/', users.createProfessor)
 
 // Consulta Pacientes con estado 1
 router.get('/patients/state1/', patients.PatientsState1)
+
+// Menu
+router.post('/menus/', menu.Menus)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)

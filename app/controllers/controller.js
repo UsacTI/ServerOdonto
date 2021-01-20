@@ -5,6 +5,7 @@ const db = require('../config/db.config')
 const Customer = db.Customer
 const Paciente = db.Paciente
 const Usuario = db.Usuario
+
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -135,7 +136,7 @@ exports.loginU = (req, res) => {
     where: { carne: carnet }
   }).then(results => {
     const pass2 = results.dataValues.contrasenia
-    console.log(results.dataValues)
+    // console.log(results.dataValues)
     // console.log(hash)
     var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario }
     bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
