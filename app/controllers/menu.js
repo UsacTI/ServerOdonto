@@ -10,10 +10,10 @@ exports.Menus = (req, res) => {
     attributes: ['nombre', 'descripcion', 'url'],
     where: { tipousuario: tipmenu }
   }).then(results => {
-    console.log(results)
+    // console.log(results)
     var menus = { nombre: results.dataValues.nombre, descripcion: results.dataValues.descripcion, url: results.dataValues.url }
     res.status(200).json({
-      paciente: menus
+      Menus: menus
     })
   })
 }
