@@ -13,7 +13,11 @@ module.exports = (sequelize, Sequelize) => {
     },
     url: {
       type: Sequelize.STRING
+    },
+    tipousuario: {
+      type: Sequelize.INTEGER
     }
+
   })
   return Menu
 }
