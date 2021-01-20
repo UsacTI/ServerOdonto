@@ -137,7 +137,7 @@ exports.loginU = (req, res) => {
     const pass2 = results.dataValues.contrasenia
     // console.log(results.dataValues.contrasenia)
     // console.log(hash)
-    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipoUsuario: results.dataValues.tipousuario }
+    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario }
     bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
       console.log(result)
       if (result) {
