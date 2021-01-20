@@ -11,7 +11,7 @@ exports.Menus = (req, res) => {
     where: { tipousuario: tipmenu }
   }).then(results => {
     console.log(results)
-    var menus = { usuario: results.dataValues.nombre, nombre: results.dataValues.descripcion, apellidos: results.dataValues.url }
+    var menus = { nombre: results.dataValues.nombre, descripcion: results.dataValues.descripcion, url: results.dataValues.url }
     res.status(200).json({
       paciente: menus
     })
