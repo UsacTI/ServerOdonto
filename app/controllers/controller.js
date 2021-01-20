@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Customer = db.Customer
 const Paciente = db.Paciente
+const Usuario = db.Usuario
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -124,33 +125,40 @@ exports.login = (req, res) => {
         error: error
       })
     })
+}
 
-  // bcrypt.hash(passs, saltRounds).then(function (hash) {
-  //   const contrasenia = hash
-  //   Paciente.findOne({
-  //     attributes: ['usuario', 'nombres', 'apellidos'],
-  //     where: { usuario: usuario, contrasenia: contrasenia }
-  //   })
-  //     .then(results => {
-  //       const token = jwt.sign({ usuario, contrasenia }, 'token_key', {
-  //         expiresIn: 60 * 60 * 4 // expires in 24 hours
-  //       })
-  //       // localStorage.setItem('token', token);
-  //       // localStorage.removeItem('token');
-  //       res.status(200).json({
-  //         message: 'Usuario ' + usuario,
-  //         paciente: results,
-  //         token
-  //       })
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //       res.status(500).json({
-  //         message: 'Error!',
-  //         error: error
-  //       })
-  //     })
-  // })
+exports.loginU = (req, res) => {
+  const carnet = req.body.usuario
+  const pass = req.body.contrasenia
+  Usuario.findOne({
+    attributes: ['carne', 'cui', 'nombres', 'apellidos', 'contrasenia'],
+    where: { carne: carnet }
+  }).then(results => {
+    const pass2 = results.dataValues.contrasenia
+    // console.log(results.dataValues.contrasenia)
+    // console.log(hash)
+    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui }
+    bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
+      console.log(result)
+      if (result) {
+        const token = jwt.sign({ carnet, pass2 }, 'token_key', {
+          expiresIn: 60 * 60 * 4 // expires in 24 hours
+        })
+        res.status(200).json({
+          message: 'Usuario ' + carnet,
+          paciente: usuario,
+          token
+        })
+      }
+    })
+  })
+    .catch(error => {
+      console.log(error)
+      res.status(500).json({
+        message: 'Error!',
+        error: error
+      })
+    })
 }
 
 exports.prueba = (req, res) => {

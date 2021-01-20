@@ -14,6 +14,9 @@ router.post('/api/queryPaciente/prueba2', querypacients.query)
 // Login
 router.post('/login', customers.login)
 
+// Login Usuarios
+router.post('/loginU', customers.loginU)
+
 // Crear Paciente
 router.post('/patients/createTrabSocial', patients.createPaciente)
 router.post('/patients/createOfiInfo', patients.createPacienteTrab)

@@ -93,13 +93,13 @@ exports.createPacienteTrab = (req, res) => {
 
 exports.updateById = async (req, res) => {
   try {
-    const DPI = req.body.cui
-    const paciente = await Paciente.findOne({ where: { dpi: DPI } })
+    const idus = req.body.id
+    const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
     // console.log(paciente)
     if (!paciente) {
       // return a response to client
       res.status(404).json({
-        message: 'No se ha encontrado el paciente con No.DPI = ' + DPI,
+        message: 'No se ha encontrado el paciente con ID = ' + idus,
         customer: '',
         error: '404'
       })
@@ -120,7 +120,7 @@ exports.updateById = async (req, res) => {
         doctor: req.body.doctor,
         consulta: req.body.consulta
       }
-      const result = await Paciente.update(updatedObject, { returning: true, where: { dpi: DPI } })
+      const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
       if (!result) {
         res.status(500).json({
           message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
@@ -128,33 +128,33 @@ exports.updateById = async (req, res) => {
         })
       }
       res.status(200).json({
-        message: 'Actualización correcta [' + DPI + ']',
+        message: 'Actualización correcta [' + idus + ']',
         customer: updatedObject
       })
     }
   } catch (error) {
     res.status(500).json({
-      message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+      message: 'No se pudo actualizar el paciente con No.idus = ' + req.params.dpi,
       error: error.message
     })
   }
 }
 
 exports.filterById = (req, res) => {
-  const Dpi = req.body.dpi
+  const id = req.body.id
   Paciente.findOne({
-    where: { dpi: Dpi }
+    where: { idpaciente: id }
   })
     .then(results => {
       res.status(200).json({
-        message: 'Paciente con DPI = ' + Dpi,
+        message: 'Paciente con ID = ' + id,
         paciente: results
       })
     })
     . catch(error => {
       // console.log(error)
       res.status(500).json({
-        message: 'No se encontró el Paciente con DPI =' + Dpi,
+        message: 'No se encontró el Paciente con ID =' + id,
         error: error
       })
     })
@@ -179,7 +179,7 @@ exports.retrieveAllPatients = (req, res) => {
 
 exports.PatientsState1 = (req, res) => {
   Paciente.findAll({
-    attributes: ['usuario', 'nombres', 'dpi'],
+    attributes: ['idpaciente', 'usuario', 'nombres', 'dpi'],
     where: { aprobacion: 1 }
   }).then(results => {
     // console.log(results)
