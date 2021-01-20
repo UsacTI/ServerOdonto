@@ -16,4 +16,11 @@ exports.Menus = (req, res) => {
       Menus: menus
     })
   })
+    . catch(error => {
+    // console.log(error)
+      res.status(500).json({
+        message: 'No hay Menus',
+        error: error
+      })
+    })
 }
