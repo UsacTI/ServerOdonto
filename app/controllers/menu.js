@@ -8,12 +8,11 @@ exports.Menus = (req, res) => {
   const tipmenu = req.body.tipomenu
   Menu.findAll({
     attributes: ['nombre', 'descripcion', 'url'],
-    where: { tipousuario: 3 }
+    where: { tipousuario: tipmenu }
   }).then(results => {
     // console.log(results)
-    var menus = { nombre: results.dataValues.nombre, descripcion: results.dataValues.descripcion, url: results.dataValues.url }
     res.status(200).json({
-      Menus: menus
+      Menus: results
     })
   })
     . catch(error => {
