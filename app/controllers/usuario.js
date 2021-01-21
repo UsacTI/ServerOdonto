@@ -132,3 +132,21 @@ exports.updateById = async (req, res) => {
     })
   }
 }
+
+exports.UserState2 = (req, res) => {
+  Usuario.findAll({
+    attributes: ['idusuario', 'carne', 'nombres', 'apellidos', 'area', 'subarea'],
+    where: { tipousuario: 2 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pacientes: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
