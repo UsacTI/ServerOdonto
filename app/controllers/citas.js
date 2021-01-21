@@ -12,6 +12,7 @@ exports.createCita = (req, res) => {
     cita.idpaciente = req.body.idpaciente
     cita.tratamiento = req.body.tratamiento
     cita.fecha = req.body.fecha
+    
     /*Cita.create(cita).then(result => {
         res.status(200).json({
           message: 'Cita creada con el ID = ' + result.idpaciente,
