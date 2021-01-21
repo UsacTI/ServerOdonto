@@ -140,7 +140,7 @@ exports.UserState2 = (req, res) => {
   }).then(results => {
     // console.log(results)
     res.status(200).json({
-      pacientes: results
+      usuarios: results
     })
   }).catch(error => {
     // console.log(error)
@@ -150,3 +150,22 @@ exports.UserState2 = (req, res) => {
     })
   })
 }
+
+exports.UserState3 = (req, res) => {
+  Usuario.findAll({
+    attributes: ['idusuario', 'carne', 'nombres', 'apellidos'],
+    where: { tipousuario: 3 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      usuarios: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+

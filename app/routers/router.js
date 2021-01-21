@@ -51,6 +51,12 @@ router.post('/users/search/', users.filterById)
 // Actualizar Profesor
 router.post('/users/update/', users.updateById)
 
+// Consulta usuarios estado [2] profesores
+router.get('/users/state2/', users.UserState2)
+
+// Consulta usuarios estado [3] estudiantes
+router.get('/users/state3/', users.UserState3)
+
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 
