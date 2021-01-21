@@ -43,6 +43,12 @@ router.get('/patients/state1/', patients.PatientsState1)
 // Menu
 router.post('/menus/', menu.Menus)
 
+// Buscar profesor
+router.post('/users/search/', users.filterById)
+
+// Actualizar Profesor
+router.post('/users/update/', users.updateById)
+
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 
