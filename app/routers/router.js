@@ -6,6 +6,8 @@ const patients = require('../controllers/paciente.js')
 const users = require('../controllers/usuario.js')
 const querypacients = require('../controllers/querysPacientes.js')
 const menu = require('../controllers/menu.js')
+const citas = require('../controllers/citas.js')
+const abonos = require('../controllers/abonos.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -51,6 +53,12 @@ router.post('/users/update/', users.updateById)
 
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
+
+//Citas
+router.post('/citas/crear', citas.createCita)
+
+//Abonos
+router.post('/abonos/crear', abonos.createAbono)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
