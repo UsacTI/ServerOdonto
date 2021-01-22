@@ -6,19 +6,14 @@ const Menu = db.Menu
 
 exports.Menus = (req, res) => {
   const tipmenu = req.body.tipomenu
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
   Menu.findAll({
     attributes: ['nombre', 'descripcion', 'url'],
     where: { tipousuario: tipmenu }
   }).then(results => {
     // console.log(results)
-    // res.writeHead(200, { 'Contenet-Type': 'text/html;charset=UTF-8' })
-    var object = JSON.parse(results.toString('utf8'))
-    var obj = JSON.parse(object)
-    console.log(object)
-    console.log('dddddddddddddddddddddddddd')
-    console.log(obj)
     res.status(200).json({
-      Menus: obj
+      Menus: results
     })
   })
     . catch(error => {
