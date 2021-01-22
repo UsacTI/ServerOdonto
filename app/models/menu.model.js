@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true
     },
     nombre: {
-      type: Sequelize.TEXT
+      type: Sequelize.STRING
     },
     descripcion: {
       type: Sequelize.STRING
