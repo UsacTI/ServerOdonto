@@ -18,6 +18,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     }
 
-  })
+  },
+  {
+    charset: 'utf8',
+    collate: 'utf8_unicode_ci'
+  }
+  )
   return Menu
 }
