@@ -11,6 +11,7 @@ exports.Menus = (req, res) => {
     where: { tipousuario: tipmenu }
   }).then(results => {
     console.log(results)
+    res.set({ 'content-type': 'application/json; charset=utf-8' })
     res.status(200).json({
       Menus: results
     })
