@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true
     },
     nombre: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     descripcion: {
       type: Sequelize.STRING
@@ -17,7 +17,6 @@ module.exports = (sequelize, Sequelize) => {
     tipousuario: {
       type: Sequelize.INTEGER
     }
-
   },
   {
     charset: 'utf8',
