@@ -12,8 +12,8 @@ exports.Menus = (req, res) => {
   }).then(results => {
     // console.log(results)
     res.charset = 'value'
-    res.status(200, { 'Content-Type': 'application/json' }).json({
-      Menus: JSON.stringify(results)
+    res.status(200, { 'Content-Type': 'application/json; charset=utf-8' }).json({
+      Menus: results
     })
   })
     . catch(error => {
