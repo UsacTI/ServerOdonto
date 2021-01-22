@@ -6,7 +6,9 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   dialect: env.dialect,
   operatorsAliases: false,
   define: {
-    timestamps: false
+    timestamps: false,
+    charset: 'utf8',
+    collate: 'utf8_general_ci'
   },
   pool: {
     max: env.max,
