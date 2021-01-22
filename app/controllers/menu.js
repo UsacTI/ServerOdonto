@@ -10,10 +10,11 @@ exports.Menus = (req, res) => {
     attributes: ['nombre', 'descripcion', 'url'],
     where: { tipousuario: tipmenu }
   }).then(results => {
-    console.log(results)
-    res.set({ 'content-type': 'application/json; charset=utf-8' })
+    // console.log(results)
+    // res.writeHead(200, { 'Contenet-Type': 'text/html;charset=UTF-8' })
+    var qr = utf8_encode(results)
     res.status(200).json({
-      Menus: results
+      Menus: qr
     })
   })
     . catch(error => {
