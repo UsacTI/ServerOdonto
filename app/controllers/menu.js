@@ -12,9 +12,10 @@ exports.Menus = (req, res) => {
   }).then(results => {
     // console.log(results)
     // res.writeHead(200, { 'Contenet-Type': 'text/html;charset=UTF-8' })
-    var qr = utf8_encode(results)
+    var object = JSON.parse(results.toString('utf8'))
+    var obj = JSON.parse(object)
     res.status(200).json({
-      Menus: qr
+      Menus: obj
     })
   })
     . catch(error => {
