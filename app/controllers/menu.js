@@ -14,6 +14,9 @@ exports.Menus = (req, res) => {
     // res.writeHead(200, { 'Contenet-Type': 'text/html;charset=UTF-8' })
     var object = JSON.parse(results.toString('utf8'))
     var obj = JSON.parse(object)
+    console.log(object)
+    console.log('dddddddddddddddddddddddddd')
+    console.log(obj)
     res.status(200).json({
       Menus: obj
     })
