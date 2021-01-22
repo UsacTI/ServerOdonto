@@ -12,7 +12,7 @@ exports.Menus = (req, res) => {
   }).then(results => {
     console.log(results)
     res.status(200).json({
-      Menus: JSON.stringify(results)
+      Menus: results
     })
   })
     . catch(error => {
