@@ -10,8 +10,7 @@ exports.Menus = (req, res) => {
     attributes: ['nombre', 'descripcion', 'url'],
     where: { tipousuario: tipmenu }
   }).then(results => {
-    // console.log(results)
-    res.charset = 'value'
+    console.log(results)
     res.status(200, { 'Content-Type': 'application/json; charset=utf-8' }).json({
       Menus: results
     })
