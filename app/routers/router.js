@@ -68,10 +68,10 @@ router.post('/citas/crear', citas.createCita)
 router.post('/abonos/crear', abonos.createAbono)
 
 // Registrar Expediente
-router.post('/Expediente/crear', expediente.filterById)
+router.post('/Expediente/crear', expediente.createExpediente)
 
 //  Buscar Expediente por id
-router.post('/Expediente/search', expediente.createExpediente)
+router.post('/Expediente/search', expediente.filterById)
 
 // Todos Expediente
 router.post('/Expediente/all', expediente.AllFiles)
