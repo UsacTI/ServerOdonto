@@ -118,7 +118,8 @@ exports.updateById = async (req, res) => {
         trauoficio: req.body.trauoficio,
         transporte: req.body.transporte,
         doctor: req.body.doctor,
-        consulta: req.body.consulta
+        consulta: req.body.consulta,
+        tipopaciente: req.body.tipopaciente
       }
       const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
       if (!result) {
