@@ -41,6 +41,33 @@ module.exports = (sequelize, Sequelize) => {
     dolor_dentario: {
       type: Sequelize.STRING
     },
+    mc: {
+      type: Sequelize.STRING
+    },
+    hpe: {
+      type: Sequelize.STRING
+    },
+    oclusion_comentario: {
+      type: Sequelize.STRING
+    },
+    roentoenogramas: {
+      type: Sequelize.STRING
+    },
+    roentoenogramas_descripcion: {
+      type: Sequelize.STRING
+    },
+    opciones: {
+      type: Sequelize.STRING
+    },
+    opciones_descripcion: {
+      type: Sequelize.STRING
+    },
+    consulta: {
+      type: Sequelize.STRING
+    },
+    estudios_especiales: {
+      type: Sequelize.STRING
+    },
     idpaciente: {
       type: Sequelize.INTEGER
     }
