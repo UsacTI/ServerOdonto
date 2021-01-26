@@ -31,7 +31,7 @@ exports.createExpediente = (req, res) => {
     Expediente.create(expediente).then(result => {
       res.status(200).json({
         message: 'Expediente creado con el ID = ' + result.idexpediente,
-        paciente: result
+        expediente: result
       })
     })
   } catch (error) {
@@ -50,7 +50,7 @@ exports.filterById = (req, res) => {
     .then(results => {
       res.status(200).json({
         message: 'Expediente con ID = ' + id,
-        paciente: results
+        expediente: results
       })
     })
     .catch(error => {
@@ -69,7 +69,7 @@ exports.AllFiles = (req, res) => {
   }).then(results => {
     // console.log(results)
     res.status(200).json({
-      pacientes: results
+      expediente: results
     })
   }).catch(error => {
     // console.log(error)

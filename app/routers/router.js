@@ -77,7 +77,7 @@ router.get('/expediente/search/:id', expediente.filterById)
 router.get('/expediente/all/:id', expediente.AllFiles)
 
 // Asignacion Profesor Estudiantes
-router.post('/asignacion', users.Asignacion)
+router.post('/asignacion/', users.Asignacion)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
