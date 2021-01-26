@@ -25,7 +25,6 @@ exports.createStudent = (req, res) => {
           paciente: result
         })
       })
-
     })
   } catch (error) {
     res.status(500).json({
@@ -58,7 +57,6 @@ exports.createProfessor = (req, res) => {
           paciente: result
         })
       })
-
     })
   } catch (error) {
     res.status(500).json({
@@ -79,7 +77,7 @@ exports.filterById = (req, res) => {
         paciente: results
       })
     })
-    . catch(error => {
+    .catch(error => {
       // console.log(error)
       res.status(500).json({
         message: 'No se encontró el Usuario con ID =' + id,
@@ -169,3 +167,30 @@ exports.UserState3 = (req, res) => {
   })
 }
 
+exports.Asignacion = async (req, res) => {
+  const idprof = req.body.idprofesor
+  const idest = req.body.estudiante
+  console.log(idprof)
+  console.log(idest)
+  try {
+    const updatedObject = {
+      usuarios_idusuario: idprof
+    }
+    const result = await Usuario.update(updatedObject, { returning: true, where: { idusuario: idest } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar id del profesor en el estudiante = ' + idest,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta [' + idest + ']',
+      customer: updatedObject
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el Usuario con No.idus = ' + idest,
+      error: error.message
+    })
+  }
+}
