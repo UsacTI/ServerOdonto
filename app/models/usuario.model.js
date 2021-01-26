@@ -37,10 +37,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     subarea: {
       type: Sequelize.STRING
+    },
+    usuarios_idusuario: {
+      type: Sequelize.INTEGER
     }
-    // usuarios_idusuario: {
-    //   type: Sequelize.INTEGER
-    // }
   })
 
   return Usuario

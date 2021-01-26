@@ -168,13 +168,13 @@ exports.UserState3 = (req, res) => {
 }
 
 exports.Asignacion = async (req, res) => {
-  const idprof = req.body.idprofesor
-  const idest = req.body.estudiante
-  console.log(idprof)
-  console.log(idest)
+  var idprof = req.body.idprofesor
+  var idest = req.body.estudiante
+  // console.log(idprof)
+  // console.log(idest)
   try {
     const updatedObject = {
-      usuarios_idusuario: idprof
+      usuarios_idusuario: parseInt(idprof)
     }
     const result = await Usuario.update(updatedObject, { returning: true, where: { idusuario: idest } })
     if (!result) {
@@ -184,7 +184,7 @@ exports.Asignacion = async (req, res) => {
       })
     }
     res.status(200).json({
-      message: 'Actualización correcta [' + idest + ']',
+      message: 'Actualización correcta id estudiante [' + idest + ']',
       customer: updatedObject
     })
   } catch (error) {
