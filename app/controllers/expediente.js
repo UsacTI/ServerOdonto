@@ -63,7 +63,7 @@ exports.filterById = (req, res) => {
 }
 
 exports.AllFiles = (req, res) => {
-  const idpaciente = req.body.id
+  const idpaciente = req.params.id
   Expediente.findAll({
     where: { idpaciente: idpaciente }
   }).then(results => {
