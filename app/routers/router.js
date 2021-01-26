@@ -68,13 +68,13 @@ router.post('/citas/crear', citas.createCita)
 router.post('/abonos/crear', abonos.createAbono)
 
 // Registrar Expediente
-router.post('/Expediente/crear', expediente.createExpediente)
+router.post('/expediente/crear', expediente.createExpediente)
 
 //  Buscar Expediente por id
-router.post('/Expediente/search', expediente.filterById)
+router.post('/expediente/search', expediente.filterById)
 
 // Todos Expediente
-router.post('/Expediente/all', expediente.AllFiles)
+router.post('/expediente/all', expediente.AllFiles)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
