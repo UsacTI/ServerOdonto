@@ -79,6 +79,9 @@ router.get('/expediente/all/:id', expediente.AllFiles)
 // Asignacion Profesor Estudiantes
 router.post('/asignacion/', users.Asignacion)
 
+// Buscar estudiantes de profesores
+router.get('/misestudiantes/:id', users.susEstudiantes)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

@@ -194,3 +194,21 @@ exports.Asignacion = async (req, res) => {
     })
   }
 }
+
+exports.susEstudiantes = (req, res) => {
+  const idprofesor = req.params.id
+  console.log(idprofesor)
+  Usuario.findAll({
+    attributes: ['idusuario', 'carne', 'nombres', 'apellidos'],
+    where: { usuarios_idusuario: idprofesor }
+  }).then(results => {
+    res.status(200).json({
+      estudiante: results
+    })
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
