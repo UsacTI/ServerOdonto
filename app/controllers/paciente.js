@@ -179,7 +179,7 @@ exports.retrieveAllPatients = (req, res) => {
 
 exports.PatientsState1 = (req, res) => {
   Paciente.findAll({
-    attributes: ['idpaciente', 'usuario', 'nombres', 'dpi'],
+    attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
     where: { aprobacion: 1 }
   }).then(results => {
     // console.log(results)
