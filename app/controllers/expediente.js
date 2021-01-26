@@ -43,7 +43,7 @@ exports.createExpediente = (req, res) => {
 }
 
 exports.filterById = (req, res) => {
-  const id = req.body.id
+  const id = req.params.id
   Expediente.findOne({
     where: { idexpediente: id }
   })

@@ -71,7 +71,7 @@ router.post('/abonos/crear', abonos.createAbono)
 router.post('/expediente/crear', expediente.createExpediente)
 
 //  Buscar Expediente por id
-router.post('/expediente/search', expediente.filterById)
+router.get('/expediente/search/:id', expediente.filterById)
 
 // Todos Expediente
 router.get('/expediente/all/:id', expediente.AllFiles)
