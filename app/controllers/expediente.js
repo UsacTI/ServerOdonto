@@ -80,7 +80,7 @@ exports.AllFiles = (req, res) => {
   })
 }
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   var idexpediente = req.params.id
   try {
     const updatedObject = {
@@ -106,7 +106,7 @@ exports.update = (req, res) => {
       equipo_diagnostico: req.body.equipo_diagnostico,
       diagnostico: req.body.diagnostico
     }
-    const result = await Usuario.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
+    const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
     if (!result) {
       res.status(500).json({
         message: 'No se pudo actualizar id expediente = ' + idexpediente,
