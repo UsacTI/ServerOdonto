@@ -79,3 +79,48 @@ exports.AllFiles = (req, res) => {
     })
   })
 }
+
+exports.update = (req, res) => {
+  var idexpediente = req.params.id
+  try {
+    const updatedObject = {
+      mc: req.body.mc,
+      hpe: req.body.hpe,
+      hma: req.body.hma,
+      hma_comentario: req.body.hma_comentario,
+      hoa: req.body.hoa,
+      hoa_comentario: req.body.hoa_comentario,
+      dolor_dentario: req.body.dolor_dentario,
+      habitos: req.body.habitos,
+      roentgenologia: req.body.roentgenologia,
+      precauciones: req.body.precauciones,
+      evaluacion_clinica: req.body.evaluacion_clinica,
+      oclusion: req.body.oclusion,
+      oclusion_comentario: req.body.oclusion_comentario,
+      roentoenogramas: req.body.roentoenogramas,
+      roentoenogramas_descripcion: req.body.roentoenogramas_descripcion,
+      opciones: req.body.opciones,
+      opciones_descripcion: req.body.opciones_descripcion,
+      consulta: req.body.consulta,
+      estudios_especiales: req.body.estudios_especiales,
+      equipo_diagnostico: req.body.equipo_diagnostico,
+      diagnostico: req.body.diagnostico
+    }
+    const result = await Usuario.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar id expediente = ' + idexpediente,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta de expediente [' + idexpediente + ']',
+      expediente: updatedObject
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el expediente = ' + idexpediente,
+      error: error.message
+    })
+  }
+}

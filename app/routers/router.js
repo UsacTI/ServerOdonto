@@ -76,6 +76,9 @@ router.get('/expediente/search/:id', expediente.filterById)
 // Todos Expediente
 router.get('/expediente/all/:id', expediente.AllFiles)
 
+// Actualizar Expediente
+router.put('/expediente/update/:id', expediente.update)
+
 // Asignacion Profesor Estudiantes
 router.post('/asignacion/', users.Asignacion)
 
