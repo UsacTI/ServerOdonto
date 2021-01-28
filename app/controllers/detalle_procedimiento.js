@@ -33,7 +33,7 @@ exports.search = (req, res) => {
     .then(results => {
       res.status(200).json({
         message: 'Detalle Procedimiento con ID = ' + id,
-        expediente: results
+        detalle: results
       })
     })
     .catch(error => {
