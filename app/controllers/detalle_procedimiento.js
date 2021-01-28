@@ -5,6 +5,7 @@ const db = require('../config/db.config')
 const Detalle_procedimiento = db.Detalle_procedimiento
 const Expediente = db.Expediente
 const Tratamiento = db.Tratamiento
+const { QueryTypes } = require('sequelize')
 
 exports.create = (req, res) => {
   const detalle = {}
@@ -27,16 +28,17 @@ exports.create = (req, res) => {
   }
 }
 
-exports.search = (req, res) => {
+exports.search = async (req, res) => {
   const id = req.params.id
-  Detalle_procedimiento.findAll({
-    // where: { idexpediente: id }
-    include: [
-      { model: Tratamiento },
-      { model: Detalle_procedimiento }
-    ],
-    attributes: ['idtratamiento']
-  })
+  await db.sequelize.query(
+    `select * from detalle_procedimiento_tratamientos as dpt
+    inner join tratamientos as t on dpt.idtratamiento = t.idtratamiento
+    where dpt.idexpediente = ?;`,
+    {
+      replacements: [id],
+      type: QueryTypes.SELECT
+    }
+  )
     .then(results => {
       res.status(200).json({
         message: 'Detalle Procedimiento con ID = ' + id,
