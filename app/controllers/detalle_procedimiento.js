@@ -14,7 +14,7 @@ exports.create = (req, res) => {
     Detalle_procedimiento.create(detalle).then(result => {
       res.status(200).json({
         message: 'Detalle Procedimiento creado correctamente = ' + result.id_detalle_procedimiento_tratamiento,
-        detalle: result
+        tratamientos: result
       })
     })
   } catch (error) {
@@ -33,7 +33,7 @@ exports.search = (req, res) => {
     .then(results => {
       res.status(200).json({
         message: 'Detalle Procedimiento con ID = ' + id,
-        detalle: results
+        tratamientos: results
       })
     })
     .catch(error => {
