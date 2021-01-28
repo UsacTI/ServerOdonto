@@ -10,6 +10,7 @@ const citas = require('../controllers/citas.js')
 const abonos = require('../controllers/abonos.js')
 const expediente = require('../controllers/expediente.js')
 const tratamiento = require('../controllers/tratamiento.js')
+const detalleProcedimiento = require('../controllers/detalle_procedimiento.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -88,6 +89,12 @@ router.get('/misestudiantes/:id', users.susEstudiantes)
 
 // Todos los tratamientos
 router.get('/tratamiento/', tratamiento.AllFiles)
+
+// Crear Detalle Procedimiento
+router.post('/detalleProcedimiento/', detalleProcedimiento.create)
+
+// Buscar Detalle Procedimiento
+router.get('/buscardetalleProcedimiento/:id', detalleProcedimiento.search)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));

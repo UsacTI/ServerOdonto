@@ -31,5 +31,6 @@ db.Cita = require('../models/cita.model.js')(sequelize, Sequelize)
 db.Abono = require('../models/abono.model.js')(sequelize, Sequelize)
 db.Expediente = require('../models/expediente.model')(sequelize, Sequelize)
 db.Tratamiento = require('../models/tratamiento.model')(sequelize, Sequelize)
+db.Detalle_procedimiento = require('../models/detalle_procedimiento_tratamiento.model')(sequelize, Sequelize)
 
 module.exports = db
