@@ -116,7 +116,12 @@ exports.login = (req, res) => {
           paciente: paciente,
           token
         })
-      }
+      } else {
+        res.status(500).json({
+          message: 'Error!',
+          error: error
+        })
+      } 
     })
   })
     .catch(error => {
@@ -149,6 +154,11 @@ exports.loginU = (req, res) => {
           message: 'Usuario ' + carnet,
           paciente: usuario,
           token
+        })
+      } else {
+        res.status(500).json({
+          message: 'Error!',
+          error: error
         })
       }
     })

@@ -3,6 +3,8 @@ const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Detalle_procedimiento = db.Detalle_procedimiento
+const Expediente = db.Expediente
+const Tratamiento = db.Tratamiento
 
 exports.create = (req, res) => {
   const detalle = {}
@@ -28,7 +30,12 @@ exports.create = (req, res) => {
 exports.search = (req, res) => {
   const id = req.params.id
   Detalle_procedimiento.findAll({
-    where: { idexpediente: id }
+    // where: { idexpediente: id }
+    include: [
+      { model: Tratamiento },
+      { model: Detalle_procedimiento }
+    ],
+    attributes: ['idtratamiento']
   })
     .then(results => {
       res.status(200).json({
