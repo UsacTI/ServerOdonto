@@ -53,3 +53,19 @@ exports.search = async (req, res) => {
       })
     })
 }
+
+exports.delete = (req, res) => {
+  const id = req.params.id
+  Detalle_procedimiento.destroy({
+    where: { id_detalle_procedimiento_tratamiento: id }
+  }).then(results => {
+    res.status(200).json({
+      detalle: results
+    })
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}

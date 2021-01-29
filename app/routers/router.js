@@ -96,6 +96,9 @@ router.post('/detalleProcedimiento/', detalleProcedimiento.create)
 // Buscar Detalle Procedimiento
 router.get('/buscardetalleProcedimiento/:id', detalleProcedimiento.search)
 
+// Eliminar Detalle Procedimiento
+router.delete('/tratamiento/deleteDetalle/:id', detalleProcedimiento.delete)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {
