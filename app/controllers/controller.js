@@ -137,7 +137,7 @@ exports.loginU = (req, res) => {
   const carnet = req.body.usuario
   const pass = req.body.contrasenia
   Usuario.findOne({
-    attributes: ['carne', 'cui', 'nombres', 'apellidos', 'contrasenia', 'tipousuario'],
+    attributes: ['idusuario', 'carne', 'cui', 'nombres', 'apellidos', 'contrasenia', 'tipousuario'],
     where: { carne: carnet }
   }).then(results => {
     const pass2 = results.dataValues.contrasenia
