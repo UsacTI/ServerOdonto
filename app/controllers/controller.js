@@ -145,7 +145,7 @@ exports.loginU = (req, res) => {
     // console.log(hash)
     var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario, idusuario: results.dataValues.idusuario }
     bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
-      console.log(result)
+      // console.log(result)
       if (result) {
         const token = jwt.sign({ carnet, pass2 }, 'token_key', {
           expiresIn: 60 * 60 * 4 // expires in 24 hours
@@ -178,7 +178,7 @@ exports.prueba = (req, res) => {
     } else {
       db.sequelize.query('select count(usuario) from pacientes')
         .then(results => {
-          console.log(results[0])
+          // console.log(results[0])
           res.status(200).json(
             results[0][0]
           )
@@ -198,7 +198,7 @@ exports.prueba2 = (req, res) => {
   const usuario = req.body.nombres
   db.sequelize.query('select count(usuario) from pacientes')
     .then(results => {
-      console.log(results[0])
+      // console.log(results[0])
       res.status(200).json(
         results[0][0]
       )

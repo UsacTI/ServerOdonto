@@ -10,7 +10,7 @@ exports.Menus = (req, res) => {
     attributes: ['nombre', 'descripcion', 'url'],
     where: { tipousuario: tipmenu }
   }).then(results => {
-    console.log(results)
+    // console.log(results)
     res.status(200).json({
       Menus: results
     })

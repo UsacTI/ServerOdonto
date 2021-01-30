@@ -92,7 +92,7 @@ exports.updateById = async (req, res) => {
   try {
     const idus = req.body.id
     const paciente = await Usuario.findOne({ where: { idusuario: idus } })
-    console.log(idus)
+    // console.log(idus)
     if (!paciente) {
       // return a response to client
       res.status(404).json({
@@ -112,7 +112,7 @@ exports.updateById = async (req, res) => {
         area: req.body.area,
         subarea: req.body.subarea
       }
-      console.log(updatedObject)
+      // console.log(updatedObject)
       const result = await Usuario.update(updatedObject, { returning: true, where: { idusuario: idus } })
       if (!result) {
         res.status(500).json({
@@ -199,7 +199,7 @@ exports.Asignacion = async (req, res) => {
 
 exports.susEstudiantes = (req, res) => {
   const idprofesor = req.params.id
-  console.log(idprofesor)
+  // console.log(idprofesor)
   Usuario.findAll({
     attributes: ['idusuario', 'carne', 'nombres', 'apellidos'],
     where: { usuarios_idusuario: idprofesor }
