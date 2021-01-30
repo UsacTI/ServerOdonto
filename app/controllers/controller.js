@@ -157,8 +157,7 @@ exports.loginU = (req, res) => {
         })
       } else {
         res.status(500).json({
-          message: 'Error!',
-          error: error
+          message: 'Error!'
         })
       }
     })
