@@ -54,5 +54,4 @@ exports.searchCitas = async (req, res) => {
         error: error
       })
     })
-
 }

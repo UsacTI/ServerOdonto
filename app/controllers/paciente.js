@@ -7,6 +7,13 @@ var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
 
+/*
+Estados:
+  0 = Paciente registrado por oficina informacion
+  1 = Paciente registrado por oficina trabajo social
+  3 = Pendiente de pago de boleta de primera cita
+  4 = Boleta pagada primera cita / listo para asignar a estudiante / aparece en banco pacientes
+  */
 exports.createPaciente = (req, res) => {
   const paciente = {}
   try {
@@ -166,7 +173,7 @@ exports.retrieveAllPatients = (req, res) => {
     .then(PatientsInfo => {
       res.status(200).json({
         message: 'Todos los Pacientes',
-        customers: PatientsInfo
+        pacientes: PatientsInfo
       })
     })
     . catch(error => {
