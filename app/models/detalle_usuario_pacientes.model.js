@@ -1,23 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-  const Detalle = sequelize.define('detalle_procedimiento_tratamiento', {
-    id_detalle_procedimiento_tratamiento: {
+  const DetalleUsPa = sequelize.define('detalle_usuario_pacientes', {
+    iddetalle: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    idtratamiento: {
-      type: Sequelize.INTEGER
-    },
-    idexpediente: {
+    estado: {
       type: Sequelize.INTEGER
     },
     idusuario: {
       type: Sequelize.INTEGER
     },
-    pieza: {
+    idpaciente: {
       type: Sequelize.INTEGER
     }
   }
   )
-  return Detalle
+  return DetalleUsPa
 }

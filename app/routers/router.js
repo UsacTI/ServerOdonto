@@ -11,6 +11,7 @@ const abonos = require('../controllers/abonos.js')
 const expediente = require('../controllers/expediente.js')
 const tratamiento = require('../controllers/tratamiento.js')
 const detalleProcedimiento = require('../controllers/detalle_procedimiento.js')
+const detalleEstudiantePaciente = require('../controllers/detalle_usuario_paciente.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -98,6 +99,15 @@ router.get('/buscardetalleProcedimiento/:id', detalleProcedimiento.search)
 
 // Eliminar Detalle Procedimiento
 router.delete('/tratamiento/deleteDetalle/:id', detalleProcedimiento.delete)
+
+// Asignacion Estudiante Paciente
+router.post('/EstudiantePaciente/asignacion/', detalleEstudiantePaciente.create)
+
+// Buscar Detalle estudiante paciente (por idusuario Estudiante)
+router.get('/buscarEstudiante/:id', detalleEstudiantePaciente.searchEstudiante)
+
+// Buscar Detalle estudiante paciente (por idpaciente Paciente)
+router.get('/buscarPaciente/:id', detalleEstudiantePaciente.searchPaciente)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
