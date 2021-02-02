@@ -109,6 +109,9 @@ router.get('/buscarEstudiante/:id', detalleEstudiantePaciente.searchEstudiante)
 // Buscar Detalle estudiante paciente (por idpaciente Paciente)
 router.get('/buscarPaciente/:id', detalleEstudiantePaciente.searchPaciente)
 
+// buscar citas con id usuario
+router.get('/citas/buscar/:id', citas.searchCitas)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

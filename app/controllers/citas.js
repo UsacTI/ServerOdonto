@@ -50,7 +50,7 @@ exports.searchCitas = async (req, res) => {
     .catch(error => {
       // console.log(error)
       res.status(500).json({
-        message: 'No se encontró el Detalle Procedimiento con ID =' + id,
+        message: 'No se encontró la cita con ID usuario =' + id,
         error: error
       })
     })
