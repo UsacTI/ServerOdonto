@@ -3,6 +3,7 @@ const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Detalle_usu_paciente = db.Detalle_Usuario_paciente
+const Paciente = db.Paciente
 const { QueryTypes } = require('sequelize')
 
 exports.create = (req, res) => {
@@ -11,12 +12,23 @@ exports.create = (req, res) => {
     detalle.estado = 1
     detalle.idusuario = req.body.idusuario
     detalle.idpaciente = req.body.idpaciente
-    Detalle_usu_paciente.create(detalle).then(result => {
-      res.status(200).json({
-        message: 'Detalle Usuario Paciente creado correctamente = ' + result.iddetalle,
-        detalleestudianteusuario: result
+    Detalle_usu_paciente.create(detalle)
+      .then(result => {
+        const updatedObject = {
+          aprobacion: 5
+        }
+        const result2 = Paciente.update(updatedObject, { returning: true, where: { idpaciente: req.body.idpaciente } })
+        if (!result2) {
+          res.status(500).json({
+            message: 'No se pudo actualizar el paciente con ID = ' + req.body.idpaciente,
+            error: 'No se actualizó'
+          })
+        }
+        res.status(200).json({
+          message: 'Detalle Usuario Paciente creado correctamente =  [' + req.body.idpaciente + ']',
+          boleta: updatedObject
+        })
       })
-    })
   } catch (error) {
     res.status(500).json({
       message: 'Fail!',

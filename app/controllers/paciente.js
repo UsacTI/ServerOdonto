@@ -19,6 +19,8 @@ Estados:
   1 = Paciente registrado por oficina trabajo social
   3 = Pendiente de pago de boleta de primera cita
   4 = Boleta pagada primera cita / listo para asignar a estudiante / aparece en banco pacientes
+  5 = Paciente Asignado
+  6 = Paciente tratamiento
   */
 exports.createPaciente = (req, res) => {
   const paciente = {}
