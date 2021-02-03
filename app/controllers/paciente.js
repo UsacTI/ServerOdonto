@@ -245,7 +245,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
       console.log(results)
       console.log('holaaaaa2')
       console.log('holaaaaa2')
-      console.log(results.Result.rowCount)
+      console.log(results[0].length)
       console.log('holaaaaa2')
       if (results.Result.rowCount !== 0) {
         results[0].forEach(element => {
