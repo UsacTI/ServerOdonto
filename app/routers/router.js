@@ -55,7 +55,7 @@ router.get('/patients/state3/', patients.PatientsState3)
 router.get('/patients/state4/', patients.PatientsState4)
 
 // Consulta Pacientes con estado 5
-router.get('/patients/state4/', patients.PatientsState5)
+router.get('/patients/state5/', patients.PatientsState5)
 
 // Menu
 router.post('/menus/', menu.Menus)
