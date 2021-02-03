@@ -54,7 +54,7 @@ exports.generarBoleta = async (req, res) => {
 
 exports.consultarBoleta = async (req, res) => {
   const correlativo = req.params.correlativo // req.params.correlativo
-  const boleta_de_pago = req.params.boletapago // req.params.boletapago
+  const boleta_de_pago = req.params.boleta // req.params.boletapago
   console.log(correlativo)
   console.log(boleta_de_pago)
   var args = {
