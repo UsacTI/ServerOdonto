@@ -268,6 +268,10 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
               message: 'Actualización correcta del paciente ID = [' + element.idpaciente + ']',
               boleta: updatedObject
             })
+          } else {
+            res.status(200).json({
+              message: 'No ha pagado paciente ID = [' + element.idpaciente + ']'
+            })
           }
         })
       })
