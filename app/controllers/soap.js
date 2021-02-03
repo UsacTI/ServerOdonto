@@ -53,7 +53,7 @@ exports.generarBoleta = async (req, res) => {
 }
 
 exports.consultarBoleta = async (req, res) => {
-  const idpersona = req.params.correlativo// '201105846'//  req.params.correlativo // req.params.correlativo
+  const idpersona = req.params.idcarnet// '201105846'//  req.params.correlativo // req.params.correlativo
   const boleta_de_pago = req.params.boletapago // '11029820' // req.params.boletapago
   console.log(idpersona)
   console.log(boleta_de_pago)
