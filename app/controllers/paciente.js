@@ -244,6 +244,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
     .then(results => {
       console.log(results)
       if (results.Result.rowCount !== 0) {
+        console.log('holaaaaa')
         results[0].forEach(element => {
           console.log(element.idboleta + ' ---- ' + element.idpaciente)
           const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
@@ -277,7 +278,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
               }
             })
           } catch (error) {
-            res.status(500).json({
+            res.status(200).json({
               message: 'Fail!',
               error: error.message
             })
@@ -288,7 +289,6 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
           message: 'Fail!'
         })
       }
-
     })
     .catch(error => {
       res.status(500).json({
