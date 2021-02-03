@@ -283,7 +283,12 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
             })
           }
         })
+      } else {
+        res.status(200).json({
+          message: 'Fail!'
+        })
       }
+
     })
     .catch(error => {
       res.status(500).json({
