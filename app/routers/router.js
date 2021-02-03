@@ -117,7 +117,7 @@ router.get('/citas/buscar/:id', citas.searchCitas)
 router.post('/boleta/crear/', soap.generarBoleta)
 
 // CONSULTAR BOLETAS
-router.get('/boleta/consulta/:correalativo/:boleta', soap.consultarBoleta)
+router.get('/boleta/consulta/:correlativo/:boleta', soap.consultarBoleta)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
