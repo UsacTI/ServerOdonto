@@ -129,6 +129,9 @@ router.get('/boleta/consulta/:idcarnet/:boleta', soap.consultarBoleta)
 // ACTUALIZACION ESTADO PACIENTE
 router.put('/paciente/estadoactualizacion/:idpaciente', patients.CambioEstado)
 
+// Comprobación boleta paciente
+router.get('/Comprobacion/boleta/', patients.PacientesTipo3Comprobacion)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

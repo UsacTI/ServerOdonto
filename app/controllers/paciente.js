@@ -2,9 +2,13 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
-const { QueryTypes } = require('sequelize')
+const { QueryTypes, json } = require('sequelize')
+const request = require('request-promise')
 const Paciente = db.Paciente
 const Pago = db.Pago
+var express = require('express')
+var app = express()
+
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -215,6 +219,7 @@ exports.PatientsState3 = (req, res) => {
     //   console.log(element.dataValues)
     //   var dpi = element.dataValues.dpi
     // })
+
     res.status(200).json({
       pacientes: results
     })
@@ -225,6 +230,54 @@ exports.PatientsState3 = (req, res) => {
       error: error
     })
   })
+}
+
+exports.PacientesTipo3Comprobacion = async (req, res) => {
+  await db.sequelize.query(
+    `select p.idboleta, p.monto, p.estado, p.tipo, pa.idpaciente from pagos as p
+    inner join pacientes as pa 
+    on pa.idpaciente = p.idpaciente
+    where p.estado = 1 
+    and p.tipo = 0 
+    and pa.aprobacion = 3;`
+  )
+    .then(results => {
+      // console.log(results[0])
+      results[0].forEach(element => {
+        console.log(element.idboleta + ' ---- ' + element.idpaciente)
+        // const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
+        const ruta = 'http://localhost:8080/boleta/consulta/201105846/11029859'
+        request({
+          uri: ruta,
+          json: true
+        }).then(usuarios => {
+          var result = JSON.parse(usuarios)
+          if (result.DESCRIPCION === 'PAGADA') {
+            console.log('Si esta pagada')
+            const updatedObject = {
+              aprobacion: 4
+            }
+            const result = Paciente.update(updatedObject, { returning: true, where: { idpaciente: element.idpaciente } })
+            if (!result) {
+              res.status(500).json({
+                message: 'No se pudo actualizar el paciente con ID = ' + element.idpaciente,
+                error: 'No se actualizó'
+              })
+            }
+            res.status(200).json({
+              message: 'Actualización correcta del paciente ID = [' + element.idpaciente + ']',
+              boleta: updatedObject
+            })
+          }
+        })
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'No se encontró la cita con ID usuario =',
+        error: error
+      })
+    })
 }
 
 exports.PatientsState4 = (req, res) => {
