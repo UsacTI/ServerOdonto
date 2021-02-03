@@ -285,7 +285,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
         })
       } else {
         res.status(200).json({
-          message: 'Fail!'
+          message: 'En registros para actualizar'
         })
       }
     })
