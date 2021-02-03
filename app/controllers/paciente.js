@@ -203,6 +203,24 @@ exports.PatientsState1 = (req, res) => {
   })
 }
 
+exports.PatientsState1 = (req, res) => {
+  Paciente.findAll({
+    attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
+    where: { aprobacion: 1 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pacientes: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
 exports.CambioEstado = async (req, res) => {
   try {
     const id = req.params.idpaciente
@@ -213,17 +231,17 @@ exports.CambioEstado = async (req, res) => {
     const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: id } })
     if (!result) {
       res.status(500).json({
-        message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+        message: 'No se pudo actualizar el paciente con ID = ' + id,
         error: 'No se actualizó'
       })
     }
     res.status(200).json({
-      message: 'Actualización correcta [' + idus + ']',
+      message: 'Actualización correcta [' + id + ']',
       paciente: updatedObject
     })
   } catch (error) {
     res.status(500).json({
-      message: 'No se pudo actualizar el paciente con No.idus = ' + req.params.dpi,
+      message: 'No se pudo actualizar el paciente con ID = ' + req.params.idpaciente,
       error: error.message
     })
   }
