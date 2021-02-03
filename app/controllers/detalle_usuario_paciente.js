@@ -79,7 +79,9 @@ exports.BuscarPacientesParaEstudiantes = async (req, res) => {
   await db.sequelize.query(
     `select pa.idpaciente, pa.nombres, pa.apellidos, pa.dpi 
     from pacientes as pa, detalle_usuario_pacientes as dup
-    where pa.idpaciente = ?;`,
+    where dup.idpaciente =  pa.idpaciente
+  and
+  dup.idusuario = ?;`,
     {
       replacements: [id],
       type: QueryTypes.SELECT
