@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     tipousuario: {
       type: Sequelize.INTEGER
+    },
+    icono: {
+      type: Sequelize.STRING
     }
   },
   {
