@@ -53,8 +53,8 @@ exports.generarBoleta = async (req, res) => {
 }
 
 exports.consultarBoleta = async (req, res) => {
-  const correlativo = '3009116312'    // req.params.correlativo
-  const boleta_de_pago = '121876462' // req.params.boletapago
+  const correlativo = req.params.correlativo // req.params.correlativo
+  const boleta_de_pago = req.params.boletapago // req.params.boletapago
   var args = {
     cadena: `<CONFIRMAPAGO_OV>
         <CORRELATIVO>${correlativo}</CORRELATIVO>
