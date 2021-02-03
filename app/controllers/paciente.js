@@ -247,33 +247,40 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
         console.log(element.idboleta + ' ---- ' + element.idpaciente)
         const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
         // const ruta = 'http://localhost:8080/boleta/consulta/201105846/11029859'
-        request({
-          uri: ruta,
-          json: true
-        }).then(usuarios => {
-          var result = JSON.parse(usuarios)
-          if (result.DESCRIPCION === 'PAGADA') {
-            console.log('Si esta pagada')
-            const updatedObject = {
-              aprobacion: 4
-            }
-            const result = Paciente.update(updatedObject, { returning: true, where: { idpaciente: element.idpaciente } })
-            if (!result) {
-              res.status(500).json({
-                message: 'No se pudo actualizar el paciente con ID = ' + element.idpaciente,
-                error: 'No se actualizó'
+        try {
+          request({
+            uri: ruta,
+            json: true
+          }).then(usuarios => {
+            var result = JSON.parse(usuarios)
+            if (result.DESCRIPCION === 'PAGADA') {
+              console.log('Si esta pagada')
+              const updatedObject = {
+                aprobacion: 4
+              }
+              const result = Paciente.update(updatedObject, { returning: true, where: { idpaciente: element.idpaciente } })
+              if (!result) {
+                res.status(500).json({
+                  message: 'No se pudo actualizar el paciente con ID = ' + element.idpaciente,
+                  error: 'No se actualizó'
+                })
+              }
+              res.status(200).json({
+                message: 'Actualización correcta del paciente ID = [' + element.idpaciente + ']',
+                boleta: updatedObject
+              })
+            } else {
+              res.status(200).json({
+                message: 'No ha pagado paciente ID = [' + element.idpaciente + ']'
               })
             }
-            res.status(200).json({
-              message: 'Actualización correcta del paciente ID = [' + element.idpaciente + ']',
-              boleta: updatedObject
-            })
-          } else {
-            res.status(200).json({
-              message: 'No ha pagado paciente ID = [' + element.idpaciente + ']'
-            })
-          }
-        })
+          })
+        } catch (error) {
+          res.status(500).json({
+            message: 'Fail!',
+            error: error.message
+          })
+        }
       })
     })
     .catch(error => {
