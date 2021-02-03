@@ -12,7 +12,7 @@ exports.generarBoleta = async (req, res) => {
   var aniotemporada = req.body.anio_temporada
   var idrubro = req.body.id_rubro
   var idvarianterubro = req.body.id_variante_rubro
-  var subottal = req.body.subottal
+  var subotal = req.body.subotal
 
   const args = {
     pxml: '<GENERAR_ORDEN>' +
@@ -26,7 +26,7 @@ exports.generarBoleta = async (req, res) => {
                   '<ANIO_TEMPORADA>' + aniotemporada + '</ANIO_TEMPORADA>' +
                   '<ID_RUBRO>' + idrubro + '</ID_RUBRO>' +
                   '<ID_VARIANTE_RUBRO>' + idvarianterubro + '</ID_VARIANTE_RUBRO>' +
-                  '<SUBTOTAL>' + subottal + '</SUBTOTAL>' +
+                  '<SUBTOTAL>' + subotal + '</SUBTOTAL>' +
               '</DETALLE_ORDEN_PAGO>' +
             '</GENERAR_ORDEN>'
   }
