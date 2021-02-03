@@ -45,7 +45,8 @@ exports.generarBoleta = async (req, res) => {
       monto: result.RESPUESTA.MONTO[0],
       fecha: result.RESPUESTA.FECHA[0],
       checksum: result.RESPUESTA.CHECKSUM[0],
-      rubro: result.RESPUESTA.RUBROPAGO[0]
+      rubro: result.RESPUESTA.RUBROPAGO[0],
+      nombre: result.RESPUESTA.NOMBRE[0]
     })
     res.json(respuesta)
   })
