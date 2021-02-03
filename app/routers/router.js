@@ -48,6 +48,12 @@ router.post('/users/createProfessor/', users.createProfessor)
 // Consulta Pacientes con estado 1
 router.get('/patients/state1/', patients.PatientsState1)
 
+// Consulta Pacientes con estado 3
+router.get('/patients/state3/', patients.PatientsState3)
+
+// Consulta Pacientes con estado 4
+router.get('/patients/state4/', patients.PatientsState4)
+
 // Menu
 router.post('/menus/', menu.Menus)
 

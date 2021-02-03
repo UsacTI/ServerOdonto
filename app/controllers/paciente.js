@@ -203,10 +203,28 @@ exports.PatientsState1 = (req, res) => {
   })
 }
 
-exports.PatientsState1 = (req, res) => {
+exports.PatientsState3 = (req, res) => {
   Paciente.findAll({
     attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
-    where: { aprobacion: 1 }
+    where: { aprobacion: 3 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pacientes: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
+exports.PatientsState4 = (req, res) => {
+  Paciente.findAll({
+    attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
+    where: { aprobacion: 4 }
   }).then(results => {
     // console.log(results)
     res.status(200).json({
