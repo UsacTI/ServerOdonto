@@ -28,6 +28,8 @@ exports.createExpediente = (req, res) => {
     expediente.equipo_diagnostico = req.body.equipo_diagnostico
     expediente.diagnostico = req.body.diagnostico
     expediente.idpaciente = req.body.idpaciente
+    expediente.radiografia = "" // req.body.radiografia
+
     Expediente.create(expediente).then(result => {
       res.status(200).json({
         message: 'Expediente creado con el ID = ' + result.idexpediente,
@@ -104,7 +106,8 @@ exports.update = async (req, res) => {
       consulta: req.body.consulta,
       estudios_especiales: req.body.estudios_especiales,
       equipo_diagnostico: req.body.equipo_diagnostico,
-      diagnostico: req.body.diagnostico
+      diagnostico: req.body.diagnostico,
+      radiografia: req.body.radiografia
     }
     const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
     if (!result) {

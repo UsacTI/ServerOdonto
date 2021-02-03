@@ -245,8 +245,8 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
       // console.log(results[0])
       results[0].forEach(element => {
         console.log(element.idboleta + ' ---- ' + element.idpaciente)
-        // const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
-        const ruta = 'http://localhost:8080/boleta/consulta/201105846/11029859'
+        const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
+        // const ruta = 'http://localhost:8080/boleta/consulta/201105846/11029859'
         request({
           uri: ruta,
           json: true

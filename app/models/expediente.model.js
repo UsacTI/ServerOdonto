@@ -70,6 +70,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     idpaciente: {
       type: Sequelize.INTEGER
+    },
+    radiografia: {
+      type: Sequelize.STRING
     }
   })
 
