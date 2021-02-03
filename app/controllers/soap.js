@@ -53,34 +53,33 @@ exports.generarBoleta = async (req, res) => {
 }
 
 exports.consultarBoleta = async (req, res) => {
-  const correlativo = '201105846'//  req.params.correlativo // req.params.correlativo
-  const boleta_de_pago = req.params.boleta // req.params.boletapago
-  console.log(correlativo)
+  const idpersona = '201105846'//  req.params.correlativo // req.params.correlativo
+  const boleta_de_pago = '11029820' // req.params.boletapago
+  console.log(idpersona)
   console.log(boleta_de_pago)
   var args = {
-    cadena: `<CONFIRMAPAGO_OV>
-        <CORRELATIVO>${correlativo}</CORRELATIVO>
-        <BOLETAPAGO>${boleta_de_pago}</BOLETAPAGO>
-    </CONFIRMAPAGO_OV>`
+    pxml: `<CONSULTA_ORDEN>
+        <ID_ORDEN_PAGO>${boleta_de_pago}</ID_ORDEN_PAGO>
+        <ID_PERSONA>${idpersona}</ID_PERSONA>
+    </CONSULTA_ORDEN>`
   }
-  const client = await soap.createClientAsync('http://www.usac.edu.gt/services/ov_chf/confirmapago_ov_chf.php?wsdl')
-  const result = await client.verpago_ov_rtAsync(args)
-  console.log(result[0].return.$value)
-  const [encontrado, r_correlativo, param2, r_boleta_de_pago, status, banco, boleta_banco, fecha_pago, nombre, monto, fecha_generacion, param3] = result[0].return.$value.split('|')
-  // res.json(result)
-  const rsp = {
-    pagado: !!parseInt(status || 0), // 0: no pagado, 1: pagado
-    encontrado: encontrado == '1' ? true : encontrado == '2' ? false : false,
-    correlativo,
-    boleta_de_pago,
-    boleta_banco,
-    banco,
-    fecha_generacion,
-    fecha_pago,
-    nombre,
-    monto: parseFloat(monto),
-    param2, // 0
-    param3 // OV
-  }
-  res.json(rsp)
+  const client = await soap.createClientAsync('https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracionOrdenPagoV2SoapHttpPort?WSDL')
+  const result = await client.consultaOrdenPagoAsync(args)
+  // console.log(result[0].result)
+  parseString(result[0].result, (err, result) => {
+    console.dir(result.RESPUESTA)
+    // console.log(result.CODIGO_RESP)
+    var respuesta = JSON.stringify({
+      CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
+      DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
+      id_orden_pago: result.RESPUESTA.ID_ORDEN_PAGO[0],
+      monto: result.RESPUESTA.MONTO[0],
+      fecha: result.RESPUESTA.FECHA_GENERACION[0],
+      nombre: result.RESPUESTA.NOMBRE[0],
+      ID_PERSONA: result.RESPUESTA.ID_PERSONA[0],
+      STATUS: result.RESPUESTA.STATUS[0],
+      BANCO: result.RESPUESTA.BANCO[0]
+    })
+    res.json(respuesta)
+  })
 }
