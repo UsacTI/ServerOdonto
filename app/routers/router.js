@@ -120,6 +120,9 @@ router.get('/buscarEstudiante/:id', detalleEstudiantePaciente.searchEstudiante)
 // Buscar Detalle estudiante paciente (por idpaciente Paciente)
 router.get('/buscarPaciente/:id', detalleEstudiantePaciente.searchPaciente)
 
+// Buscar pacientes de estudiantes
+router.get('/buscarPacientesEsutdiantes/:id', detalleEstudiantePaciente.BuscarPacientesParaEstudiantes)
+
 // buscar citas con id usuario
 router.get('/citas/buscar/:id', citas.searchCitas)
 

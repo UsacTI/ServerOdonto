@@ -73,3 +73,28 @@ exports.searchPaciente = (req, res) => {
     })
   })
 }
+
+exports.BuscarPacientesParaEstudiantes = async (req, res) => {
+  const id = req.params.id
+  await db.sequelize.query(
+    `select pa.idpaciente, pa.nombres, pa.apellidos, pa.dpi 
+    from pacientes as pa, detalle_usuario_pacientes as dup
+    where pa.idpaciente = ?;`,
+    {
+      replacements: [id],
+      type: QueryTypes.SELECT
+    }
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'Detalle Procedimiento con ID = ' + id,
+        pacientes: results
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'No se encontró el Detalle Procedimiento con ID =' + id,
+        error: error
+      })
+    })
+}
