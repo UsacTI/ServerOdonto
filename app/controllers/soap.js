@@ -81,7 +81,10 @@ exports.consultarBoleta = async (req, res) => {
       BANCO: result.RESPUESTA.BANCO[0],
       NO_BOLETA_DEPOSITO: result.RESPUESTA.NO_BOLETA_DEPOSITO[0],
       NO_TRAN_BANCO: result.RESPUESTA.NO_TRAN_BANCO[0],
-      FECHA_CERTIF_BANCO: result.RESPUESTA.FECHA_CERTIF_BANCO[0]
+      FECHA_CERTIF_BANCO: result.RESPUESTA.FECHA_CERTIF_BANCO[0],
+      UNIDAD: result.RESPUESTA.UNIDAD[0],
+      EXTENSION: result.RESPUESTA.EXTENSION[0],
+      CARRERA: result.RESPUESTA.CARRERA[0]
     })
     res.json(respuesta)
   })
