@@ -13,6 +13,7 @@ const tratamiento = require('../controllers/tratamiento.js')
 const detalleProcedimiento = require('../controllers/detalle_procedimiento.js')
 const detalleEstudiantePaciente = require('../controllers/detalle_usuario_paciente.js')
 const soap = require('../controllers/soap.js')
+const { Paciente } = require('../config/db.config.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -117,7 +118,10 @@ router.get('/citas/buscar/:id', citas.searchCitas)
 router.post('/boleta/crear/', soap.generarBoleta)
 
 // CONSULTAR BOLETAS
-router.get('/boleta/consulta/:correlativo/:boleta', soap.consultarBoleta)
+router.get('/boleta/consulta/:idcarnet/:boleta', soap.consultarBoleta)
+
+// ACTUALIZACION ESTADO PACIENTE
+router.put('/paciente/estadoactualizacion/:idpaciente', patients.CambioEstado)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));

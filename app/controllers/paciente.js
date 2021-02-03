@@ -159,7 +159,7 @@ exports.filterById = (req, res) => {
         paciente: results
       })
     })
-    . catch(error => {
+    .catch(error => {
       // console.log(error)
       res.status(500).json({
         message: 'No se encontró el Paciente con ID =' + id,
@@ -176,7 +176,7 @@ exports.retrieveAllPatients = (req, res) => {
         pacientes: PatientsInfo
       })
     })
-    . catch(error => {
+    .catch(error => {
       // console.log(error)
       res.status(500).json({
         message: 'No hay Pacientes',
@@ -201,4 +201,30 @@ exports.PatientsState1 = (req, res) => {
       error: error
     })
   })
+}
+
+exports.CambioEstado = async (req, res) => {
+  try {
+    const id = req.params.idpaciente
+    const estado = req.body.estado
+    const updatedObject = {
+      aprobacion: estado
+    }
+    const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: id } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta [' + idus + ']',
+      paciente: updatedObject
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el paciente con No.idus = ' + req.params.dpi,
+      error: error.message
+    })
+  }
 }
