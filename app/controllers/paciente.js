@@ -243,8 +243,8 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
   )
     .then(results => {
       console.log(results)
+      console.log('holaaaaa2')
       if (results.Result.rowCount !== 0) {
-        console.log('holaaaaa')
         results[0].forEach(element => {
           console.log(element.idboleta + ' ---- ' + element.idpaciente)
           const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
