@@ -317,6 +317,24 @@ exports.PatientsState4 = (req, res) => {
   })
 }
 
+exports.PatientsState5 = (req, res) => {
+  Paciente.findAll({
+    attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
+    where: { aprobacion: 5 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pacientes: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
 exports.CambioEstado = async (req, res) => {
   try {
     const id = req.params.idpaciente
