@@ -1,4 +1,6 @@
 var soap = require('soap')
+const db = require('../config/db.config')
+const Pago = db.Pago
 const url = 'https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracionOrdenPagoV2SoapHttpPort?WSDL'
 var parseString = require('xml2js').parseString
 
@@ -13,22 +15,23 @@ exports.generarBoleta = async (req, res) => {
   var idrubro = req.body.id_rubro
   var idvarianterubro = req.body.id_variante_rubro
   var subotal = req.body.subotal
+  var idpaciente = req.body.idpaciente
 
   const args = {
     pxml: '<GENERAR_ORDEN>' +
-              '<CARNET>' + carnet + '</CARNET>' +
-              '<UNIDAD>' + unidad + '</UNIDAD>' +
-              '<EXTENSION>' + extension + '</EXTENSION>' +
-              '<CARRERA>' + carrera + '</CARRERA>' +
-              '<NOMBRE>' + nombre + '</NOMBRE>' +
-              '<MONTO>' + monto + '</MONTO>' +
-              '<DETALLE_ORDEN_PAGO>' +
-                  '<ANIO_TEMPORADA>' + aniotemporada + '</ANIO_TEMPORADA>' +
-                  '<ID_RUBRO>' + idrubro + '</ID_RUBRO>' +
-                  '<ID_VARIANTE_RUBRO>' + idvarianterubro + '</ID_VARIANTE_RUBRO>' +
-                  '<SUBTOTAL>' + subotal + '</SUBTOTAL>' +
-              '</DETALLE_ORDEN_PAGO>' +
-            '</GENERAR_ORDEN>'
+      '<CARNET>' + carnet + '</CARNET>' +
+      '<UNIDAD>' + unidad + '</UNIDAD>' +
+      '<EXTENSION>' + extension + '</EXTENSION>' +
+      '<CARRERA>' + carrera + '</CARRERA>' +
+      '<NOMBRE>' + nombre + '</NOMBRE>' +
+      '<MONTO>' + monto + '</MONTO>' +
+      '<DETALLE_ORDEN_PAGO>' +
+      '<ANIO_TEMPORADA>' + aniotemporada + '</ANIO_TEMPORADA>' +
+      '<ID_RUBRO>' + idrubro + '</ID_RUBRO>' +
+      '<ID_VARIANTE_RUBRO>' + idvarianterubro + '</ID_VARIANTE_RUBRO>' +
+      '<SUBTOTAL>' + subotal + '</SUBTOTAL>' +
+      '</DETALLE_ORDEN_PAGO>' +
+      '</GENERAR_ORDEN>'
   }
   const client = await soap.createClientAsync(url)
   const result = await client.generarOrdenPagoAsync(args)
@@ -48,7 +51,27 @@ exports.generarBoleta = async (req, res) => {
       rubro: result.RESPUESTA.RUBROPAGO[0],
       nombre: result.RESPUESTA.NOMBRE[0]
     })
-    res.json(respuesta)
+
+    const pago = {}
+    pago.idboleta = result.RESPUESTA.ID_ORDEN_PAGO[0]
+    pago.idpaciente = idpaciente
+    pago.monto = result.RESPUESTA.MONTO[0]
+    pago.estado = 1 // creo la boleta de pago pero no la ha pagado
+    pago.tipo = 0 // primera cita
+
+    Pago.create(pago).then(result => {
+      res.status(200).json({
+        message: 'Pago con ID = ' + result.idpago,
+        pago: respuesta
+      })
+    })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Error!',
+          error: error
+        })
+      })
+    // res.json(respuesta)
   })
 }
 

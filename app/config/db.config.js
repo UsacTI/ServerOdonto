@@ -33,5 +33,5 @@ db.Expediente = require('../models/expediente.model')(sequelize, Sequelize)
 db.Tratamiento = require('../models/tratamiento.model')(sequelize, Sequelize)
 db.Detalle_procedimiento = require('../models/detalle_procedimiento_tratamiento.model')(sequelize, Sequelize)
 db.Detalle_Usuario_paciente = require('../models/detalle_usuario_pacientes.model')(sequelize, Sequelize)
-
+db.Pago = require('../models/pago.model')(sequelize, Sequelize)
 module.exports = db

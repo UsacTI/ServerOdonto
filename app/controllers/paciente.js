@@ -2,7 +2,9 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
+const { QueryTypes } = require('sequelize')
 const Paciente = db.Paciente
+const Pago = db.Pago
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -209,6 +211,10 @@ exports.PatientsState3 = (req, res) => {
     where: { aprobacion: 3 }
   }).then(results => {
     // console.log(results)
+    // results.forEach(element => {
+    //   console.log(element.dataValues)
+    //   var dpi = element.dataValues.dpi
+    // })
     res.status(200).json({
       pacientes: results
     })
