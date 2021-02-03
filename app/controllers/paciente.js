@@ -242,7 +242,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
     and pa.aprobacion = 3;`
   )
     .then(results => {
-      // console.log(results[0])
+      console.log(results[0])
       results[0].forEach(element => {
         console.log(element.idboleta + ' ---- ' + element.idpaciente)
         const ruta = `http://localhost:8080/boleta/consulta/${element.idpaciente}/${element.idboleta}`
