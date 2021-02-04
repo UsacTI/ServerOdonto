@@ -81,8 +81,8 @@ router.post('/citas/crear', citas.createCita)
 // Citas buscar por paciente
 router.get('/citas/consultar/:id', citas.AllCitas)
 
-// Citas buscar por paciente
-router.get('/citas/consultarFecha/:id', citas.AllCitasFechas)
+// Citas buscar por paciente fecha
+router.get('/citas/consultarFecha/:id', citas.AllCitasFecha)
 
 //Abonos
 router.post('/abonos/crear', abonos.createAbono)

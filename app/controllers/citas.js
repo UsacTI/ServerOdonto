@@ -53,14 +53,32 @@ exports.searchCitas = async (req, res) => {
     })
 }
 
-exports.AllCitasFechas = (req, res) => {
+exports.AllCitas = (req, res) => {
+  const idpaciente = req.params.id
+  Cita.findAll({
+    where: { idpaciente: idpaciente }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      cita: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
+exports.AllCitasFecha = (req, res) => {
   const fecha = req.params.id
   Cita.findAll({
     where: { fecha: fecha }
   }).then(results => {
     // console.log(results)
     res.status(200).json({
-      citas: results
+      cita: results
     })
   }).catch(error => {
     // console.log(error)
