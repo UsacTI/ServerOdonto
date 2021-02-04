@@ -7,6 +7,11 @@ const Expediente = db.Expediente
 const Tratamiento = db.Tratamiento
 const { QueryTypes } = require('sequelize')
 
+/*
+Estados:
+  0: 
+*/
+
 exports.create = (req, res) => {
   const detalle = {}
   try {
@@ -14,6 +19,7 @@ exports.create = (req, res) => {
     detalle.idexpediente = req.body.idexpediente
     detalle.idusuario = req.body.idusuario
     detalle.pieza = req.body.pieza
+    detalle.estado = 0
     Detalle_procedimiento.create(detalle).then(result => {
       res.status(200).json({
         message: 'Detalle Procedimiento creado correctamente = ' + result.id_detalle_procedimiento_tratamiento,
@@ -68,4 +74,30 @@ exports.delete = (req, res) => {
       error: error
     })
   })
+}
+
+exports.updateDetalle = async (req, res) => {
+  var iddetalleProcTrata = req.params.id
+  var estado = req.params.estado
+  try {
+    const updatedObject = {
+      estado: estado
+    }
+    const result = await Detalle_procedimiento.update(updatedObject, { returning: true, where: { id_detalle_procedimiento_tratamiento: iddetalleProcTrata } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar id expediente = ' + iddetalleProcTrata,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta de expediente [' + iddetalleProcTrata + ']',
+      expediente: updatedObject
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el expediente = ' + iddetalleProcTrata,
+      error: error.message
+    })
+  }
 }
