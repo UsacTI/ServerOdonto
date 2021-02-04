@@ -137,13 +137,13 @@ exports.loginU = (req, res) => {
   const carnet = req.body.usuario
   const pass = req.body.contrasenia
   Usuario.findOne({
-    attributes: ['idusuario', 'carne', 'cui', 'nombres', 'apellidos', 'contrasenia', 'tipousuario'],
+    attributes: ['idusuario', 'carne', 'cui', 'nombres', 'apellidos', 'contrasenia', 'tipousuario', 'usuarios_idusuario'],
     where: { carne: carnet }
   }).then(results => {
     const pass2 = results.dataValues.contrasenia
     // console.log(results.dataValues)
     // console.log(hash)
-    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario, idusuario: results.dataValues.idusuario }
+    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario, idusuario: results.dataValues.idusuario, usuarios_idusuario: results.dataValues.usuarios_idusuario }
     bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
       // console.log(result)
       if (result) {
