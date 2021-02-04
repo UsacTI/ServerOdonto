@@ -53,10 +53,10 @@ exports.searchCitas = async (req, res) => {
     })
 }
 
-exports.AllCitas = (req, res) => {
-  const idpaciente = req.params.id
+exports.AllCitasFechas = (req, res) => {
+  const fecha = req.params.id
   Cita.findAll({
-    where: { idpaciente: idpaciente }
+    where: { fecha: fecha }
   }).then(results => {
     // console.log(results)
     res.status(200).json({
