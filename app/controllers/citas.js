@@ -75,7 +75,7 @@ exports.AllCitasFecha = (req, res) => {
   const fecha = req.params.id
   console.log(fecha)
   Cita.findAll({
-    where: { fecha: fecha }
+    where: { fecha: String(fecha) }
   }).then(results => {
     // console.log(results)
     res.status(200).json({
