@@ -97,7 +97,7 @@ exports.searchCitasIdUsuario = async (req, res) => {
     ` select * from citas as c 
     inner join detalle_procedimiento_tratamientos as dpt on dpt.id_detalle_procedimiento_tratamiento = c.id_detalle_procedimiento_tratamiento
     inner join tratamientos as t on t.idtratamiento = dpt.idtratamiento
-    where dpt.idusuario = ? and dpt.fecha= ?;`,
+    where dpt.idusuario = ? and c.fecha= ?;`,
     {
       replacements: [idus, fecha],
       type: QueryTypes.SELECT
