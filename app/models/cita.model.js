@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     doctor: {
       type: Sequelize.STRING
+    },
+    hora: {
+      type: Sequelize.STRING
     }
 
   })
