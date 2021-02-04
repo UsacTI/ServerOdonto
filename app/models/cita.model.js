@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Cita = sequelize.define('cita', {
+  const Cita = sequelize.define('citas', {
     idcita: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -19,6 +19,5 @@ module.exports = (sequelize, Sequelize) => {
     }
 
   })
-
   return Cita
 }
