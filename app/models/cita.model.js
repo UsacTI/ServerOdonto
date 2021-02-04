@@ -12,10 +12,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     fecha: {
-      type: Sequelize.Date
+      type: Sequelize.DATE
     },
     doctor: {
-      type: Sequelize.String
+      type: Sequelize.STRING
     }
 
   })
