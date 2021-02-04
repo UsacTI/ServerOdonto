@@ -8,17 +8,14 @@ exports.createCita = (req, res) => {
   const cita = {}
   try {
     cita.idpaciente = req.body.idpaciente
-    cita.tratamiento = req.body.tratamiento
+    cita.id_detalle_procedimiento_tratamiento = req.body.id_detalle_procedimiento_tratamiento
     cita.fecha = req.body.fecha
+    cita.doctor = req.body.doctor
     Cita.create(cita).then(result => {
       res.status(200).json({
         message: 'Cita creada con el ID = ' + result.idpaciente,
         citas: result
       })
-    })
-    res.status(200).json({
-      message: 'Cita creada con el ID = ' + cita.idpaciente,
-      paciente: cita
     })
   } catch (error) {
     res.status(500).json({
@@ -54,4 +51,22 @@ exports.searchCitas = async (req, res) => {
         error: error
       })
     })
+}
+
+exports.AllCitas = (req, res) => {
+  const idpaciente = req.params.id
+  Cita.findAll({
+    where: { idpaciente: idpaciente }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      citas: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
 }
