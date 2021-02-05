@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     pieza: {
       type: Sequelize.INTEGER
+    },
+    estado: {
+      type: Sequelize.INTEGER
     }
   }
   )

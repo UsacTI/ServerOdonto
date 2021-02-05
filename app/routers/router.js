@@ -153,6 +153,9 @@ router.get('/Comprobacion/boleta/', patients.PacientesTipo3Comprobacion)
 // Actualizar Detalle Procedimiento tratamiento
 router.put('/detalleProcedimientoTratamiento/update/:id/:estado', detalleProcedimiento.updateDetalle)
 
+// Buscar Detalle Procedimiento tratamiento idusuario
+router.get('/detalleProcedimientoTratamiento/buscar/:id/', detalleProcedimiento.BuscarDetalleProcedimientoIdusuario)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

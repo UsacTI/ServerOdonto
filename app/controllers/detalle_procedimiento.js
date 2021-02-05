@@ -101,3 +101,21 @@ exports.updateDetalle = async (req, res) => {
     })
   }
 }
+
+exports.BuscarDetalleProcedimientoIdusuario = async (req, res) => {
+  const idusuario = req.params.id
+  Detalle_procedimiento.findAll({
+    where: { idusuario: idusuario }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      cita: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
