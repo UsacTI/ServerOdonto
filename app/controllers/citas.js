@@ -1,5 +1,3 @@
-const saltRounds = 10
-const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Cita = db.Cita
 const { QueryTypes } = require('sequelize')

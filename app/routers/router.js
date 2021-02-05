@@ -75,7 +75,7 @@ router.get('/users/state3/', users.UserState3)
 // router.get('/api/customers/all', customers.retrieveAllCustomers)
 router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 
-//Citas
+// Citas
 router.post('/citas/crear', citas.createCita)
 
 // Citas buscar por paciente
@@ -90,7 +90,7 @@ router.get('/citas/consultarTodasIdusuario/:id', citas.AllCitasporidUsuario)
 // Citas buscar por usuario
 router.get('/citas/consultarTodasIdpaciente/:id', citas.AllCitasporidPaciente)
 
-//Abonos
+// Abonos
 router.post('/abonos/crear', abonos.createAbono)
 
 // Registrar Expediente
