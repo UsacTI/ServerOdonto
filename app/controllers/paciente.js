@@ -42,6 +42,7 @@ exports.createPaciente = (req, res) => {
     paciente.tipopaciente = req.body.tipopaciente
     paciente.consulta = req.body.consulta
     paciente.doctor = req.body.doctor
+    paciente.correo = req.body.correo
     paciente.aprobacion = 1
 
     bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
@@ -80,6 +81,7 @@ exports.createPacienteTrab = (req, res) => {
     paciente.direccion = req.body.direccion
     paciente.telefono = req.body.telefono
     paciente.consulta = req.body.consulta
+    paciente.correo = req.body.correo
     paciente.tipopaciente = 5 // no clasificado
     paciente.aprobacion = 0
 
@@ -134,7 +136,8 @@ exports.updateById = async (req, res) => {
         transporte: req.body.transporte,
         doctor: req.body.doctor,
         consulta: req.body.consulta,
-        tipopaciente: req.body.tipopaciente
+        tipopaciente: req.body.tipopaciente,
+        correo: req.body.correo
       }
       const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
       if (!result) {
