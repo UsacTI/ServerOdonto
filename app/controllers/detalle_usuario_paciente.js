@@ -102,27 +102,28 @@ exports.BuscarPacientesParaEstudiantes = async (req, res) => {
 }
 
 exports.BuscarDetallePacienteUsuario = async (req, res) => {
-  const idusuario = req.params.id
+  const estado = req.params.estado
   await db.sequelize.query(
-    `select us.idusuario, p.idpaciente, p.nombres, p.apellidos, us.nombres as "nombresUs", us.apellidos as "apellidoUs"
+    `select us.idusuario, p.idpaciente, p.nombres, p.apellidos, us.nombres as "nombresUs", us.apellidos as "apellidoUs", ex.aprobar_expediente
     from usuarios as us
     inner join detalle_usuario_pacientes as dup on dup.idusuario = us.idusuario
     inner join pacientes as p on p.idpaciente = dup.idpaciente
-    where us.idusuario = ?;`,
+    inner join expedientes as ex on ex.idpaciente = dup.idpaciente
+    where ex.aprobar_expediente = ?;`,
     {
-      replacements: [idusuario],
+      replacements: [estado],
       type: QueryTypes.SELECT
     }
   )
     .then(results => {
       res.status(200).json({
-        message: 'Detalle Procedimiento con ID = ' + idusuario,
+        message: 'Estado de expediente aprobar_expediente = ' + estado,
         detalle: results
       })
     })
     .catch(error => {
       res.status(500).json({
-        message: 'No se encontró el Detalle Procedimiento con ID =' + idusuario,
+        message: 'No se encontró el Detalle Procedimiento con aprobar_expediente =' + estado,
         error: error
       })
     })

@@ -157,7 +157,7 @@ router.put('/detalleProcedimientoTratamiento/update/:id/:estado', detalleProcedi
 router.get('/detalleProcedimientoTratamiento/buscar/:id/', detalleProcedimiento.BuscarDetalleProcedimientoIdusuario)
 
 // Buscar pacientes detalle y usuario
-router.get('/BuscarDetallePacienteUsuario/:id', detalleEstudiantePaciente.BuscarDetallePacienteUsuario)
+router.get('/BuscarDetallePacienteUsuario/:estado', detalleEstudiantePaciente.BuscarDetallePacienteUsuario)
 
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
