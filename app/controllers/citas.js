@@ -125,6 +125,7 @@ exports.AllCitasporidUsuario = async (req, res) => {
     `select * from citas as c 
     inner join detalle_procedimiento_tratamientos as dpt on dpt.id_detalle_procedimiento_tratamiento = c.id_detalle_procedimiento_tratamiento
     inner join tratamientos as t on t.idtratamiento = dpt.idtratamiento
+    inner join pacientes as p on p.idpaciente = c.idpaciente
     where dpt.idusuario = ? ;`,
     {
       replacements: [idus],
