@@ -146,3 +146,31 @@ exports.AllCitasporidUsuario = async (req, res) => {
       })
     })
 }
+
+exports.AllCitasporidPaciente = async (req, res) => {
+  const idus = req.params.id
+  await db.sequelize.query(
+    `select * from citas as c 
+    inner join detalle_procedimiento_tratamientos as dpt on dpt.id_detalle_procedimiento_tratamiento = c.id_detalle_procedimiento_tratamiento
+    inner join tratamientos as t on t.idtratamiento = dpt.idtratamiento
+    inner join pacientes as p on p.idpaciente = c.idpaciente
+    where c.idpaciente = ? ;`,
+    {
+      replacements: [idus],
+      type: QueryTypes.SELECT
+    }
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'Citas con con ID usuario = ' + idus,
+        citas: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró la cita con ID usuario =' + idus,
+        error: error
+      })
+    })
+}
