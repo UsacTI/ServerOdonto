@@ -28,7 +28,9 @@ exports.createExpediente = (req, res) => {
     expediente.equipo_diagnostico = req.body.equipo_diagnostico
     expediente.diagnostico = req.body.diagnostico
     expediente.idpaciente = req.body.idpaciente
-    expediente.radiografia = "" // req.body.radiografia
+    expediente.radiografia = '' // req.body.radiografia
+    expediente.aprobar_expediente = 0
+    expediente.aprobar_plan = 0
 
     Expediente.create(expediente).then(result => {
       res.status(200).json({
