@@ -214,6 +214,24 @@ exports.PatientsState1 = (req, res) => {
   })
 }
 
+exports.PatientsState0 = (req, res) => {
+  Paciente.findAll({
+    attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
+    where: { aprobacion: 0 }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pacientes: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
 exports.PatientsState3 = (req, res) => {
   Paciente.findAll({
     attributes: ['idpaciente', 'usuario', 'apellidos', 'nombres', 'dpi'],
