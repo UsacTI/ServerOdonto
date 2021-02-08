@@ -109,8 +109,9 @@ exports.update = async (req, res) => {
       estudios_especiales: req.body.estudios_especiales,
       equipo_diagnostico: req.body.equipo_diagnostico,
       diagnostico: req.body.diagnostico,
-      radiografia: req.body.radiografia,
-      expediente: 0
+      radiografia: req.body.radiografia
+      // aprobar_expediente: 0
+      // aprobar_plan: 0
     }
     const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
     if (!result) {
