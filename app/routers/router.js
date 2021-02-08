@@ -160,7 +160,7 @@ router.put('/detalleProcedimientoTratamiento/update/:id/:estado', detalleProcedi
 router.get('/detalleProcedimientoTratamiento/buscar/:id/', detalleProcedimiento.BuscarDetalleProcedimientoIdusuario)
 
 // Buscar pacientes detalle y usuario
-router.get('/BuscarDetallePacienteUsuario/:estado', detalleEstudiantePaciente.BuscarDetallePacienteUsuario)
+router.get('/BuscarDetallePacienteUsuario/:idprofesor', detalleEstudiantePaciente.BuscarDetallePacienteUsuario)
 
 // Update Expediente aprobar_expediente
 router.put('/updateExpediente/:id', expediente.updateExpediente)

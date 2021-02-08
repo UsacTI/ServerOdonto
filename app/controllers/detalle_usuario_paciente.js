@@ -102,28 +102,28 @@ exports.BuscarPacientesParaEstudiantes = async (req, res) => {
 }
 
 exports.BuscarDetallePacienteUsuario = async (req, res) => {
-  const estado = req.params.estado
+  const idprofesor = req.params.idprofesor
   await db.sequelize.query(
     `select us.idusuario, p.idpaciente, p.nombres, p.apellidos, us.nombres as "nombresUs", us.apellidos as "apellidoUs", ex.aprobar_expediente, ex.idexpediente
     from usuarios as us
     inner join detalle_usuario_pacientes as dup on dup.idusuario = us.idusuario
     inner join pacientes as p on p.idpaciente = dup.idpaciente
     inner join expedientes as ex on ex.idpaciente = dup.idpaciente
-    where ex.aprobar_expediente = ?;`,
+    where us.usuarios_idusuario = ?`,
     {
-      replacements: [estado],
+      replacements: [idprofesor],
       type: QueryTypes.SELECT
     }
   )
     .then(results => {
       res.status(200).json({
-        message: 'Estado de expediente aprobar_expediente = ' + estado,
+        message: 'Encargado idprofesor = ' + idprofesor,
         detalle: results
       })
     })
     .catch(error => {
       res.status(500).json({
-        message: 'Estado de expediente aprobar_expediente  =' + estado,
+        message: 'Erro, no existe el Idprofesor =' + idprofesor,
         error: error
       })
     })
