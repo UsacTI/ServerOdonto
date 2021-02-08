@@ -206,3 +206,24 @@ exports.InsertarRadiografia = async (req, res) => {
     })
   }
 }
+
+exports.BuscarRadiografia = (req, res) => {
+  const id = req.params.id
+  Expediente.findOne({
+    where: { idexpediente: id },
+    attributes: ['radiografia']
+  })
+    .then(results => {
+      res.status(200).json({
+        message: 'Expediente con ID = ' + id,
+        expediente: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Expediente con ID =' + id,
+        error: error
+      })
+    })
+}
