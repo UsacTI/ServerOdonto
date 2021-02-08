@@ -168,6 +168,9 @@ router.put('/updateExpediente/:id', expediente.updateExpediente)
 // Update Expediente aprobar_plan
 router.put('/updateExpedientePlan/:id', expediente.updateExpedientePlan)
 
+// Insertar Radiografia
+router.put('/insertarRadiografia/:id', expediente.InsertarRadiografia)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

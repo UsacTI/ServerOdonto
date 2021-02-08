@@ -181,3 +181,28 @@ exports.updateExpedientePlan = async (req, res) => {
     })
   }
 }
+
+exports.InsertarRadiografia = async (req, res) => {
+  var idexpediente = req.params.id
+  try {
+    const updatedObject = {
+      radiografia: req.body.radiografia
+    }
+    const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar id expediente = ' + idexpediente,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta de expediente [' + idexpediente + ']',
+      expediente: updatedObject
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'No se pudo actualizar el expediente = ' + idexpediente,
+      error: error.message
+    })
+  }
+}
