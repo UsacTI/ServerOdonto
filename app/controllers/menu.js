@@ -9,7 +9,7 @@ exports.Menus = (req, res) => {
   Menu.findAll({
     attributes: ['nombre', 'descripcion', 'url', 'icono'],
     where: { tipousuario: tipmenu },
-    order: ['nombre','DESC'] // ASC
+    order: ['nombre', 'DESC'] // ASC
   }).then(results => {
     // console.log(results)
     res.status(200).json({
