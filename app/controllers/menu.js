@@ -7,7 +7,7 @@ const Menu = db.Menu
 exports.Menus = (req, res) => {
   const tipmenu = req.body.tipomenu
   Menu.findAll({
-    order: [['nombre', 'DESC']], // ASC
+    order: [['nombre', 'ASC']], // ASC
     where: { tipousuario: tipmenu },
     attributes: ['nombre', 'descripcion', 'url', 'icono']
   }).then(results => {
