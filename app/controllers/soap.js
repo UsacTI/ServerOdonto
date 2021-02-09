@@ -205,6 +205,26 @@ exports.todosLosPagos = (req, res) => {
   })
 }
 
+exports.todosLosPagos = (req, res) => {
+  const idpaciente = req.params.id
+  Pago.findAll({
+    order: [['fecha', 'DESC']],
+    where: { idpaciente: idpaciente, tipo: 0 },
+    attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha']
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pago: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
 exports.sumaTodosLosPagos = (req, res) => {
   const idpaciente = req.params.id
   Pago.findAll({
@@ -214,7 +234,7 @@ exports.sumaTodosLosPagos = (req, res) => {
   }).then(results => {
     // console.log(results)
     res.status(200).json({
-      pago: results
+      pago: results[0]
     })
   }).catch(error => {
     // console.log(error)
