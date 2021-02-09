@@ -2,6 +2,7 @@ const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Expediente = db.Expediente
+const { QueryTypes } = require('sequelize')
 
 exports.createExpediente = (req, res) => {
   const expediente = {}
@@ -186,27 +187,31 @@ exports.updateExpedientePlan = async (req, res) => {
 
 exports.InsertarRadiografia = async (req, res) => {
   var idexpediente = req.params.id
-  try {
-    const updatedObject = {
-      radiografia: req.body.radiografia
+  var radiografia = req.body.radiografia
+  console.log(idexpediente)
+  console.log(radiografia)
+  await db.sequelize.query(
+    `update expedientes
+    set radiografia= ?
+    where idexpediente = ?;`,
+    {
+      replacements: [radiografia, idexpediente],
+      type: QueryTypes.SELECT
     }
-    const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
-    if (!result) {
-      res.status(500).json({
-        message: 'No se pudo actualizar id expediente = ' + idexpediente,
-        error: 'No se actualizó'
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'Expediente radiografia con ID = ' + id,
+        tratamientos: results
       })
-    }
-    res.status(200).json({
-      message: 'Actualización correcta de expediente [' + idexpediente + ']',
-      expediente: updatedObject
     })
-  } catch (error) {
-    res.status(500).json({
-      message: 'No se pudo actualizar el expediente = ' + idexpediente,
-      error: error.message
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Expediente ID =' + id,
+        error: error
+      })
     })
-  }
 }
 
 exports.BuscarRadiografia = (req, res) => {
