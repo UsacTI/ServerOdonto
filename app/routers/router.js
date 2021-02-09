@@ -22,8 +22,6 @@ router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
 
 app.use(express.json({ limit: '100mb' }))
-app.use(bodyParser.urlencoded({ limit: '100mb', extended: true, parameterLimit: 1000000 }))
-app.use(bodyParser({ limit: '100mb' }))
 // Login
 router.post('/login', customers.login)
 
