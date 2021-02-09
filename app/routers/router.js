@@ -150,6 +150,9 @@ router.post('/boleta/crearAbono/', soap.generarBoletaAbono)
 // CoNSULTAR BOLETAS
 router.get('/boleta/consulta/:id', soap.todosLosPagos)
 
+// CoNSULTAR LA SUMA DE PAGOS BOLETAS
+router.get('/boleta/consultaSumPagos/:id', soap.sumaTodosLosPagos)
+
 // CONSULTAR BOLETAS
 router.get('/boleta/consulta/:idcarnet/:boleta', soap.consultarBoleta)
 

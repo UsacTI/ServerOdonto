@@ -1,6 +1,7 @@
 var soap = require('soap')
 const db = require('../config/db.config')
 const Pago = db.Pago
+const { sequelize } = require('sequelize')
 const url = 'https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracionOrdenPagoV2SoapHttpPort?WSDL'
 var parseString = require('xml2js').parseString
 
@@ -58,7 +59,7 @@ exports.generarBoleta = async (req, res) => {
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 0 // primera cita
-    pago.fecha = fechahoy.getDate() + "-" + (fechahoy.getMonth() +1) + "-" + fechahoy.getFullYear()
+    pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
@@ -167,7 +168,7 @@ exports.generarBoletaAbono = async (req, res) => {
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 1 // Abono
-    pago.fecha = fechahoy.getDate() + "-" + (fechahoy.getMonth() +1) + "-" + fechahoy.getFullYear()
+    pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
@@ -188,8 +189,28 @@ exports.todosLosPagos = (req, res) => {
   const idpaciente = req.params.id
   Pago.findAll({
     order: [['fecha', 'DESC']],
+    where: { idpaciente: idpaciente, tipo: 0 },
+    attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha']
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pago: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
+exports.sumaTodosLosPagos = (req, res) => {
+  const idpaciente = req.params.id
+  Pago.findAll({
     where: { idpaciente: idpaciente },
-    attributes: ['idboleta', 'monto', 'estado', 'tipo', 'idpaciente', 'fecha']
+    attributes: [[db.sequelize.fn('sum', db.sequelize.col('monto')), 'total_de_pagos']],
+    group: ['idpaciente']
   }).then(results => {
     // console.log(results)
     res.status(200).json({
