@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-
+const app = express()
+var bodyParser = require('body-parser')
 const customers = require('../controllers/controller.js')
 const patients = require('../controllers/paciente.js')
 const users = require('../controllers/usuario.js')
@@ -19,7 +20,8 @@ router.post('/api/customers/create', customers.create) // http://localhost:8080/
 router.post('/api/customers/createP', customers.createPaciente)
 router.get('/api/customers/prueba', ensure_token, customers.prueba)
 router.post('/api/queryPaciente/prueba2', querypacients.query)
-
+app.use(express.json({ limit: '100mb' }))
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true, parameterLimit: 1000000 }))
 // Login
 router.post('/login', customers.login)
 
