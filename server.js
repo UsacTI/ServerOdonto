@@ -28,8 +28,8 @@ app.use(cors(corsOptions))
 // })
 
 app.use(bodyParser.json())
-app.use(express.json({ limit: '50mb' }))
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 500000 }))
+app.use(express.json({ limit: '100mb' }))
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true, parameterLimit: 1000000 }))
 app.use('/', router)
 
 // Create a Server
