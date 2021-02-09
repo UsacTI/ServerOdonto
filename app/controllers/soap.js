@@ -228,7 +228,7 @@ exports.todosLosPagosAbono = (req, res) => {
 exports.sumaTodosLosPagos = (req, res) => {
   const idpaciente = req.params.id
   Pago.findAll({
-    where: { idpaciente: idpaciente },
+    where: { idpaciente: idpaciente, tipo: 1 },
     attributes: [[db.sequelize.fn('sum', db.sequelize.col('monto')), 'total_de_pagos']],
     group: ['idpaciente']
   }).then(results => {
