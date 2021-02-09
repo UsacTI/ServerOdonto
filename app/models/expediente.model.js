@@ -72,7 +72,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     radiografia: {
-      type: Sequelize.STRING(200000)
+      type: Sequelize.TEXT
     },
     aprobar_expediente: {
       type: Sequelize.INTEGER
