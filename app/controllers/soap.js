@@ -5,6 +5,7 @@ const url = 'https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracio
 var parseString = require('xml2js').parseString
 
 exports.generarBoleta = async (req, res) => {
+  var fechahoy = new Date()
   var carnet = req.body.carnet
   var unidad = req.body.unidad
   var extension = req.body.extension
@@ -51,14 +52,13 @@ exports.generarBoleta = async (req, res) => {
       rubro: result.RESPUESTA.RUBROPAGO[0],
       nombre: result.RESPUESTA.NOMBRE[0]
     })
-
     const pago = {}
     pago.idboleta = result.RESPUESTA.ID_ORDEN_PAGO[0]
     pago.idpaciente = idpaciente
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 0 // primera cita
-
+    pago.fecha = fechahoy.getDate() + "-" + (fechahoy.getMonth() +1) + "-" + fechahoy.getFullYear()
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
@@ -110,5 +110,96 @@ exports.consultarBoleta = async (req, res) => {
       CARRERA: result.RESPUESTA.CARRERA[0]
     })
     res.json(respuesta)
+  })
+}
+
+exports.generarBoletaAbono = async (req, res) => {
+  var fechahoy = new Date()
+  var carnet = req.body.carnet
+  var unidad = req.body.unidad
+  var extension = req.body.extension
+  var carrera = req.body.carrera
+  var nombre = req.body.nombre
+  var monto = req.body.monto
+  var aniotemporada = req.body.anio_temporada
+  var idrubro = req.body.id_rubro
+  var idvarianterubro = req.body.id_variante_rubro
+  var subotal = req.body.subotal
+  var idpaciente = req.body.idpaciente
+
+  const args = {
+    pxml: '<GENERAR_ORDEN>' +
+      '<CARNET>' + carnet + '</CARNET>' +
+      '<UNIDAD>' + unidad + '</UNIDAD>' +
+      '<EXTENSION>' + extension + '</EXTENSION>' +
+      '<CARRERA>' + carrera + '</CARRERA>' +
+      '<NOMBRE>' + nombre + '</NOMBRE>' +
+      '<MONTO>' + monto + '</MONTO>' +
+      '<DETALLE_ORDEN_PAGO>' +
+      '<ANIO_TEMPORADA>' + aniotemporada + '</ANIO_TEMPORADA>' +
+      '<ID_RUBRO>' + idrubro + '</ID_RUBRO>' +
+      '<ID_VARIANTE_RUBRO>' + idvarianterubro + '</ID_VARIANTE_RUBRO>' +
+      '<SUBTOTAL>' + subotal + '</SUBTOTAL>' +
+      '</DETALLE_ORDEN_PAGO>' +
+      '</GENERAR_ORDEN>'
+  }
+  const client = await soap.createClientAsync(url)
+  const result = await client.generarOrdenPagoAsync(args)
+  // console.log(String(result[0].result).split('|'))
+  // console.log(result[0].result)
+
+  parseString(result[0].result, (err, result) => {
+    console.dir(result.RESPUESTA)
+    // console.log(result.CODIGO_RESP)
+    var respuesta = JSON.stringify({
+      codigo_resp: result.RESPUESTA.CODIGO_RESP[0],
+      descripcion: result.RESPUESTA.DESCRIPCION[0],
+      id_orden_pago: result.RESPUESTA.ID_ORDEN_PAGO[0],
+      monto: result.RESPUESTA.MONTO[0],
+      fecha: result.RESPUESTA.FECHA[0],
+      checksum: result.RESPUESTA.CHECKSUM[0],
+      rubro: result.RESPUESTA.RUBROPAGO[0],
+      nombre: result.RESPUESTA.NOMBRE[0]
+    })
+    const pago = {}
+    pago.idboleta = result.RESPUESTA.ID_ORDEN_PAGO[0]
+    pago.idpaciente = idpaciente
+    pago.monto = result.RESPUESTA.MONTO[0]
+    pago.estado = 1 // creo la boleta de pago pero no la ha pagado
+    pago.tipo = 1 // Abono
+    pago.fecha = fechahoy.getDate() + "-" + (fechahoy.getMonth() +1) + "-" + fechahoy.getFullYear()
+    Pago.create(pago).then(result => {
+      res.status(200).json({
+        message: 'Pago con ID = ' + result.idpago,
+        pago: respuesta
+      })
+    })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Error!',
+          error: error
+        })
+      })
+    // res.json(respuesta)
+  })
+}
+
+exports.todosLosPagos = (req, res) => {
+  const idpaciente = req.params.id
+  Pago.findAll({
+    order: [['fecha', 'DESC']],
+    where: { idpaciente: idpaciente },
+    attributes: ['idboleta', 'monto', 'estado', 'tipo', 'idpaciente', 'fecha']
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pago: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
   })
 }

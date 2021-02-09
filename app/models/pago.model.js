@@ -19,6 +19,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     tipo: {
       type: Sequelize.INTEGER
+    },
+    fecha: {
+      type: Sequelize.DATE
     }
   }
   )

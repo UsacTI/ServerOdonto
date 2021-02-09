@@ -144,6 +144,12 @@ router.get('/citas/buscar/:id', citas.searchCitas)
 // CREAR BOLETAS
 router.post('/boleta/crear/', soap.generarBoleta)
 
+// CREAR BOLETAS ABONO
+router.post('/boleta/crearAbono/', soap.generarBoletaAbono)
+
+// CoNSULTAR BOLETAS
+router.get('/boleta/consulta/:id', soap.todosLosPagos)
+
 // CONSULTAR BOLETAS
 router.get('/boleta/consulta/:idcarnet/:boleta', soap.consultarBoleta)
 
