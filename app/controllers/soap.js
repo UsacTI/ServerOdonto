@@ -205,11 +205,11 @@ exports.todosLosPagos = (req, res) => {
   })
 }
 
-exports.todosLosPagos = (req, res) => {
+exports.todosLosPagosAbono = (req, res) => {
   const idpaciente = req.params.id
   Pago.findAll({
     order: [['fecha', 'DESC']],
-    where: { idpaciente: idpaciente, tipo: 0 },
+    where: { idpaciente: idpaciente, tipo: 1 },
     attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha']
   }).then(results => {
     // console.log(results)
