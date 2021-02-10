@@ -192,6 +192,8 @@ exports.InsertarRadiografia = async (req, res) => {
   console.log(req.files.images)
   console.log('-------------------------------------')
   console.log(String(req.files.images))
+  console.log('-------------------------------------')
+  console.log('"' + req.files.images + '"')
   // console.log(req.files.images.File)
   // console.log(req.files)
 
