@@ -190,28 +190,28 @@ exports.InsertarRadiografia = async (req, res) => {
   var radiografia = req.body.radiografia
   console.log(idexpediente)
   console.log(radiografia)
-  await db.sequelize.query(
-    `update expedientes
-    set radiografia= ?
-    where idexpediente = ?;`,
-    {
-      replacements: [radiografia, idexpediente],
-      type: QueryTypes.SELECT
-    }
-  )
-    .then(results => {
-      res.status(200).json({
-        message: 'Expediente radiografia con ID = ' + idexpediente,
-        tratamientos: results
-      })
-    })
-    .catch(error => {
-      // console.log(error)
-      res.status(500).json({
-        message: 'No se encontró el Expediente ID =' + idexpediente,
-        error: error
-      })
-    })
+  // await db.sequelize.query(
+  //   `update expedientes
+  //   set radiografia= ?
+  //   where idexpediente = ?;`,
+  //   {
+  //     replacements: [radiografia, idexpediente],
+  //     type: QueryTypes.SELECT
+  //   }
+  // )
+  //   .then(results => {
+  //     res.status(200).json({
+  //       message: 'Expediente radiografia con ID = ' + idexpediente,
+  //       tratamientos: results
+  //     })
+  //   })
+  //   .catch(error => {
+  //     // console.log(error)
+  //     res.status(500).json({
+  //       message: 'No se encontró el Expediente ID =' + idexpediente,
+  //       error: error
+  //     })
+  //   })
 }
 
 exports.BuscarRadiografia = (req, res) => {
