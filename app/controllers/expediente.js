@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Expediente = db.Expediente
 const { QueryTypes } = require('sequelize')
+var FormData = require('form-data')
 
 exports.createExpediente = (req, res) => {
   const expediente = {}
