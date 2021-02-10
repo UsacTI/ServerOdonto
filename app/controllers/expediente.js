@@ -189,9 +189,9 @@ exports.updateExpedientePlan = async (req, res) => {
 exports.InsertarRadiografia = async (req, res) => {
   var idexpediente = req.params.id
   console.log(idexpediente)
-  console.log(req.files.images)
-  var encodedString = Buffer.from(req.files.images).toString('base64')
-  console.log(encodedString)
+  console.log(req.files)
+  // var encodedString = Buffer.from(req.files.images).toString('base64')
+  // console.log(encodedString)
 
   // await db.sequelize.query(
   //   `update expedientes
