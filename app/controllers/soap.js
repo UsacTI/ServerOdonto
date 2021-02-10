@@ -210,7 +210,7 @@ exports.todosLosPagos = (req, res) => {
 exports.todosLosPagosAbono = (req, res) => {
   const id = req.params.id
   db.sequelize.query(
-    `select p.idboleta, p.monto, p.estado, p.idpaciente, p.fecha, p.descripcion
+    `select p.idboleta, p.monto, p.estado, p.idpaciente, p.fecha, p.descripcion, p.tipo
     from pagos as p
     where p.idpaciente = ?
     and ( tipo = 1
