@@ -189,9 +189,8 @@ exports.InsertarRadiografia = async (req, res) => {
   var idexpediente = req.params.id
   var radiografia = req.body.radiografia
   console.log(idexpediente)
-  console.log(radiografia)
-  console.log(req)
-  console.log(req.files)
+  var fors = new FormData(req)
+  console.log(fors.entries()[0])
   // await db.sequelize.query(
   //   `update expedientes
   //   set radiografia= ?
