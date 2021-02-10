@@ -191,7 +191,7 @@ exports.InsertarRadiografia = async (req, res) => {
   console.log(idexpediente)
   console.log(req.files.images)
   console.log('-------------------------------------')
-  console.log(req.files.images.File[0])
+  console.log(req.files.images.File)
   //console.log(req.files)
   var datos = new File (req.files.images)
 
