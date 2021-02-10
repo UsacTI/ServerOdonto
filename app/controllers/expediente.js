@@ -190,6 +190,8 @@ exports.InsertarRadiografia = async (req, res) => {
   var radiografia = req.body.radiografia
   console.log(idexpediente)
   console.log(radiografia)
+  console.log(req)
+  console.log(req.files)
   // await db.sequelize.query(
   //   `update expedientes
   //   set radiografia= ?
