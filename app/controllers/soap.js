@@ -192,7 +192,7 @@ exports.todosLosPagos = (req, res) => {
   Pago.findAll({
     order: [['fecha', 'DESC']],
     where: { idpaciente: idpaciente, tipo: 0 },
-    attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha']
+    attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha', 'descripcion']
   }).then(results => {
     // console.log(results)
     res.status(200).json({
@@ -208,23 +208,32 @@ exports.todosLosPagos = (req, res) => {
 }
 
 exports.todosLosPagosAbono = (req, res) => {
-  const idpaciente = req.params.id
-  Pago.findAll({
-    order: [['fecha', 'DESC']],
-    where: { idpaciente: idpaciente, tipo: 1 },
-    attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha']
-  }).then(results => {
-    // console.log(results)
-    res.status(200).json({
-      pago: results
+  const id = req.params.id
+  db.sequelize.query(
+    `select p.idboleta, p.monto, p.estado, p.idpaciente, p.fecha, p.descripcion
+    from pagos as p
+    where p.idpaciente = ?
+    and ( tipo = 1
+    or tipo = 2 )
+    order by fecha desc;`,
+    {
+      replacements: [id],
+      type: QueryTypes.SELECT
+    }
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'pago idpaciente con ID = ' + id,
+        pago: results
+      })
     })
-  }).catch(error => {
-    // console.log(error)
-    res.status(500).json({
-      message: 'Error!',
-      error: error
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el pago idpaciente =' + id,
+        error: error
+      })
     })
-  })
 }
 
 exports.sumaTodosLosPagos = (req, res) => {
