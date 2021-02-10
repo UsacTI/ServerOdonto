@@ -189,7 +189,7 @@ exports.updateExpedientePlan = async (req, res) => {
 exports.InsertarRadiografia = async (req, res) => {
   var idexpediente = req.params.id
   console.log(idexpediente)
-  console.log(req.files)
+  console.log(req.files.images[0])
   // var encodedString = Buffer.from(req.files.images).toString('base64')
   // console.log(encodedString)
 
