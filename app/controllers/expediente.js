@@ -191,11 +191,11 @@ exports.InsertarRadiografia = async (req, res) => {
   var radiografia = req.body.radiografia
   console.log(idexpediente)
   console.log(radiografia)
-  const { headers, files } = req
-  const { buffer, originalname: filename } = files[0]
-  const formFile = new FormData()
-  formFile.append('file', buffer, { filename })
-  
+  // const { headers, files } = req
+  // const { buffer, originalname: filename } = files[0]
+  // const formFile = new FormData()
+  // formFile.append('file', buffer, { filename })
+
   // await db.sequelize.query(
   //   `update expedientes
   //   set radiografia= ?
