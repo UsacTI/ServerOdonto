@@ -201,14 +201,14 @@ exports.InsertarRadiografia = async (req, res) => {
   )
     .then(results => {
       res.status(200).json({
-        message: 'Expediente radiografia con ID = ' + id,
+        message: 'Expediente radiografia con ID = ' + idexpediente,
         tratamientos: results
       })
     })
     .catch(error => {
       // console.log(error)
       res.status(500).json({
-        message: 'No se encontró el Expediente ID =' + id,
+        message: 'No se encontró el Expediente ID =' + idexpediente,
         error: error
       })
     })
