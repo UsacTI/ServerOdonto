@@ -158,6 +158,9 @@ router.get('/boleta/consultaAbono/:id', soap.todosLosPagosAbono)
 // CoNSULTAR LA SUMA DE PAGOS BOLETAS
 router.get('/boleta/consultaSumPagos/:id', soap.sumaTodosLosPagos)
 
+// CoNSULTAR CREDITO TOTAL
+router.get('/boleta/consultaCreditoTotal/:id', soap.totalCredito)
+
 // CONSULTAR BOLETAS
 router.get('/boleta/consulta/:idcarnet/:boleta', soap.consultarBoleta)
 

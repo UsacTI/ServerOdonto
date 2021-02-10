@@ -1,7 +1,7 @@
 var soap = require('soap')
 const db = require('../config/db.config')
 const Pago = db.Pago
-const { sequelize } = require('sequelize')
+const { QueryTypes } = require('sequelize')
 const url = 'https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracionOrdenPagoV2SoapHttpPort?WSDL'
 var parseString = require('xml2js').parseString
 
@@ -60,6 +60,7 @@ exports.generarBoleta = async (req, res) => {
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 0 // primera cita
     pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
+    pago.descripcion = 'Pago de primera cita'
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
@@ -127,7 +128,7 @@ exports.generarBoletaAbono = async (req, res) => {
   var idvarianterubro = req.body.id_variante_rubro
   var subotal = req.body.subotal
   var idpaciente = req.body.idpaciente
-
+  var descripciones = req.body.descripcion
   const args = {
     pxml: '<GENERAR_ORDEN>' +
       '<CARNET>' + carnet + '</CARNET>' +
@@ -168,6 +169,7 @@ exports.generarBoletaAbono = async (req, res) => {
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 1 // Abono
+    pago.descripcion = descripciones
     pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
     Pago.create(pago).then(result => {
       res.status(200).json({
@@ -243,4 +245,32 @@ exports.sumaTodosLosPagos = (req, res) => {
       error: error
     })
   })
+}
+
+exports.totalCredito = async (req, res) => {
+  const id = req.params.id
+  await db.sequelize.query(
+    `select SUM(CASE WHEN p.tipo=1 then p.monto ELSE 0 END) -
+            SUM(CASE WHEN p.tipo=2 then p.monto ELSE 0 END) as credito
+      from pagos p
+      WHERE p.idpaciente = ?
+      group by p.idpaciente;`,
+    {
+      replacements: [id],
+      type: QueryTypes.SELECT
+    }
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'pago idpaciente con ID = ' + id,
+        pago: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el pago idpaciente =' + id,
+        error: error
+      })
+    })
 }

@@ -3,8 +3,8 @@ const saltRounds = 10
 const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Detalle_procedimiento = db.Detalle_procedimiento
-const Expediente = db.Expediente
-const Tratamiento = db.Tratamiento
+// const Expediente = db.Expediente
+// const Tratamiento = db.Tratamiento
 const { QueryTypes } = require('sequelize')
 
 /*

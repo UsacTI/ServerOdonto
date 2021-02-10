@@ -22,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     fecha: {
       type: Sequelize.DATE
+    },
+    descripcion: {
+      type: Sequelize.STRING
     }
   }
   )
