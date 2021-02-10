@@ -263,7 +263,7 @@ exports.totalCredito = async (req, res) => {
     .then(results => {
       res.status(200).json({
         message: 'pago idpaciente con ID = ' + id,
-        pago: results
+        pago: results[0]
       })
     })
     .catch(error => {
