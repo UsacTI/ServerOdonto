@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const db = require('../config/db.config')
 const Expediente = db.Expediente
 const { QueryTypes } = require('sequelize')
-var FormData = require('form-data')
+var fs = require('fs')
 
 exports.createExpediente = (req, res) => {
   const expediente = {}
@@ -191,12 +191,8 @@ exports.InsertarRadiografia = async (req, res) => {
   console.log(idexpediente)
   console.log(req.files.images)
   console.log('-------------------------------------')
-  console.log(String(req.files.images))
-  console.log('-------------------------------------')
-  console.log('"' + req.files.images + '"')
-  // console.log(req.files.images.File)
-  // console.log(req.files)
-
+  var bitmap = fs.readFileSync(req.files.images)
+  console.log(new Buffer(bitmap).toString('base64'))
   // var encodedString = Buffer.from(req.files.images).toString('base64')
   // console.log(encodedString)
 
