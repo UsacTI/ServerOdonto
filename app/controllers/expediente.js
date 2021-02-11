@@ -4,9 +4,7 @@ const db = require('../config/db.config')
 const Expediente = db.Expediente
 const { QueryTypes } = require('sequelize')
 var fs = require('fs')
-const formidable = require('express-formidable')
-const express = require('express')
-const app = express()
+
 
 
 exports.createExpediente = (req, res) => {
@@ -191,6 +189,9 @@ exports.updateExpedientePlan = async (req, res) => {
 }
 
 exports.InsertarRadiografia = async (req, res) => {
+  const formidable = require('express-formidable')
+  const express = require('express')
+  const app = express()
   app.use(formidable())
   var idexpediente = req.params.id
   // console.log(idexpediente)
