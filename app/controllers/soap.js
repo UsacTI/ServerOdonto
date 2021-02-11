@@ -174,6 +174,7 @@ exports.generarBoletaAbono = async (req, res) => {
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
+        descripcion: result.descripcion,
         pago: respuesta
       })
     })
