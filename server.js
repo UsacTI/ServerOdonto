@@ -16,11 +16,7 @@ const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200
 }
-app.use(formidable({
-  encoding: 'utf-8',
-  uploadDir: '/my/dir',
-  multiples: true, // req.files to be arrays of files
-}))
+app.use(formidable())
 // app.use(formidable())
 app.use(cors(corsOptions))
 // app.use(cors({ origin: '*' }))
