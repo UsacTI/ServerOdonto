@@ -101,7 +101,7 @@ exports.consultarBoleta = async (req, res) => {
         uri: ruta,
         json: true
       }).then(datos => {
-        console.log(datos[0])
+        // console.log(datos[0])
         var respuesta = JSON.stringify({
           CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
           DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
