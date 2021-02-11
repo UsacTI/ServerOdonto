@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 var bodyParser = require('body-parser')
-const formidable = require('express-formidable')
+// const formidable = require('express-formidable')
 const db = require('./app/config/db.config.js')
 
 // force: true, soltará la tabla si ya existe
