@@ -193,44 +193,44 @@ exports.updateExpedientePlan = async (req, res) => {
 // app.use(formidable())
 
 exports.InsertarRadiografia = async (req, res) => {
-  new formidable.IncomingForm().parse(req, (err, fields, files) => {
+  new formidable.IncomingForm().parse(req, async (err, fields, files) => {
     if (err) {
       console.error('Error', err)
       throw err
     }
-    // console.log('Fields', fields)
-    console.log(files.images.path)
+    // console.log(files.images.path)
     // for (const file of Object.entries(files)) {
     //   console.log(file)
     // }
+
+    var idexpediente = req.params.id
+
+    var bitmap = fs.readFileSync(files.images.path)
+    var base64 = new Buffer(bitmap).toString('base64')
+
+    await db.sequelize.query(
+      `update expedientes
+    set radiografia= ?
+    where idexpediente = ?;`,
+      {
+        replacements: [base64, idexpediente],
+        type: QueryTypes.SELECT
+      }
+    )
+      .then(results => {
+        res.status(200).json({
+          message: 'Expediente radiografia con ID = ' + idexpediente,
+          tratamientos: results
+        })
+      })
+      .catch(error => {
+        // console.log(error)
+        res.status(500).json({
+          message: 'No se encontró el Expediente ID =' + idexpediente,
+          error: error
+        })
+      })
   })
-  var idexpediente = req.params.id
-
-  // var bitmap = fs.readFileSync(req.files.images.path)
-  // var base64 = new Buffer(bitmap).toString('base64')
-
-  // await db.sequelize.query(
-  //   `update expedientes
-  //   set radiografia= ?
-  //   where idexpediente = ?;`,
-  //   {
-  //     replacements: [base64, idexpediente],
-  //     type: QueryTypes.SELECT
-  //   }
-  // )
-  //   .then(results => {
-  //     res.status(200).json({
-  //       message: 'Expediente radiografia con ID = ' + idexpediente,
-  //       tratamientos: results
-  //     })
-  //   })
-  //   .catch(error => {
-  //     // console.log(error)
-  //     res.status(500).json({
-  //       message: 'No se encontró el Expediente ID =' + idexpediente,
-  //       error: error
-  //     })
-  //   })
 }
 
 exports.BuscarRadiografia = (req, res) => {
