@@ -16,7 +16,7 @@ const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200
 }
-app.use(formidable())
+// app.use(formidable())
 app.use(cors(corsOptions))
 // app.use(cors({ origin: '*' }))
 // app.use((req, res, next) => {
