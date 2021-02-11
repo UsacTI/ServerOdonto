@@ -7,7 +7,7 @@ var fs = require('fs')
 const formidable = require('express-formidable')
 const express = require('express')
 const app = express()
-app.use(formidable())
+
 
 exports.createExpediente = (req, res) => {
   const expediente = {}
@@ -191,6 +191,7 @@ exports.updateExpedientePlan = async (req, res) => {
 }
 
 exports.InsertarRadiografia = async (req, res) => {
+  app.use(formidable())
   var idexpediente = req.params.id
   // console.log(idexpediente)
   // console.log(req.files.images)
