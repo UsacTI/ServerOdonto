@@ -94,7 +94,7 @@ exports.consultarBoleta = async (req, res) => {
   parseString(result[0].result, (err, result) => {
     console.dir(result.RESPUESTA)
     // console.log(result.CODIGO_RESP)
-    const ruta = `http://localhost:8080/consultaPagoPorBoleta/${boleta_de_pago}`
+    const ruta = `http://localhost:8080/consultaPagoPorBoleta/11029919`
     try {
       request({
         uri: ruta,
