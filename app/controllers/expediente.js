@@ -198,8 +198,8 @@ exports.InsertarRadiografia = async (req, res) => {
       console.error('Error', err)
       throw err
     }
-    console.log('Fields', fields)
-    console.log('Files', files.images)
+    // console.log('Fields', fields)
+    console.log('Files', files.images.images.path)
     for (const file of Object.entries(files)) {
       console.log(file)
     }

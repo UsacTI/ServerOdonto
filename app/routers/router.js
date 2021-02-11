@@ -14,7 +14,6 @@ const tratamiento = require('../controllers/tratamiento.js')
 const detalleProcedimiento = require('../controllers/detalle_procedimiento.js')
 const detalleEstudiantePaciente = require('../controllers/detalle_usuario_paciente.js')
 const soap = require('../controllers/soap.js')
-const { Paciente } = require('../config/db.config.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
