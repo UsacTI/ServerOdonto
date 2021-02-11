@@ -210,7 +210,7 @@ exports.InsertarRadiografia = async (req, res) => {
 
     await db.sequelize.query(
       `update expedientes
-    set radiografia= ?
+    set radiografia = ?
     where idexpediente = ?;`,
       {
         replacements: [base64, idexpediente],
