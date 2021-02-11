@@ -188,36 +188,34 @@ exports.updateExpedientePlan = async (req, res) => {
 
 exports.InsertarRadiografia = async (req, res) => {
   var idexpediente = req.params.id
-  console.log(idexpediente)
-  console.log(req.files.images)
-  console.log('-------------------------------------')
+  // console.log(idexpediente)
+  // console.log(req.files.images)
+  // console.log('-------------------------------------')
   var bitmap = fs.readFileSync(req.files.images.path)
-  console.log(new Buffer(bitmap).toString('base64'))
-  // var encodedString = Buffer.from(req.files.images).toString('base64')
-  // console.log(encodedString)
+  var base64 = new Buffer(bitmap).toString('base64')
 
-  // await db.sequelize.query(
-  //   `update expedientes
-  //   set radiografia= ?
-  //   where idexpediente = ?;`,
-  //   {
-  //     replacements: [radiografia, idexpediente],
-  //     type: QueryTypes.SELECT
-  //   }
-  // )
-  //   .then(results => {
-  //     res.status(200).json({
-  //       message: 'Expediente radiografia con ID = ' + idexpediente,
-  //       tratamientos: results
-  //     })
-  //   })
-  //   .catch(error => {
-  //     // console.log(error)
-  //     res.status(500).json({
-  //       message: 'No se encontró el Expediente ID =' + idexpediente,
-  //       error: error
-  //     })
-  //   })
+  await db.sequelize.query(
+    `update expedientes
+    set radiografia= ?
+    where idexpediente = ?;`,
+    {
+      replacements: [base64, idexpediente],
+      type: QueryTypes.SELECT
+    }
+  )
+    .then(results => {
+      res.status(200).json({
+        message: 'Expediente radiografia con ID = ' + idexpediente,
+        tratamientos: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Expediente ID =' + idexpediente,
+        error: error
+      })
+    })
 }
 
 exports.BuscarRadiografia = (req, res) => {
