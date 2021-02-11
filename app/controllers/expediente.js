@@ -191,7 +191,7 @@ exports.InsertarRadiografia = async (req, res) => {
   console.log(idexpediente)
   console.log(req.files.images)
   console.log('-------------------------------------')
-  var bitmap = fs.readFileSync(req.files.images)
+  var bitmap = fs.readFileSync(req.files.images.path)
   console.log(new Buffer(bitmap).toString('base64'))
   // var encodedString = Buffer.from(req.files.images).toString('base64')
   // console.log(encodedString)
