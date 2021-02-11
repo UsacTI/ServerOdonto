@@ -199,10 +199,10 @@ exports.InsertarRadiografia = async (req, res) => {
       throw err
     }
     // console.log('Fields', fields)
-    console.log(files.File.images.path)
-    for (const file of Object.entries(files)) {
-      console.log(file)
-    }
+    console.log(files.File[1].path)
+    // for (const file of Object.entries(files)) {
+    //   console.log(file)
+    // }
   })
   var idexpediente = req.params.id
 
