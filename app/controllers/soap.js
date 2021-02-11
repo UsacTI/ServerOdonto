@@ -2,6 +2,7 @@ var soap = require('soap')
 const db = require('../config/db.config')
 const Pago = db.Pago
 const { QueryTypes } = require('sequelize')
+const request = require('request-promise')
 const url = 'https://pruebassiif.usac.edu.gt/WSGeneracionOrdenPagoV2/WSGeneracionOrdenPagoV2SoapHttpPort?WSDL'
 var parseString = require('xml2js').parseString
 
@@ -94,16 +95,32 @@ exports.consultarBoleta = async (req, res) => {
   parseString(result[0].result, (err, result) => {
     console.dir(result.RESPUESTA)
     // console.log(result.CODIGO_RESP)
-    const ruta = `http://localhost:8080/consultaPagoPorBoleta/11029919`
+    const ruta = `http://localhost:8080/consultaPagoPorBoleta/${boleta_de_pago}`
     try {
       request({
         uri: ruta,
         json: true
       }).then(datos => {
-        console.log('--------------------------')
-        console.log(datos)
-        console.log(('--------------------------'))
-        res.json(datos)
+        console.log(datos[0])
+        var respuesta = JSON.stringify({
+          CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
+          DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
+          id_orden_pago: result.RESPUESTA.ID_ORDEN_PAGO[0],
+          monto: result.RESPUESTA.MONTO[0],
+          fecha: result.RESPUESTA.FECHA_GENERACION[0],
+          nombre: result.RESPUESTA.NOMBRE[0],
+          ID_PERSONA: result.RESPUESTA.ID_PERSONA[0],
+          STATUS: result.RESPUESTA.STATUS[0],
+          BANCO: result.RESPUESTA.BANCO[0],
+          NO_BOLETA_DEPOSITO: result.RESPUESTA.NO_BOLETA_DEPOSITO[0],
+          NO_TRAN_BANCO: result.RESPUESTA.NO_TRAN_BANCO[0],
+          FECHA_CERTIF_BANCO: result.RESPUESTA.FECHA_CERTIF_BANCO[0],
+          UNIDAD: result.RESPUESTA.UNIDAD[0],
+          EXTENSION: result.RESPUESTA.EXTENSION[0],
+          CARRERA: result.RESPUESTA.CARRERA[0],
+          DESCRIPCION: datos.pago[0].descripcion
+        })
+        res.json(respuesta)
       })
     } catch (error) {
       res.status(200).json({
@@ -111,25 +128,6 @@ exports.consultarBoleta = async (req, res) => {
         error: error.message
       })
     }
-
-    // var respuesta = JSON.stringify({
-    //   CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
-    //   DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
-    //   id_orden_pago: result.RESPUESTA.ID_ORDEN_PAGO[0],
-    //   monto: result.RESPUESTA.MONTO[0],
-    //   fecha: result.RESPUESTA.FECHA_GENERACION[0],
-    //   nombre: result.RESPUESTA.NOMBRE[0],
-    //   ID_PERSONA: result.RESPUESTA.ID_PERSONA[0],
-    //   STATUS: result.RESPUESTA.STATUS[0],
-    //   BANCO: result.RESPUESTA.BANCO[0],
-    //   NO_BOLETA_DEPOSITO: result.RESPUESTA.NO_BOLETA_DEPOSITO[0],
-    //   NO_TRAN_BANCO: result.RESPUESTA.NO_TRAN_BANCO[0],
-    //   FECHA_CERTIF_BANCO: result.RESPUESTA.FECHA_CERTIF_BANCO[0],
-    //   UNIDAD: result.RESPUESTA.UNIDAD[0],
-    //   EXTENSION: result.RESPUESTA.EXTENSION[0],
-    //   CARRERA: result.RESPUESTA.CARRERA[0]
-    // })
-    // res.json(respuesta)
   })
 }
 
