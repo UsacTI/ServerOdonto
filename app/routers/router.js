@@ -190,6 +190,9 @@ router.put('/insertarRadiografia/:id', expediente.InsertarRadiografia)
 // Consultar Radiografia
 router.get('/consultarRadiografia/:id', expediente.BuscarRadiografia)
 
+// Consulta de pagos por boleta
+router.get('/consultaPagoPorBoleta/:id', soap.consultaPagoPorBoleta)
+
 function ensure_token (req, res, next) {
   // console.log(localStorage.getItem('token'));
   /* if (localStorage.getItem('token') != null) {

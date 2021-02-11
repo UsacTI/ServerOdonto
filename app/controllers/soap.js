@@ -94,6 +94,23 @@ exports.consultarBoleta = async (req, res) => {
   parseString(result[0].result, (err, result) => {
     console.dir(result.RESPUESTA)
     // console.log(result.CODIGO_RESP)
+    const ruta = `http://localhost:8080/consultaPagoPorBoleta/${boleta_de_pago}`
+    try {
+      request({
+        uri: ruta,
+        json: true
+      }).then(datos => {
+        console.log('--------------------------')
+        console.log(datos)
+        console.log(('--------------------------'))
+      })
+    } catch (error) {
+      res.status(200).json({
+        message: 'Fail!',
+        error: error.message
+      })
+    }
+
     var respuesta = JSON.stringify({
       CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
       DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
@@ -194,6 +211,25 @@ exports.todosLosPagos = (req, res) => {
     order: [['fecha', 'DESC']],
     where: { idpaciente: idpaciente, tipo: 0 },
     attributes: ['idboleta', 'monto', 'estado', 'idpaciente', 'fecha', 'descripcion']
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      pago: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
+exports.consultaPagoPorBoleta = (req, res) => {
+  const idboleta = req.params.id
+  Pago.findAll({
+    where: { idboleta: idboleta },
+    attributes: ['descripcion']
   }).then(results => {
     // console.log(results)
     res.status(200).json({
