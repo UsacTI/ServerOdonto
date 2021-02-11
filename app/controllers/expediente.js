@@ -188,11 +188,12 @@ exports.updateExpedientePlan = async (req, res) => {
   }
 }
 
+// const formidable = require('express-formidable')
+// const express = require('express')
+// const app = express()
+// app.use(formidable())
+
 exports.InsertarRadiografia = async (req, res) => {
-  const formidable = require('express-formidable')
-  const express = require('express')
-  const app = express()
-  app.use(formidable())
   var idexpediente = req.params.id
   // console.log(idexpediente)
   // console.log(req.files.images)
