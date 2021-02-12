@@ -319,3 +319,47 @@ exports.totalCredito = async (req, res) => {
       })
     })
 }
+
+exports.cobros = async (req, res) => {
+  var fechahoy = new Date()
+  const pago = {}
+  pago.idboleta = req.body.idboleta
+  pago.idpaciente = req.body.idpaciente
+  pago.monto = req.body.monto
+  pago.estado = 1 // creo la boleta de pago pero no la ha pagado
+  pago.tipo = 2 // Pago
+  pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
+  pago.descripcion = req.body.descripcion
+
+  await db.sequelize.query(
+    `select count(*) as contador
+    from pagos as p
+    where p.tipo = 2`
+
+  )
+    .then(results => {
+      // console.log(results[0][0].contador)
+      var contador = parseInt(results[0][0].contador)
+      contador = contador + 1
+      // console.log(contador)
+      pago.idboleta = contador
+      Pago.create(pago).then(result => {
+        res.status(200).json({
+          message: 'Pago con ID = ' + result.idpago,
+          pago: result
+        })
+      })
+        .catch(error => {
+          res.status(500).json({
+            message: 'Error!',
+            error: error
+          })
+        })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'No se pudo hacer el pago =' + req.body.idboleta,
+        error: error
+      })
+    })
+}
