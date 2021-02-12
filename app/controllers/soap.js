@@ -323,7 +323,6 @@ exports.totalCredito = async (req, res) => {
 exports.cobros = async (req, res) => {
   var fechahoy = new Date()
   const pago = {}
-  pago.idboleta = req.body.idboleta
   pago.idpaciente = req.body.idpaciente
   pago.monto = req.body.monto
   pago.estado = 1 // creo la boleta de pago pero no la ha pagado
@@ -335,7 +334,6 @@ exports.cobros = async (req, res) => {
     `select count(*) as contador
     from pagos as p
     where p.tipo = 2`
-
   )
     .then(results => {
       // console.log(results[0][0].contador)
