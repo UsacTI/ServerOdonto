@@ -2,6 +2,7 @@ const db = require('../config/db.config')
 const Cita = db.Cita
 const { QueryTypes } = require('sequelize')
 const request = require('request-promise')
+const { put } = require('../routers/router')
 const Detalle_procedimiento = db.Detalle_procedimiento
 
 exports.createCita = (req, res) => {
@@ -12,13 +13,14 @@ exports.createCita = (req, res) => {
     cita.fecha = req.body.fecha
     cita.doctor = req.body.doctor
     cita.hora = req.body.hora
-    console.log(req.body.hora)
+    console.log(req.body)
     Cita.create(cita).then(result => {
       const ruta = `http://localhost:8080/detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/3`
       try {
         request({
           uri: ruta,
-          json: true
+          json: true,
+          type: 'put'
         }).then(datos => {
           console.log('Actualización realizada')
         })
