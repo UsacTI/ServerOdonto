@@ -44,7 +44,7 @@ exports.search = async (req, res) => {
   await db.sequelize.query(
     `select * from detalle_procedimiento_tratamientos as dpt
     inner join tratamientos as t on dpt.idtratamiento = t.idtratamiento
-    where dpt.idexpediente = ?;`,
+    where dpt.idexpediente = ? and dpt.estado = 2;`,
     {
       replacements: [id],
       type: QueryTypes.SELECT
