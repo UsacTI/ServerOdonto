@@ -9,7 +9,12 @@ const { QueryTypes } = require('sequelize')
 
 /*
 Estados:
-  0: 
+  0: Registrado
+  1: Solicitud de aprobación al profesor
+  2: Aprobado Listo para la cita
+  3: Cita creada / listo para cobrar
+  4: Tratamiento cobrado
+  5: Tratamiento hecho y aprobado
 */
 
 exports.create = (req, res) => {
