@@ -1,6 +1,7 @@
 const db = require('../config/db.config')
 const Cita = db.Cita
 const { QueryTypes } = require('sequelize')
+const request = require('request-promise')
 
 exports.createCita = (req, res) => {
   const cita = {}
@@ -11,6 +12,20 @@ exports.createCita = (req, res) => {
     cita.doctor = req.body.doctor
     cita.hora = req.body.hora
     Cita.create(cita).then(result => {
+      const ruta = `http://detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/${3}`
+      try {
+        request({
+          uri: ruta,
+          json: true
+        }).then(datos => {
+          console.log('Actualización realizada')
+        })
+      } catch (error) {
+        res.status(200).json({
+          message: 'Fail!',
+          error: error.message
+        })
+      }
       res.status(200).json({
         message: 'Cita creada con el ID = ' + result.idpaciente,
         citas: result
