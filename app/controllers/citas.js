@@ -2,6 +2,7 @@ const db = require('../config/db.config')
 const Cita = db.Cita
 const { QueryTypes } = require('sequelize')
 const request = require('request-promise')
+const Detalle_procedimiento = db.Detalle_procedimiento
 
 exports.createCita = (req, res) => {
   const cita = {}
@@ -186,4 +187,25 @@ exports.AllCitasporidPaciente = async (req, res) => {
         error: error
       })
     })
+}
+
+exports.deleteCita = async (req, res) => {
+  const id = req.params.id
+  const iddetalleprocedimiento = req.body.iddetalle
+  Cita.destroy({
+    where: { idcita: id }
+  }).then(async (results) => {
+    const updatedObject = {
+      estado: 2
+    }
+    const result = await Detalle_procedimiento.update(updatedObject, { returning: true, where: { id_detalle_procedimiento_tratamiento: iddetalleprocedimiento } })
+    res.status(200).json({
+      detalle: results
+    })
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
 }

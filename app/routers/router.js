@@ -94,6 +94,9 @@ router.get('/citas/consultarTodasIdusuario/:id', citas.AllCitasporidUsuario)
 // Citas buscar por usuario
 router.get('/citas/consultarTodasIdpaciente/:id', citas.AllCitasporidPaciente)
 
+// Eliminar cita
+router.delete('/citas/eliminar/:id', citas.deleteCita)
+
 // Abonos
 router.post('/abonos/crear', abonos.createAbono)
 
