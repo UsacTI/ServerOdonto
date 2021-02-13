@@ -14,7 +14,7 @@ exports.createCita = (req, res) => {
     cita.hora = req.body.hora
     console.log(req.body.hora)
     Cita.create(cita).then(result => {
-      const ruta = `http://localhost:8080/detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/${3}`
+      const ruta = `http://localhost:8080/detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/3`
       try {
         request({
           uri: ruta,
