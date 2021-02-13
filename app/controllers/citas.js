@@ -20,7 +20,7 @@ exports.createCita = (req, res) => {
         request({
           uri: ruta,
           json: true,
-          type: 'put'
+          method: 'PUT'
         }).then(datos => {
           console.log('Actualización realizada')
         })
