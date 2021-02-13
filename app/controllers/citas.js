@@ -12,6 +12,7 @@ exports.createCita = (req, res) => {
     cita.fecha = req.body.fecha
     cita.doctor = req.body.doctor
     cita.hora = req.body.hora
+    console.log(req.body.hora)
     Cita.create(cita).then(result => {
       const ruta = `http://localhost:8080/detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/${3}`
       try {
