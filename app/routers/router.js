@@ -124,8 +124,11 @@ router.get('/tratamiento/', tratamiento.AllFiles)
 // Crear Detalle Procedimiento
 router.post('/detalleProcedimiento/', detalleProcedimiento.create)
 
-// Buscar Detalle Procedimiento
+// Buscar Detalle Procedimiento todos
 router.get('/buscardetalleProcedimiento/:id', detalleProcedimiento.search)
+
+// Buscar Detalle Procedimiento estado 2
+router.get('/buscardetalleProcedimientoEstado2/:id', detalleProcedimiento.searchEstado2)
 
 // Eliminar Detalle Procedimiento
 router.delete('/tratamiento/deleteDetalle/:id', detalleProcedimiento.delete)
