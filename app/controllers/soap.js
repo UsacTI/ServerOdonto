@@ -36,6 +36,7 @@ exports.generarBoleta = async (req, res) => {
       '</DETALLE_ORDEN_PAGO>' +
       '</GENERAR_ORDEN>'
   }
+  console.log(args)
   const client = await soap.createClientAsync(url)
   const result = await client.generarOrdenPagoAsync(args)
   // console.log(String(result[0].result).split('|'))
