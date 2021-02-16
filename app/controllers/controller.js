@@ -120,9 +120,9 @@ exports.login = (req, res) => {
       } else {
         res.status(500).json({
           message: 'Error!',
-          error: error
+          error: err
         })
-      } 
+      }
     })
   })
     .catch(error => {

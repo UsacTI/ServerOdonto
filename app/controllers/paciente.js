@@ -267,7 +267,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
     and pa.aprobacion = 3;`
   )
     .then(results => {
-      console.log(results)
+      // console.log(results)
       if (results[0].length !== 0) {
         results[0].forEach(element => {
           console.log(element.idboleta + ' ---- ' + element.idpaciente)
@@ -281,7 +281,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
               var result = JSON.parse(usuarios)
               // console.log('-------------' + result.DESCRIPCION2)
               if (result.DESCRIPCION2 === 'PAGADA') {
-                console.log('Si esta pagada')
+                // console.log('Si esta pagada')
                 const updatedObject = {
                   aprobacion: 4
                 }
