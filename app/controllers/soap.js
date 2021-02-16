@@ -61,7 +61,7 @@ exports.generarBoleta = async (req, res) => {
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 0 // primera cita
-    pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
+    pago.fecha =   fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
     pago.descripcion = 'Pago de primera cita'
     console.log(pago)
     Pago.create(pago).then(result => {
