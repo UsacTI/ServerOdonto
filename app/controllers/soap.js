@@ -62,6 +62,7 @@ exports.generarBoleta = async (req, res) => {
     pago.tipo = 0 // primera cita
     pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
     pago.descripcion = 'Pago de primera cita'
+    console.log(pago)
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
