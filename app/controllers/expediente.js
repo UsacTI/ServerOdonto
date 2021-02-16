@@ -74,7 +74,7 @@ exports.AllFiles = (req, res) => {
   Expediente.findAll({
     where: { idpaciente: idpaciente }
   }).then(results => {
-    // console.log(results)
+    console.log(results)
     res.status(200).json({
       expediente: results
     })
