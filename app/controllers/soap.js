@@ -19,7 +19,7 @@ exports.generarBoleta = async (req, res) => {
   var idvarianterubro = req.body.id_variante_rubro
   var subotal = req.body.subotal
   var idpaciente = req.body.idpaciente
-
+  console.log(req.body)
   const args = {
     pxml: '<GENERAR_ORDEN>' +
       '<CARNET>' + carnet + '</CARNET>' +
