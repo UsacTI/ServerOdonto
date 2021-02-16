@@ -36,7 +36,7 @@ exports.generarBoleta = async (req, res) => {
       '</DETALLE_ORDEN_PAGO>' +
       '</GENERAR_ORDEN>'
   }
-  console.log(args)
+  // console.log(args)
   const client = await soap.createClientAsync(url)
   const result = await client.generarOrdenPagoAsync(args)
   // console.log(String(result[0].result).split('|'))
@@ -63,7 +63,7 @@ exports.generarBoleta = async (req, res) => {
     pago.tipo = 0 // primera cita
     pago.fecha =   fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
     pago.descripcion = 'Pago de primera cita'
-    console.log(pago)
+    // console.log(pago)
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
