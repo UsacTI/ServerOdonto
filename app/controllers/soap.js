@@ -188,7 +188,7 @@ exports.generarBoletaAbono = async (req, res) => {
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 1 // Abono
     pago.descripcion = descripciones
-    pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
+    pago.fecha =  fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' +  fechahoy.getDate()
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
