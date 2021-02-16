@@ -104,7 +104,7 @@ exports.consultarBoleta = async (req, res) => {
         // console.log(datos[0])
         var respuesta = JSON.stringify({
           CODIGO_RESP: result.RESPUESTA.CODIGO_RESP[0],
-          DESCRIPCION: result.RESPUESTA.DESCRIPCION[0],
+          DESCRIPCION2: result.RESPUESTA.DESCRIPCION[0],
           id_orden_pago: result.RESPUESTA.ID_ORDEN_PAGO[0],
           monto: result.RESPUESTA.MONTO[0],
           fecha: result.RESPUESTA.FECHA_GENERACION[0],

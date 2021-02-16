@@ -279,7 +279,8 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
               json: true
             }).then(usuarios => {
               var result = JSON.parse(usuarios)
-              if (result.DESCRIPCION === 'PAGADA') {
+              // console.log('-------------' + result.DESCRIPCION2)
+              if (result.DESCRIPCION2 === 'PAGADA') {
                 console.log('Si esta pagada')
                 const updatedObject = {
                   aprobacion: 4
@@ -310,7 +311,7 @@ exports.PacientesTipo3Comprobacion = async (req, res) => {
         })
       } else {
         res.status(200).json({
-          message: 'En registros para actualizar'
+          message: 'Los registros para actualizar'
         })
       }
     })
