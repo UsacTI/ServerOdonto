@@ -74,12 +74,12 @@ exports.AllFiles = (req, res) => {
   Expediente.findAll({
     where: { idpaciente: idpaciente }
   }).then(results => {
-    console.log(results)
+    // console.log(results)
     res.status(200).json({
       expediente: results
     })
   }).catch(error => {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       message: 'Error!',
       error: error
