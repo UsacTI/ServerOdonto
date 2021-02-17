@@ -112,7 +112,7 @@ exports.searchCitasIdUsuario = async (req, res) => {
   const idus = req.params.id
   const fecha = req.params.fecha
   await db.sequelize.query(
-    `select t.descripcion, dpt.pieza, t.valor, c.fecha, c.hora, c.idcita, p.nombres, p.apellidos  from citas as c 
+    `select t.descripcion, dpt.pieza, t.valor, c.fecha, c.hora, c.idcita, p.nombres, p.apellidos, dpt.id_detalle_procedimiento_tratamiento from citas as c 
     inner join detalle_procedimiento_tratamientos as dpt on dpt.id_detalle_procedimiento_tratamiento = c.id_detalle_procedimiento_tratamiento
     inner join tratamientos as t on t.idtratamiento = dpt.idtratamiento
     inner join pacientes as p on p.idpaciente = c.idpaciente
