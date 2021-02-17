@@ -67,8 +67,7 @@ exports.search = async (req, res) => {
 
 exports.searchEstado2 = async (req, res) => {
   const id = req.params.id
-  console.log(req.params)
-  if (id !== null) {
+  if (id !== 'null') {
     await db.sequelize.query(
       `select * from detalle_procedimiento_tratamientos as dpt
     inner join tratamientos as t on dpt.idtratamiento = t.idtratamiento
