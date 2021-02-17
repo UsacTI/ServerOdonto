@@ -102,11 +102,15 @@ exports.login = (req, res) => {
     attributes: ['usuario', 'nombres', 'apellidos', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
-    const pass2 = results.dataValues.contrasenia
-    console.log(results.dataValues.contrasenia)
+    var paciente = ''
+    let pass2 = ''
+    if (results.dataValues !== undefined) {
+      pass2 = results.dataValues.contrasenia
+      console.log(results.dataValues.contrasenia)
+      paciente = { usuario: results.dataValues.usuario, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos }
+    }
     // console.log(hash)
-    var paciente = { usuario: results.dataValues.usuario, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos}
-    bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
+    bcrypt.compare(pass, pass2, function (err, result) {
       console.log(result)
       if (result) {
         const token = jwt.sign({ usuario, pass2 }, 'token_key', {
