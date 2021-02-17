@@ -90,6 +90,10 @@ exports.searchEstado2 = async (req, res) => {
           error: error
         })
       })
+  } else {
+    res.status(200).json({
+      mensaje: 'vacio'
+    })
   }
 }
 
