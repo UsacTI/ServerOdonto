@@ -67,28 +67,30 @@ exports.search = async (req, res) => {
 
 exports.searchEstado2 = async (req, res) => {
   const id = req.params.id
-  await db.sequelize.query(
-    `select * from detalle_procedimiento_tratamientos as dpt
+  if (id !== null) {
+    await db.sequelize.query(
+      `select * from detalle_procedimiento_tratamientos as dpt
     inner join tratamientos as t on dpt.idtratamiento = t.idtratamiento
     where dpt.idexpediente = ? and dpt.estado = 2;`,
-    {
-      replacements: [id],
-      type: QueryTypes.SELECT
-    }
-  )
-    .then(results => {
-      res.status(200).json({
-        message: 'Detalle Procedimiento con ID = ' + id,
-        tratamientos: results
+      {
+        replacements: [id],
+        type: QueryTypes.SELECT
+      }
+    )
+      .then(results => {
+        res.status(200).json({
+          message: 'Detalle Procedimiento con ID = ' + id,
+          tratamientos: results
+        })
       })
-    })
-    .catch(error => {
-      // console.log(error)
-      res.status(500).json({
-        message: 'No se encontró el Detalle Procedimiento con ID =' + id,
-        error: error
+      .catch(error => {
+        // console.log(error)
+        res.status(500).json({
+          message: 'No se encontró el Detalle Procedimiento con ID =' + id,
+          error: error
+        })
       })
-    })
+  }
 }
 
 exports.delete = (req, res) => {
