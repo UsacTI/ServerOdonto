@@ -112,7 +112,7 @@ exports.login = (req, res) => {
     }
     // console.log(hash)
     bcrypt.compare(pass, pass2, function (err, result) {
-      console.log(result)
+      // console.log(result)
       if (result) {
         const token = jwt.sign({ usuario, pass2 }, 'token_key', {
           expiresIn: 60 * 60 * 4 // expires in 24 hours
@@ -146,11 +146,18 @@ exports.loginU = (req, res) => {
     attributes: ['idusuario', 'carne', 'cui', 'nombres', 'apellidos', 'contrasenia', 'tipousuario', 'usuarios_idusuario'],
     where: { carne: carnet }
   }).then(results => {
-    const pass2 = results.dataValues.contrasenia
+    let pass2 = ''
     // console.log(results.dataValues)
     // console.log(hash)
-    var usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario, idusuario: results.dataValues.idusuario, usuarios_idusuario: results.dataValues.usuarios_idusuario }
-    bcrypt.compare(pass, results.dataValues.contrasenia, function (err, result) {
+    var usuario = ''
+    var contrasenia = ''
+    if (results !== null) {
+      usuario = { usuario: results.dataValues.carne, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos, cui: results.dataValues.cui, tipousuario: results.dataValues.tipousuario, idusuario: results.dataValues.idusuario, usuarios_idusuario: results.dataValues.usuarios_idusuario }
+      contrasenia = results.dataValues.contrasenia
+      pass2 = results.dataValues.contrasenia
+    }
+
+    bcrypt.compare(pass, contrasenia, function (err, result) {
       // console.log(result)
       if (result) {
         const token = jwt.sign({ carnet, pass2 }, 'token_key', {
@@ -163,7 +170,7 @@ exports.loginU = (req, res) => {
         })
       } else {
         res.status(500).json({
-          message: 'Error!'
+          message: 'Error, El usuario o la contraseña esta incorrecta!'
         })
       }
     })
@@ -171,7 +178,7 @@ exports.loginU = (req, res) => {
     .catch(error => {
       console.log(error)
       res.status(500).json({
-        message: 'Error!',
+        message: 'Error, no existe la cuenta de usuario',
         error: error
       })
     })
