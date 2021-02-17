@@ -124,7 +124,7 @@ exports.login = (req, res) => {
       } else {
         res.status(500).json({
           message: 'Error las contraseñas no coinciden',
-          error: err
+          error: 1
         })
       }
     })
@@ -133,7 +133,7 @@ exports.login = (req, res) => {
       console.log(error)
       res.status(500).json({
         message: 'Error de usuario, no existe',
-        error: error
+        error: 0
       })
     })
 }
