@@ -104,7 +104,8 @@ exports.login = (req, res) => {
   }).then(results => {
     var paciente = ''
     let pass2 = ''
-    if (results.dataValues !== undefined) {
+    console.log(results)
+    if (results !== undefined) {
       pass2 = results.dataValues.contrasenia
       console.log(results.dataValues.contrasenia)
       paciente = { usuario: results.dataValues.usuario, nombre: results.dataValues.nombres, apellidos: results.dataValues.apellidos }
