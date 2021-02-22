@@ -105,7 +105,6 @@ exports.createPacienteTrab = (req, res) => {
       error: error.message
     })
   }
-
 }
 
 exports.InsertarFotografia = async (req, res) => {
@@ -147,6 +146,27 @@ exports.InsertarFotografia = async (req, res) => {
         })
       })
   })
+}
+
+exports.buscarFotografia = (req, res) => {
+  const id = req.params.id
+  Paciente.findOne({
+    where: { idpaciente: id },
+    attributes: ['fotografia']
+  })
+    .then(results => {
+      res.status(200).json({
+        message: 'Paciente con ID = ' + id,
+        expediente: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Paciente con ID =' + id,
+        error: error
+      })
+    })
 }
 
 exports.updateById = async (req, res) => {
