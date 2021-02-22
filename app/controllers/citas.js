@@ -96,7 +96,7 @@ exports.AllCitasIdDetalleProcedimiento = (req, res) => {
   }).then(results => {
     // console.log(results)
     res.status(200).json({
-      cita: results
+      cita: results[0]
     })
   }).catch(error => {
     // console.log(error)
