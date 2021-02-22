@@ -5,9 +5,8 @@ const db = require('../config/db.config')
 const { QueryTypes, json } = require('sequelize')
 const request = require('request-promise')
 const Paciente = db.Paciente
-const Pago = db.Pago
 const formidable = require('formidable')
-
+var zlib = require('zlib')
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -77,6 +76,7 @@ exports.createPacienteTrab = (req, res) => {
 
     var bitmap = fs.readFileSync(files.images.path)
     var base64 = new Buffer(bitmap).toString('base64')
+    var deflated = zlib.deflateSync(base64).toString('base64')
 
     const paciente = {}
     try {
@@ -92,7 +92,7 @@ exports.createPacienteTrab = (req, res) => {
       paciente.correo = req.body.correo
       paciente.tipopaciente = 5 // no clasificado
       paciente.aprobacion = 0
-      paciente.fotografia = base64
+      paciente.fotografia = deflated
 
       bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
         paciente.contrasenia = hash
