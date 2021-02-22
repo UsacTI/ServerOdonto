@@ -100,13 +100,13 @@ exports.createPacienteTrab = (req, res) => {
         Paciente.count().then(function (c) {
           // console.log(c)
           paciente.usuario = req.body.dpi
-          
-          // Paciente.create(paciente).then(result => {
-          //   res.status(200).json({
-          //     message: 'Paciente creado con el ID = ' + result.idpaciente,
-          //     paciente: result
-          //   })
-          // })
+          // Save to MySQL database
+          Paciente.create(paciente).then(result => {
+            res.status(200).json({
+              message: 'Paciente creado con el ID = ' + result.idpaciente,
+              paciente: result
+            })
+          })
         })
       })
     } catch (error) {
