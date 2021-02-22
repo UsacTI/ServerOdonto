@@ -6,6 +6,17 @@ const Detalle_usu_paciente = db.Detalle_Usuario_paciente
 const Paciente = db.Paciente
 const { QueryTypes } = require('sequelize')
 
+/*
+  estados:
+  0: Registrado
+  1: 
+  2:
+  3:
+  4: es pagado
+  5: solicitar aprobación
+  6: aprobado
+*/
+
 exports.create = (req, res) => {
   const detalle = {}
   try {
@@ -104,7 +115,7 @@ exports.BuscarPacientesParaEstudiantes = async (req, res) => {
 exports.BuscarDetallePacienteUsuario = async (req, res) => {
   const idprofesor = req.params.idprofesor
   await db.sequelize.query(
-    `select us.idusuario, p.idpaciente, p.nombres, p.apellidos, us.nombres as "nombresUs", us.apellidos as "apellidoUs", ex.aprobar_expediente, ex.aprobar_plan, ex.idexpediente
+    `select us.idusuario, p.idpaciente, p.nombres, p.apellidos, us.nombres as "nombresUs", us.apellidos as "apellidoUs", ex.aprobar_expediente, ex.aprobar_plan, ex.idexpediente, pa.fotografia, pa.telefono, pa.escolaridad, pa.profesion, pa.dpi
     from usuarios as us
     inner join detalle_usuario_pacientes as dup on dup.idusuario = us.idusuario
     inner join pacientes as p on p.idpaciente = dup.idpaciente
