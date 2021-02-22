@@ -6,8 +6,7 @@ const { QueryTypes, json } = require('sequelize')
 const request = require('request-promise')
 const Paciente = db.Paciente
 const Pago = db.Pago
-var express = require('express')
-var app = express()
+const formidable = require('formidable')
 
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
@@ -70,42 +69,53 @@ exports.createPaciente = (req, res) => {
 }
 
 exports.createPacienteTrab = (req, res) => {
-  const paciente = {}
-  try {
-    paciente.nombres = req.body.nombres
-    paciente.apellidos = req.body.apellidos
-    paciente.genero = req.body.genero
-    paciente.nacimiento = req.body.nacimiento
-    paciente.dpi = req.body.dpi
-    paciente.contrasenia = req.body.contrasenia
-    paciente.direccion = req.body.direccion
-    paciente.telefono = req.body.telefono
-    paciente.consulta = req.body.consulta
-    paciente.correo = req.body.correo
-    paciente.tipopaciente = 5 // no clasificado
-    paciente.aprobacion = 0
+  new formidable.IncomingForm().parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error('Error', err)
+      throw err
+    }
 
-    bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
-      paciente.contrasenia = hash
-      // console.log(hash);
-      Paciente.count().then(function (c) {
-        // console.log(c)
-        paciente.usuario = req.body.dpi
-        // Save to MySQL database
-        Paciente.create(paciente).then(result => {
-          res.status(200).json({
-            message: 'Paciente creado con el ID = ' + result.idpaciente,
-            paciente: result
+    var bitmap = fs.readFileSync(files.images.path)
+    var base64 = new Buffer(bitmap).toString('base64')
+
+    const paciente = {}
+    try {
+      paciente.nombres = req.body.nombres
+      paciente.apellidos = req.body.apellidos
+      paciente.genero = req.body.genero
+      paciente.nacimiento = req.body.nacimiento
+      paciente.dpi = req.body.dpi
+      paciente.contrasenia = req.body.contrasenia
+      paciente.direccion = req.body.direccion
+      paciente.telefono = req.body.telefono
+      paciente.consulta = req.body.consulta
+      paciente.correo = req.body.correo
+      paciente.tipopaciente = 5 // no clasificado
+      paciente.aprobacion = 0
+      paciente.fotografia = base64
+
+      bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
+        paciente.contrasenia = hash
+        // console.log(hash);
+        Paciente.count().then(function (c) {
+          // console.log(c)
+          paciente.usuario = req.body.dpi
+          // Save to MySQL database
+          Paciente.create(paciente).then(result => {
+            res.status(200).json({
+              message: 'Paciente creado con el ID = ' + result.idpaciente,
+              paciente: result
+            })
           })
         })
       })
-    })
-  } catch (error) {
-    res.status(500).json({
-      message: 'Fail!',
-      error: error.message
-    })
-  }
+    } catch (error) {
+      res.status(500).json({
+        message: 'Fail!',
+        error: error.message
+      })
+    }
+  })
 }
 
 exports.updateById = async (req, res) => {

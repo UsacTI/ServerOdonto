@@ -89,6 +89,24 @@ exports.AllCitas = (req, res) => {
   })
 }
 
+exports.AllCitasIdDetalleProcedimiento = (req, res) => {
+  const idDPT = req.params.id
+  Cita.findAll({
+    where: { id_detalle_procedimiento_tratamiento: idDPT }
+  }).then(results => {
+    // console.log(results)
+    res.status(200).json({
+      cita: results
+    })
+  }).catch(error => {
+    // console.log(error)
+    res.status(500).json({
+      message: 'Error!',
+      error: error
+    })
+  })
+}
+
 exports.AllCitasFecha = (req, res) => {
   const fecha = req.params.id
   console.log(fecha)

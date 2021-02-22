@@ -77,7 +77,7 @@ exports.searchPaciente = (req, res) => {
 exports.BuscarPacientesParaEstudiantes = async (req, res) => {
   const id = req.params.id
   await db.sequelize.query(
-    `select pa.idpaciente, pa.nombres, pa.apellidos, pa.dpi, ex.aprobar_expediente, ex.aprobar_plan, ex.idexpediente
+    `select pa.idpaciente, pa.nombres, pa.apellidos, pa.dpi, ex.aprobar_expediente, ex.aprobar_plan, ex.idexpediente, pa.fotografia, pa.telefono, pa.escolaridad, pa.profesion
     from pacientes as pa 
 	  inner join detalle_usuario_pacientes as dup on dup.idpaciente =  pa.idpaciente
 	  left join expedientes as ex on ex.idpaciente = pa.idpaciente

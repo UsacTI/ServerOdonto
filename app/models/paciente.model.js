@@ -64,6 +64,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     correo: {
       type: Sequelize.STRING
+    },
+    fotografia: {
+      type: Sequelize.STRING
     }
   })
 
