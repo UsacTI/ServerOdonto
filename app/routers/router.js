@@ -85,7 +85,7 @@ router.post('/api/customers/onebyid/:id', customers.getCustomerById)
 router.post('/citas/crear', citas.createCita)
 
 // Citas buscar por paciente
-router.get('/citas/consultar/:id', citas.AllCitas)  
+router.get('/citas/consultar/:id', citas.AllCitas)
 
 // Citas buscar por idDPT
 router.get('/citas/consultarDPT/:id', citas.AllCitasIdDetalleProcedimiento)
