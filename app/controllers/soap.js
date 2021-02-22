@@ -329,7 +329,7 @@ exports.cobros = async (req, res) => {
   pago.monto = req.body.monto
   pago.estado = 1 // creo la boleta de pago pero no la ha pagado
   pago.tipo = 2 // Pago
-  pago.fecha = fechahoy.getDate() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getFullYear()
+  pago.fecha = fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate() 
   pago.descripcion = req.body.descripcion
 
   await db.sequelize.query(

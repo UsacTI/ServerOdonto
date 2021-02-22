@@ -7,6 +7,7 @@ const request = require('request-promise')
 const Paciente = db.Paciente
 const formidable = require('formidable')
 var zlib = require('zlib')
+var fs = require('fs')
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
