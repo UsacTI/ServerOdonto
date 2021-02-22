@@ -30,7 +30,7 @@ router.post('/loginU', customers.loginU)
 // Crear Paciente
 router.post('/patients/createTrabSocial', patients.createPaciente)
 router.post('/patients/createOfiInfo', patients.createPacienteTrab)
-router.put('/patients/insertarfotografia', patients.InsertarFotografia)
+router.put('/patients/insertarfotografia/:id', patients.InsertarFotografia)
 router.get('/patients/buscarfotografia/:id', patients.buscarFotografia)
 
 // Actualizar Paciente
