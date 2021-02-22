@@ -69,53 +69,83 @@ exports.createPaciente = (req, res) => {
 }
 
 exports.createPacienteTrab = (req, res) => {
+  const paciente = {}
+  try {
+    paciente.nombres = req.body.nombres
+    paciente.apellidos = req.body.apellidos
+    paciente.genero = req.body.genero
+    paciente.nacimiento = req.body.nacimiento
+    paciente.dpi = req.body.dpi
+    paciente.contrasenia = req.body.contrasenia
+    paciente.direccion = req.body.direccion
+    paciente.telefono = req.body.telefono
+    paciente.consulta = req.body.consulta
+    paciente.correo = req.body.correo
+    paciente.tipopaciente = 5 // no clasificado
+    paciente.aprobacion = 0
+
+    bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
+      paciente.contrasenia = hash
+      // console.log(hash);
+      Paciente.count().then(function (c) {
+        // console.log(c)
+        paciente.usuario = req.body.dpi
+        // Save to MySQL database
+        Paciente.create(paciente).then(result => {
+          res.status(200).json({
+            message: 'Paciente creado con el ID = ' + result.idpaciente,
+            paciente: result
+          })
+        })
+      })
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Fail!',
+      error: error.message
+    })
+  }
+
+}
+
+exports.InsertarFotografia = async (req, res) => {
   new formidable.IncomingForm().parse(req, async (err, fields, files) => {
     if (err) {
       console.error('Error', err)
       throw err
     }
+    // console.log(files.images.path)
+    // for (const file of Object.entries(files)) {
+    //   console.log(file)
+    // }
+
+    var idexpediente = req.params.id
 
     var bitmap = fs.readFileSync(files.images.path)
     var base64 = new Buffer(bitmap).toString('base64')
-    var deflated = zlib.deflateSync(base64).toString('base64')
 
-    const paciente = {}
-    try {
-      paciente.nombres = req.body.nombres
-      paciente.apellidos = req.body.apellidos
-      paciente.genero = req.body.genero
-      paciente.nacimiento = req.body.nacimiento
-      paciente.dpi = req.body.dpi
-      paciente.contrasenia = req.body.contrasenia
-      paciente.direccion = req.body.direccion
-      paciente.telefono = req.body.telefono
-      paciente.consulta = req.body.consulta
-      paciente.correo = req.body.correo
-      paciente.tipopaciente = 5 // no clasificado
-      paciente.aprobacion = 0
-      paciente.fotografia = deflated
-
-      bcrypt.hash(req.body.contrasenia, saltRounds).then(function (hash) {
-        paciente.contrasenia = hash
-        // console.log(hash);
-        Paciente.count().then(function (c) {
-          // console.log(c)
-          paciente.usuario = req.body.dpi
-          // Save to MySQL database
-          Paciente.create(paciente).then(result => {
-            res.status(200).json({
-              message: 'Paciente creado con el ID = ' + result.idpaciente,
-              paciente: result
-            })
-          })
+    await db.sequelize.query(
+      `update pacientes
+    set fotografia = ?
+    where idpaciente = ?;`,
+      {
+        replacements: [base64, idexpediente],
+        type: QueryTypes.SELECT
+      }
+    )
+      .then(results => {
+        res.status(200).json({
+          message: 'Paciente con Fotografia con ID = ' + idexpediente,
+          foto: results
         })
       })
-    } catch (error) {
-      res.status(500).json({
-        message: 'Fail!',
-        error: error.message
+      .catch(error => {
+        // console.log(error)
+        res.status(500).json({
+          message: 'No se encontró el Paciente ID =' + idexpediente,
+          error: error
+        })
       })
-    }
   })
 }
 
