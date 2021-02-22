@@ -61,7 +61,7 @@ exports.generarBoleta = async (req, res) => {
     pago.monto = result.RESPUESTA.MONTO[0]
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 0 // primera cita
-    pago.fecha =   fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
+    pago.fecha = fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
     pago.descripcion = 'Pago de primera cita'
     // console.log(pago)
     Pago.create(pago).then(result => {
@@ -188,7 +188,7 @@ exports.generarBoletaAbono = async (req, res) => {
     pago.estado = 1 // creo la boleta de pago pero no la ha pagado
     pago.tipo = 1 // Abono
     pago.descripcion = descripciones
-    pago.fecha =  fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' +  fechahoy.getDate()
+    pago.fecha = fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
     Pago.create(pago).then(result => {
       res.status(200).json({
         message: 'Pago con ID = ' + result.idpago,
@@ -329,7 +329,7 @@ exports.cobros = async (req, res) => {
   pago.monto = req.body.monto
   pago.estado = 1 // creo la boleta de pago pero no la ha pagado
   pago.tipo = 2 // Pago
-  pago.fecha = fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate() 
+  pago.fecha = fechahoy.getFullYear() + '-' + (fechahoy.getMonth() + 1) + '-' + fechahoy.getDate()
   pago.descripcion = req.body.descripcion
 
   await db.sequelize.query(
@@ -344,10 +344,29 @@ exports.cobros = async (req, res) => {
       // console.log(contador)
       pago.idboleta = contador
       Pago.create(pago).then(result => {
-        res.status(200).json({
-          message: 'Pago con ID = ' + result.idpago,
-          pago: result
-        })
+        const ruta = `http://localhost:8080/detalleProcedimientoTratamiento/update/${req.body.id_detalle_procedimiento_tratamiento}/4`
+        try {
+          request({
+            uri: ruta,
+            json: true,
+            method: 'PUT'
+          }).then(datos => {
+            console.log('Actualización realizada')
+            res.status(200).json({
+              message: 'Pago realizado con ID = ' + result.idpago,
+              pago: result
+            })
+          })
+        } catch (error) {
+          res.status(200).json({
+            message: 'Fail!',
+            error: error.message
+          })
+        }
+        // res.status(200).json({
+        //   message: 'Pago con ID = ' + result.idpago,
+        //   pago: result
+        // })
       })
         .catch(error => {
           res.status(500).json({
