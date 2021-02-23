@@ -163,12 +163,12 @@ exports.updateExpediente = async (req, res) => {
 
 exports.createDiagnostico = async (req, res) => {
   var idexpediente = req.params.id
-  var diagnostico = req.body.diagnostico
+  var diagnostico2 = req.body.diagnostico
   console.log(idexpediente)
-  console.log(diagnostico)
+  console.log(diagnostico2)
   try {
     const updatedObject = {
-      diagnostico: diagnostico
+      diagnostico: diagnostico2
     }
     const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
     if (!result) {
