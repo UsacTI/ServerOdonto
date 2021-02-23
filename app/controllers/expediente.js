@@ -172,6 +172,7 @@ exports.createDiagnostico = async (req, res) => {
     }
     const result = await Expediente.update(updatedObject, { returning: true, where: { idexpediente: idexpediente } })
     if (!result) {
+      console.log('error1')
       res.status(500).json({
         message: 'No se pudo actualizar id expediente = ' + idexpediente,
         error: 'No se actualizó'
@@ -182,6 +183,7 @@ exports.createDiagnostico = async (req, res) => {
       expediente: updatedObject
     })
   } catch (error) {
+    console.log('error2')
     res.status(500).json({
       message: 'No se pudo actualizar el expediente = ' + idexpediente,
       error: error.message
