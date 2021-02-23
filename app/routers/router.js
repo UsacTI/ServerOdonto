@@ -192,6 +192,9 @@ router.get('/BuscarDetallePacienteUsuario/:idprofesor', detalleEstudiantePacient
 // Update Expediente aprobar_expediente
 router.put('/updateExpediente/:id', expediente.updateExpediente)
 
+// Update Expediente diagnostico
+router.put('/createDiagnostico/:id', expediente.createDiagnostico)
+
 // Update Expediente aprobar_plan
 router.put('/updateExpedientePlan/:id', expediente.updateExpedientePlan)
 
