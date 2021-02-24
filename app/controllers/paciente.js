@@ -7,6 +7,7 @@ const request = require('request-promise')
 const Paciente = db.Paciente
 const formidable = require('formidable')
 var fs = require('fs')
+// const { Usuario } = require('../config/db.config')
 var año = (new Date()).getFullYear()
 var mes = (new Date()).getMonth()
 var dia = (new Date()).getDate()
@@ -443,4 +444,24 @@ exports.CambioEstado = async (req, res) => {
       error: error.message
     })
   }
+}
+
+exports.updateContrasenia = (req, res) => {
+  var id = req.params.id
+  bcrypt.hash(req.params.contrasenia, saltRounds).then(async function (hash) {
+    const updatedObject = {
+      contrasenia: hash
+    }
+    const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: id } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar el paciente con ID = ' + id,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta [' + id + ']',
+      customer: updatedObject
+    })
+  })
 }

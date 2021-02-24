@@ -14,6 +14,7 @@ const tratamiento = require('../controllers/tratamiento.js')
 const detalleProcedimiento = require('../controllers/detalle_procedimiento.js')
 const detalleEstudiantePaciente = require('../controllers/detalle_usuario_paciente.js')
 const soap = require('../controllers/soap.js')
+// const { Usuario } = require('../config/db.config.js')
 
 router.post('/api/customers/create', customers.create) // http://localhost:8080/api/customers/create
 router.post('/api/customers/createP', customers.createPaciente)
@@ -32,6 +33,12 @@ router.post('/patients/createTrabSocial', patients.createPaciente)
 router.post('/patients/createOfiInfo', patients.createPacienteTrab)
 router.put('/patients/insertarfotografia/:id', patients.InsertarFotografia)
 router.get('/patients/buscarfotografia/:id', patients.buscarFotografia)
+
+// actualizacion contrasenia usuario
+router.put('/user/updateContrasenia/:id/:contrasenia', users.updateContrasenia)
+
+// actualizacion contrasenia paciente
+router.put('/patients/updateContrasenia/:id/:contrasenia', patients.updateContrasenia)
 
 // Actualizar Paciente
 router.post('/patients/update/', patients.updateById)

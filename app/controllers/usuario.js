@@ -214,3 +214,23 @@ exports.susEstudiantes = (req, res) => {
     })
   })
 }
+
+exports.updateContrasenia = (req, res) => {
+  var id = req.params.id
+  bcrypt.hash(req.params.contrasenia, saltRounds).then(async function (hash) {
+    const updatedObject = {
+      contrasenia: hash
+    }
+    const result = await Usuario.update(updatedObject, { returning: true, where: { idusuario: id } })
+    if (!result) {
+      res.status(500).json({
+        message: 'No se pudo actualizar el paciente con ID = ' + id,
+        error: 'No se actualizó'
+      })
+    }
+    res.status(200).json({
+      message: 'Actualización correcta [' + id + ']',
+      customer: updatedObject
+    })
+  })
+}

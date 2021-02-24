@@ -2,7 +2,7 @@ const db = require('../config/db.config')
 const Cita = db.Cita
 const { QueryTypes } = require('sequelize')
 const request = require('request-promise')
-const { put } = require('../routers/router')
+// const { put } = require('../routers/router')
 const Detalle_procedimiento = db.Detalle_procedimiento
 
 exports.createCita = (req, res) => {
