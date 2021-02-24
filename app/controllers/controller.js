@@ -99,7 +99,7 @@ exports.login = (req, res) => {
   const pass = req.body.contrasenia
   console.log(req.body.contrasenia)
   Paciente.findOne({
-    attributes: ['usuario', 'nombres', 'apellidos', 'contrasenia'],
+    attributes: ['idpaciente', 'usuario', 'nombres', 'apellidos', 'contrasenia'],
     where: { usuario: usuario }
   }).then(results => {
     var paciente = ''
