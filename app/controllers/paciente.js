@@ -199,7 +199,7 @@ exports.updateById = async (req, res) => {
         transporte: (req.body.transporte === '' ? 'otro' : req.body.transporte),
         doctor: (req.body.doctor === '' ? '' : req.body.doctor),
         consulta: (req.body.consulta === '' ? '' : req.body.consulta),
-        tipopaciente: (req.body.tipopaciente === '' ? '' : req.body.tipopaciente),
+        tipopaciente: (req.body.tipopaciente === null ? 1 : req.body.tipopaciente),
         correo: req.body.correo,
         aprobacion: 1,
         nacionalidad: (req.body.nacionalidad === '' ? '' : req.body.nacionalidad)
