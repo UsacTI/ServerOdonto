@@ -191,17 +191,17 @@ exports.updateById = async (req, res) => {
         dpi: req.body.cui,
         direccion: req.body.direccion,
         telefono: req.body.telefono,
-        nohijos: req.body.nohijos,
-        escolaridad: req.body.escolaridad,
-        nivel: req.body.nivel,
-        profesion: req.body.trauoficio,
-        transporte: req.body.transporte,
-        doctor: req.body.doctor,
-        consulta: req.body.consulta,
-        tipopaciente: req.body.tipopaciente,
-        correo: req.body.correo,
+        nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
+        escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
+        nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
+        profesion: (req.body.trauoficio === undefined ? '' : req.body.trauoficio),
+        transporte: (req.body.transporte === undefined ? 'otro' : req.body.transporte),
+        doctor: (req.body.doctor === undefined ? '' : req.body.doctor),
+        consulta: (req.body.consulta === undefined ? '' : req.body.consulta),
+        tipopaciente: (req.body.tipopaciente === undefined ? '' : req.body.tipopaciente),
+        correo: (req.body.correo === undefined ? '' : req.body.correo),
         aprobacion: 1,
-        nacionalidad: req.body.nacionalidad
+        nacionalidad: (req.body.nacionalidad === undefined ? '' : req.body.nacionalidad)
       }
       // console.log(updatedObject)
       const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
