@@ -172,7 +172,7 @@ exports.buscarFotografia = (req, res) => {
 exports.updateById = async (req, res) => {
   try {
     const idus = req.body.id
-    // console.log(idus)
+    console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
     // console.log(paciente)
     if (!paciente) {
