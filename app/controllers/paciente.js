@@ -172,7 +172,7 @@ exports.buscarFotografia = (req, res) => {
 exports.updateById = async (req, res) => {
   try {
     const idus = req.body.id
-    console.log('--------------------------> ' + req.body.nohijos)
+    console.log('--------------------------> ' + req.body)
     console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
     // console.log(paciente)
@@ -200,7 +200,7 @@ exports.updateById = async (req, res) => {
         doctor: (req.body.doctor === '' ? '' : req.body.doctor),
         consulta: (req.body.consulta === '' ? '' : req.body.consulta),
         tipopaciente: (req.body.tipopaciente === '' ? '' : req.body.tipopaciente),
-        correo: (req.body.correo === '' ? '' : req.body.correo),
+        correo: req.body.correo,
         aprobacion: 1,
         nacionalidad: (req.body.nacionalidad === '' ? '' : req.body.nacionalidad)
       // }
