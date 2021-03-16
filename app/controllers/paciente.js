@@ -203,14 +203,13 @@ exports.updateById = async (req, res) => {
         correo: req.body.correo,
         aprobacion: 1,
         nacionalidad: (req.body.nacionalidad === '' ? '' : req.body.nacionalidad)
-      // }
-      // // console.log(updatedObject)
-      // const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
-      // if (!result) {
-      //   res.status(500).json({
-      //     message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
-      //     error: 'No se actualizó'
-      //   })
+      }
+      const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
+      if (!result) {
+        res.status(500).json({
+          message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+          error: 'No se actualizó'
+        })
       }
       console.log(updatedObject)
       // res.status(200).json({
