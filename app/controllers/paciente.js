@@ -212,11 +212,10 @@ exports.updateById = async (req, res) => {
           error: 'No se actualizó'
         })
       }
-
-      // res.status(200).json({
-      //   message: 'Actualización correcta [' + idus + ']',
-      //   customer: updatedObject
-      // })
+      res.status(200).json({
+        message: 'Actualización correcta [' + idus + ']',
+        customer: updatedObject
+      })
     }
   } catch (error) {
     res.status(500).json({
