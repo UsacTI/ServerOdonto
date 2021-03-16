@@ -191,8 +191,8 @@ exports.updateById = async (req, res) => {
         nacimiento: req.body.nacimiento,
         dpi: req.body.cui,
         direccion: req.body.direccion,
-        telefono: req.body.telefono
-      //   nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
+        telefono: req.body.telefono,
+        nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
       //   escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
       //   nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
       //   profesion: (req.body.trauoficio === undefined ? '' : req.body.trauoficio),
