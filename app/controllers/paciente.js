@@ -174,7 +174,7 @@ exports.updateById = async (req, res) => {
     const idus = req.body.id
     console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
-    // console.log(paciente)
+    console.log(paciente)
     if (!paciente) {
       // return a response to client
       res.status(404).json({
@@ -183,38 +183,38 @@ exports.updateById = async (req, res) => {
         error: '404'
       })
     } else {
-      const updatedObject = {
-        nombres: req.body.nombres,
-        apellidos: req.body.apellidos,
-        genero: req.body.genero,
-        nacimiento: req.body.nacimiento,
-        dpi: req.body.cui,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono,
-        nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
-        escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
-        nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
-        profesion: (req.body.trauoficio === undefined ? '' : req.body.trauoficio),
-        transporte: (req.body.transporte === undefined ? 'otro' : req.body.transporte),
-        doctor: (req.body.doctor === undefined ? '' : req.body.doctor),
-        consulta: (req.body.consulta === undefined ? '' : req.body.consulta),
-        tipopaciente: (req.body.tipopaciente === undefined ? '' : req.body.tipopaciente),
-        correo: (req.body.correo === undefined ? '' : req.body.correo),
-        aprobacion: 1,
-        nacionalidad: (req.body.nacionalidad === undefined ? '' : req.body.nacionalidad)
-      }
-      // console.log(updatedObject)
-      const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
-      if (!result) {
-        res.status(500).json({
-          message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
-          error: 'No se actualizó'
-        })
-      }
-      res.status(200).json({
-        message: 'Actualización correcta [' + idus + ']',
-        customer: updatedObject
-      })
+      // const updatedObject = {
+      //   nombres: req.body.nombres,
+      //   apellidos: req.body.apellidos,
+      //   genero: req.body.genero,
+      //   nacimiento: req.body.nacimiento,
+      //   dpi: req.body.cui,
+      //   direccion: req.body.direccion,
+      //   telefono: req.body.telefono,
+      //   nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
+      //   escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
+      //   nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
+      //   profesion: (req.body.trauoficio === undefined ? '' : req.body.trauoficio),
+      //   transporte: (req.body.transporte === undefined ? 'otro' : req.body.transporte),
+      //   doctor: (req.body.doctor === undefined ? '' : req.body.doctor),
+      //   consulta: (req.body.consulta === undefined ? '' : req.body.consulta),
+      //   tipopaciente: (req.body.tipopaciente === undefined ? '' : req.body.tipopaciente),
+      //   correo: (req.body.correo === undefined ? '' : req.body.correo),
+      //   aprobacion: 1,
+      //   nacionalidad: (req.body.nacionalidad === undefined ? '' : req.body.nacionalidad)
+      // }
+      // // console.log(updatedObject)
+      // const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
+      // if (!result) {
+      //   res.status(500).json({
+      //     message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
+      //     error: 'No se actualizó'
+      //   })
+      // }
+      // res.status(200).json({
+      //   message: 'Actualización correcta [' + idus + ']',
+      //   customer: updatedObject
+      // })
     }
   } catch (error) {
     res.status(500).json({
