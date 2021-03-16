@@ -182,7 +182,7 @@ exports.updateById = async (req, res) => {
         customer: '',
         error: '404'
       })
-      console.log(req.body.nohijos)
+      console.log('--------------------------> ' + req.body.nohijos)
     } else {
       const updatedObject = {
         nombres: req.body.nombres,
