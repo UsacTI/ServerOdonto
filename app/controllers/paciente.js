@@ -182,7 +182,8 @@ exports.updateById = async (req, res) => {
         customer: '',
         error: '404'
       })
-      console.log('--------------------------> ' + req.body.nohijos)
+      const asfdddde = req.body.nohijos
+      console.log('--------------------------> ' + asfdddde)
     } else {
       const updatedObject = {
         nombres: req.body.nombres,
@@ -192,7 +193,7 @@ exports.updateById = async (req, res) => {
         dpi: req.body.cui,
         direccion: req.body.direccion,
         telefono: req.body.telefono,
-        nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
+        nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos)
       //   escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
       //   nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
       //   profesion: (req.body.trauoficio === undefined ? '' : req.body.trauoficio),
