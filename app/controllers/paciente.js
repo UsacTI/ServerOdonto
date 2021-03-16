@@ -172,6 +172,7 @@ exports.buscarFotografia = (req, res) => {
 exports.updateById = async (req, res) => {
   try {
     const idus = req.body.id
+    console.log('--------------------------> ' + req.body.nohijos)
     console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
     // console.log(paciente)
@@ -182,8 +183,6 @@ exports.updateById = async (req, res) => {
         customer: '',
         error: '404'
       })
-      const asfdddde = req.body.nohijos
-      console.log('--------------------------> ' + asfdddde)
     } else {
       const updatedObject = {
         nombres: req.body.nombres,
