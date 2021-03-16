@@ -218,7 +218,7 @@ exports.updateById = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({
-      message: 'No se pudo actualizar el paciente con No.idus = ' + req.params.dpi,
+      message: 'No se pudo actualizar el paciente con No.idus = ' + req.body.id,
       error: error.message
     })
   }
