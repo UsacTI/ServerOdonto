@@ -172,7 +172,7 @@ exports.buscarFotografia = (req, res) => {
 exports.updateById = async (req, res) => {
   try {
     const idus = req.body.id
-    console.log('--------------------------> ' + req.body.escolaridad)
+    console.log('--------------------------> ' + req.body.tipopaciente)
     console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
     // console.log(paciente)
@@ -204,6 +204,7 @@ exports.updateById = async (req, res) => {
         aprobacion: 1,
         nacionalidad: (req.body.nacionalidad === '' ? '' : req.body.nacionalidad)
       }
+      console.log(updatedObject)
       const result = await Paciente.update(updatedObject, { returning: true, where: { idpaciente: idus } })
       if (!result) {
         res.status(500).json({
@@ -211,7 +212,7 @@ exports.updateById = async (req, res) => {
           error: 'No se actualizó'
         })
       }
-      console.log(updatedObject)
+
       // res.status(200).json({
       //   message: 'Actualización correcta [' + idus + ']',
       //   customer: updatedObject
