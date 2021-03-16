@@ -174,7 +174,7 @@ exports.updateById = async (req, res) => {
     const idus = req.body.id
     console.log(idus)
     const paciente = await Paciente.findOne({ where: { idpaciente: idus } })
-    console.log(paciente)
+    // console.log(paciente)
     if (!paciente) {
       // return a response to client
       res.status(404).json({
@@ -183,14 +183,14 @@ exports.updateById = async (req, res) => {
         error: '404'
       })
     } else {
-      // const updatedObject = {
-      //   nombres: req.body.nombres,
-      //   apellidos: req.body.apellidos,
-      //   genero: req.body.genero,
-      //   nacimiento: req.body.nacimiento,
-      //   dpi: req.body.cui,
-      //   direccion: req.body.direccion,
-      //   telefono: req.body.telefono,
+      const updatedObject = {
+        nombres: req.body.nombres,
+        apellidos: req.body.apellidos,
+        genero: req.body.genero,
+        nacimiento: req.body.nacimiento,
+        dpi: req.body.cui,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
       //   nohijos: (req.body.nohijos === undefined ? 0 : req.body.nohijos),
       //   escolaridad: (req.body.escolaridad === undefined ? '' : req.body.escolaridad),
       //   nivel: (req.body.nivel === undefined ? '' : req.body.nivel),
@@ -210,7 +210,8 @@ exports.updateById = async (req, res) => {
       //     message: 'No se pudo actualizar el paciente con No.DPI = ' + req.params.dpi,
       //     error: 'No se actualizó'
       //   })
-      // }
+      }
+      console.log(updatedObject)
       // res.status(200).json({
       //   message: 'Actualización correcta [' + idus + ']',
       //   customer: updatedObject
