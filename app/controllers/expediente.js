@@ -286,8 +286,8 @@ exports.BuscarRadiografia = (req, res) => {
 
 exports.updateOdontograma = async (req, res) => {
   var idexpediente = req.params.id
-  console.log(idexpediente)
-  console.log(req.body.odontograma)
+  // console.log(idexpediente)
+  // console.log(req.body.odontograma)
   try {
     const updatedObject = {
       odontograma: req.body.odontograma

@@ -215,7 +215,7 @@ router.get('/consultarRadiografia/:id', expediente.BuscarRadiografia)
 router.put('/insertarOdontograma/:id', expediente.updateOdontograma)
 
 // Bsucar odontograma
-router.put('/buscarOdontograma/:id', expediente.buscarOdontograma)
+router.get('/buscarOdontograma/:id', expediente.buscarOdontograma)
 
 // Consulta de pagos por boleta
 router.get('/consultaPagoPorBoleta/:id', soap.consultaPagoPorBoleta)
