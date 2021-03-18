@@ -286,6 +286,7 @@ exports.BuscarRadiografia = (req, res) => {
 
 exports.updateOdontograma = async (req, res) => {
   var idexpediente = req.params.id
+  console.log(idexpediente)
   try {
     const updatedObject = {
       odontograma: req.body.odontograma
@@ -307,4 +308,25 @@ exports.updateOdontograma = async (req, res) => {
       error: error.message
     })
   }
+}
+
+exports.buscarOdontograma = (req, res) => {
+  const id = req.params.id
+  Expediente.findOne({
+    where: { idexpediente: id },
+    attributes: ['odontograma']
+  })
+    .then(results => {
+      res.status(200).json({
+        message: 'Expediente con ID = ' + id,
+        expediente: results
+      })
+    })
+    .catch(error => {
+      // console.log(error)
+      res.status(500).json({
+        message: 'No se encontró el Expediente con ID =' + id,
+        error: error
+      })
+    })
 }
